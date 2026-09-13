@@ -1,14 +1,9 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
 
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Калейдоскоп — звук Ль</title>
 
@@ -27,15 +22,10 @@ body{
     height:100%;
     overflow:hidden;
     background:#070512;
-
     user-select:none;
     -webkit-user-select:none;
-
     touch-action:none;
-
-    font-family:
-        Arial,
-        sans-serif;
+    font-family:Arial,sans-serif;
 }
 
 
@@ -45,10 +35,8 @@ body{
 
 .game{
     position:relative;
-
     width:100vw;
     height:100vh;
-
     overflow:hidden;
 }
 
@@ -59,17 +47,12 @@ body{
 
 .background{
     position:absolute;
-
     inset:0;
-
     width:100%;
     height:100%;
-
     object-fit:cover;
     object-position:center;
-
     z-index:1;
-
     pointer-events:none;
 }
 
@@ -80,13 +63,9 @@ body{
 
 .portal{
     position:absolute;
-
     border-radius:50%;
-
     overflow:hidden;
-
     z-index:5;
-
     pointer-events:none;
 }
 
@@ -97,39 +76,27 @@ body{
 
 .hidden-picture{
     position:absolute;
-
     left:50%;
     top:50%;
-
     transform:
         translate(-50%,-50%)
-        scale(.45);
-
+        scale(.6);
     opacity:0;
-
     z-index:2;
-
     transition:
-        opacity .7s ease,
-        transform .8s cubic-bezier(.2,.9,.3,1.2);
+        opacity .5s ease,
+        transform .65s cubic-bezier(.2,.9,.3,1.15);
 }
 
 .hidden-picture.visible{
     opacity:1;
-
     transform:
         translate(-50%,-50%)
         scale(1);
 }
 
 .picture{
-    font-size:
-        clamp(
-            100px,
-            17vw,
-            230px
-        );
-
+    font-size:clamp(105px,17vw,235px);
     filter:
         drop-shadow(
             0 10px 15px
@@ -144,16 +111,10 @@ body{
 
 .kaleidoscope{
     position:absolute;
-
     inset:0;
-
     z-index:5;
-
-    transform-origin:
-        50% 50%;
-
-    will-change:
-        transform;
+    transform-origin:50% 50%;
+    will-change:transform;
 }
 
 
@@ -163,25 +124,17 @@ body{
 
 .gem-wrap{
     position:absolute;
-
     width:14.5%;
     height:14.5%;
-
     pointer-events:none;
-
     transform:
-        translate(
-            -50%,
-            -50%
-        );
-
-    transform-origin:
-        50% 50%;
-
+        translate(-50%,-50%);
+    transform-origin:50% 50%;
     will-change:
         left,
         top,
-        opacity;
+        opacity,
+        transform;
 }
 
 
@@ -191,20 +144,13 @@ body{
 
 .gem{
     position:absolute;
-
     left:50%;
     top:50%;
-
     width:100%;
     height:100%;
-
     object-fit:contain;
-
-    transform-origin:
-        50% 50%;
-
+    transform-origin:50% 50%;
     pointer-events:none;
-
     will-change:
         transform,
         filter;
@@ -217,30 +163,22 @@ body{
 
 .gem-shine{
     position:absolute;
-
     left:50%;
     top:50%;
-
     width:30%;
-    height:130%;
-
+    height:135%;
     transform:
         translate(-50%,-50%)
         rotate(25deg);
-
     background:
         linear-gradient(
             90deg,
             transparent,
-            rgba(255,255,255,.65),
+            rgba(255,255,255,.72),
             transparent
         );
-
     opacity:0;
-
-    filter:
-        blur(4px);
-
+    filter:blur(4px);
     pointer-events:none;
 }
 
@@ -251,23 +189,17 @@ body{
 
 .glass-shine{
     position:absolute;
-
     inset:0;
-
     z-index:20;
-
     border-radius:50%;
-
     pointer-events:none;
 
     background:
-
         radial-gradient(
             circle at 31% 20%,
             rgba(255,255,255,.13),
             transparent 24%
         ),
-
         radial-gradient(
             circle at center,
             transparent 69%,
@@ -277,14 +209,47 @@ body{
 
 
 /* =====================================================
+   МЯГКОЕ СВЕЧЕНИЕ В ЦЕНТРЕ ПРИ РАСКРЫТИИ
+===================================================== */
+
+.magic-center{
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:12%;
+    aspect-ratio:1;
+    transform:
+        translate(-50%,-50%)
+        scale(.2);
+    border-radius:50%;
+    opacity:0;
+    z-index:3;
+    pointer-events:none;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.95) 0%,
+            rgba(181,116,255,.52) 30%,
+            rgba(78,48,170,.10) 62%,
+            transparent 75%
+        );
+
+    filter:
+        blur(4px);
+
+    transition:
+        opacity .3s ease;
+}
+
+
+/* =====================================================
    КОЛЕСО
 ===================================================== */
 
 .wheel-wrap{
     position:absolute;
-
     z-index:30;
-
     display:flex;
     align-items:center;
     justify-content:center;
@@ -293,24 +258,16 @@ body{
 .wheel{
     width:100%;
     height:100%;
-
     object-fit:contain;
-
     cursor:grab;
-
     touch-action:none;
-
-    transform-origin:
-        50% 50%;
-
+    transform-origin:50% 50%;
     filter:
         drop-shadow(
             0 10px 13px
             rgba(0,0,0,.5)
         );
-
-    will-change:
-        transform;
+    will-change:transform;
 }
 
 .wheel.dragging{
@@ -324,36 +281,19 @@ body{
 
 .hint{
     position:absolute;
-
     left:50%;
     top:4%;
-
-    transform:
-        translateX(-50%);
-
+    transform:translateX(-50%);
     z-index:50;
-
     color:#fff;
-
-    font-size:
-        clamp(
-            21px,
-            2.3vw,
-            35px
-        );
-
+    font-size:clamp(21px,2.3vw,35px);
     font-weight:700;
-
     white-space:nowrap;
-
     text-shadow:
         0 3px 8px
         rgba(0,0,0,.95);
-
     pointer-events:none;
-
-    transition:
-        opacity .3s ease;
+    transition:opacity .3s ease;
 }
 
 
@@ -363,48 +303,29 @@ body{
 
 .next{
     position:absolute;
-
     left:50%;
     bottom:4%;
-
     transform:
         translateX(-50%)
         scale(.8);
-
     z-index:60;
-
-    padding:
-        14px 34px;
-
+    padding:14px 34px;
     border:0;
     border-radius:23px;
-
     background:
         linear-gradient(
             #fff5c5,
             #ffd46a
         );
-
     color:#55346e;
-
-    font-size:
-        clamp(
-            19px,
-            2vw,
-            27px
-        );
-
+    font-size:clamp(19px,2vw,27px);
     font-weight:800;
-
     box-shadow:
         0 6px 0 #a96c25,
         0 11px 20px rgba(0,0,0,.38);
-
     cursor:pointer;
-
     opacity:0;
     pointer-events:none;
-
     transition:
         opacity .35s ease,
         transform .35s ease;
@@ -413,25 +334,17 @@ body{
 .next.visible{
     opacity:1;
     pointer-events:auto;
-
     transform:
         translateX(-50%)
         scale(1);
 }
 
 </style>
-
 </head>
-
 
 <body>
 
-
-<div
-    class="game"
-    id="game"
->
-
+<div class="game" id="game">
 
     <img
         src="fon.png"
@@ -440,7 +353,6 @@ body{
         alt=""
     >
 
-
     <div
         class="hint"
         id="hint"
@@ -448,47 +360,43 @@ body{
         Покрути волшебное колесо ✨
     </div>
 
-
     <div
         class="portal"
         id="portal"
     >
 
-
         <div
             class="hidden-picture"
             id="hiddenPicture"
         >
-
             <div
                 class="picture"
                 id="picture"
             >
                 🦁
             </div>
-
         </div>
 
+        <div
+            class="magic-center"
+            id="magicCenter"
+        ></div>
 
         <div
             class="kaleidoscope"
             id="kaleidoscope"
         ></div>
 
-
         <div
             class="glass-shine"
         ></div>
 
-
     </div>
-
 
     <div
         class="wheel-wrap"
         id="wheelWrap"
     >
-
         <img
             src="wheel.png"
             class="wheel"
@@ -496,9 +404,7 @@ body{
             draggable="false"
             alt=""
         >
-
     </div>
-
 
     <button
         class="next"
@@ -507,26 +413,21 @@ body{
         Дальше →
     </button>
 
-
 </div>
 
 
-
 <script>
-
 
 /* =====================================================
    РАУНДЫ
 ===================================================== */
 
 const rounds = [
-
     { emoji:"🦁" },
     { emoji:"🦊" },
     { emoji:"🍋" },
     { emoji:"🦢" },
     { emoji:"🍃" }
-
 ];
 
 let roundIndex = 0;
@@ -537,54 +438,37 @@ let roundIndex = 0;
 ===================================================== */
 
 const game =
-    document.getElementById(
-        "game"
-    );
+    document.getElementById("game");
 
 const background =
-    document.getElementById(
-        "background"
-    );
+    document.getElementById("background");
 
 const portal =
-    document.getElementById(
-        "portal"
-    );
+    document.getElementById("portal");
 
 const kaleidoscope =
-    document.getElementById(
-        "kaleidoscope"
-    );
+    document.getElementById("kaleidoscope");
 
 const wheelWrap =
-    document.getElementById(
-        "wheelWrap"
-    );
+    document.getElementById("wheelWrap");
 
 const wheel =
-    document.getElementById(
-        "wheel"
-    );
+    document.getElementById("wheel");
 
 const hiddenPicture =
-    document.getElementById(
-        "hiddenPicture"
-    );
+    document.getElementById("hiddenPicture");
 
 const picture =
-    document.getElementById(
-        "picture"
-    );
+    document.getElementById("picture");
+
+const magicCenter =
+    document.getElementById("magicCenter");
 
 const hint =
-    document.getElementById(
-        "hint"
-    );
+    document.getElementById("hint");
 
 const next =
-    document.getElementById(
-        "next"
-    );
+    document.getElementById("next");
 
 
 /* =====================================================
@@ -638,112 +522,61 @@ function positionElements(){
     const screenH =
         game.clientHeight;
 
-
     const scale =
         Math.max(
-
-            screenW /
-            DESIGN_WIDTH,
-
-            screenH /
-            DESIGN_HEIGHT
-
+            screenW / DESIGN_WIDTH,
+            screenH / DESIGN_HEIGHT
         );
 
-
     const renderedW =
-        DESIGN_WIDTH *
-        scale;
+        DESIGN_WIDTH * scale;
 
     const renderedH =
-        DESIGN_HEIGHT *
-        scale;
-
+        DESIGN_HEIGHT * scale;
 
     const cropX =
-        (
-            screenW -
-            renderedW
-        ) / 2;
+        (screenW - renderedW) / 2;
 
     const cropY =
-        (
-            screenH -
-            renderedH
-        ) / 2;
+        (screenH - renderedH) / 2;
 
 
     portal.style.left =
-
-        PORTAL_X *
-        scale +
-
+        PORTAL_X * scale +
         cropX +
-
         "px";
-
 
     portal.style.top =
-
-        PORTAL_Y *
-        scale +
-
+        PORTAL_Y * scale +
         cropY +
-
         "px";
-
 
     portal.style.width =
-
-        PORTAL_SIZE *
-        scale +
-
+        PORTAL_SIZE * scale +
         "px";
 
-
     portal.style.height =
-
-        PORTAL_SIZE *
-        scale +
-
+        PORTAL_SIZE * scale +
         "px";
 
 
     wheelWrap.style.left =
-
-        WHEEL_X *
-        scale +
-
+        WHEEL_X * scale +
         cropX +
-
         "px";
-
 
     wheelWrap.style.top =
-
-        WHEEL_Y *
-        scale +
-
+        WHEEL_Y * scale +
         cropY +
-
         "px";
-
 
     wheelWrap.style.width =
-
-        WHEEL_SIZE *
-        scale +
-
+        WHEEL_SIZE * scale +
         "px";
-
 
     wheelWrap.style.height =
-
-        WHEEL_SIZE *
-        scale +
-
+        WHEEL_SIZE * scale +
         "px";
-
 }
 
 
@@ -752,12 +585,10 @@ function positionElements(){
 ===================================================== */
 
 const gemImages = [
-
     "gem1.png",
     "gem2.png",
     "gem3.png",
     "gem4.png"
-
 ];
 
 let gems = [];
@@ -773,13 +604,6 @@ function createGems(){
         "";
 
     gems = [];
-
-
-    /*
-    Центр плотный.
-    Последние два кольца —
-    компактнее и мельче.
-    */
 
     const rings = [
 
@@ -821,7 +645,6 @@ function createGems(){
 
     ];
 
-
     let globalIndex =
         0;
 
@@ -832,13 +655,11 @@ function createGems(){
             ringIndex
         ) => {
 
-
             for(
                 let i = 0;
                 i < ring.count;
                 i++
             ){
-
 
                 const wrap =
                     document.createElement(
@@ -854,23 +675,15 @@ function createGems(){
                         "img"
                     );
 
-
                 const type =
-
                     (
-                        globalIndex %
-                        4
-                    )
-
-                    + 1;
-
+                        globalIndex % 4
+                    ) + 1;
 
                 img.src =
-
                     gemImages[
                         type - 1
                     ];
-
 
                 img.className =
                     "gem";
@@ -902,88 +715,60 @@ function createGems(){
 
 
                 const angle =
-
                     (
                         360 /
                         ring.count
                     )
-
                     * i
-
                     +
-
                     ringIndex * 8.2;
 
 
                 const radiusVariation =
-
                     (
-                        (
-                            i % 3
-                        ) - 1
+                        (i % 3) - 1
                     )
-
                     * .85;
 
 
                 const scaleVariation =
-
                     .93
-
                     +
-
-                    (
-                        i % 4
-                    )
-
+                    (i % 4)
                     * .03;
 
 
                 wrap.dataset.angle =
                     angle;
 
-
                 wrap.dataset.radius =
-
                     ring.radius +
                     radiusVariation;
 
-
                 wrap.dataset.scale =
-
                     ring.size *
                     scaleVariation;
-
 
                 wrap.dataset.ring =
                     ringIndex;
 
-
                 wrap.dataset.type =
                     type;
 
-
                 wrap.dataset.phase =
-
-                    globalIndex *
-                    .67;
+                    globalIndex * .67;
 
 
                 gems.push({
-
                     wrap,
                     img,
                     shine
-
                 });
 
-
                 globalIndex++;
-
             }
 
         }
-
     );
 
 
@@ -991,7 +776,6 @@ function createGems(){
         0,
         0
     );
-
 }
 
 
@@ -1004,12 +788,38 @@ function updateGems(
     wheelRotation
 ){
 
+    /*
+    opening:
+    0 — центр полностью закрыт
+    1 — центр полностью открыт
+
+    Начинаем открывать только после 48%.
+    */
+
+    const opening =
+        Math.max(
+            0,
+            Math.min(
+                1,
+                (progress - .48) / .52
+            )
+        );
+
+
+    /*
+    Радиус пустого центрального окна.
+    В финале примерно 28% от радиуса линзы.
+    */
+
+    const openingRadius =
+        opening * 28;
+
+
     gems.forEach(
         (
             gem,
             index
         ) => {
-
 
             const wrap =
                 gem.wrap;
@@ -1026,24 +836,20 @@ function updateGems(
                     wrap.dataset.angle
                 );
 
-
             const radius =
                 Number(
                     wrap.dataset.radius
                 );
-
 
             const baseScale =
                 Number(
                     wrap.dataset.scale
                 );
 
-
             const ring =
                 Number(
                     wrap.dataset.ring
                 );
-
 
             const phase =
                 Number(
@@ -1052,14 +858,11 @@ function updateGems(
 
 
             /* =========================================
-               ДВИЖЕНИЕ
-
-               Внешние кольца двигаются меньше.
+               ДВИЖЕНИЕ ПО КОЛЬЦУ
             ========================================= */
 
             let movementPower =
                 1.05;
-
 
             if(
                 ring === 4
@@ -1067,7 +870,6 @@ function updateGems(
                 movementPower =
                     .65;
             }
-
 
             if(
                 ring === 5
@@ -1078,69 +880,73 @@ function updateGems(
 
 
             const movement =
-
                 Math.sin(
-
                     wheelRotation *
                     .022 +
-
                     phase
-
                 )
-
                 * movementPower;
 
 
             let currentRadius =
-
                 radius +
                 movement;
 
 
             /* =========================================
-               ОТКРЫТИЕ
+               РАСКРЫТИЕ ЦЕНТРА
 
-               Даже в финале не прижимаем
-               камни к самой оправе.
+               Камни внутренних колец
+               начинают уходить наружу,
+               но не к самой рамке.
             ========================================= */
 
             if(
-                progress >
-                .72
+                opening > 0
             ){
 
-                const opening =
-
-                    (
-                        progress -
-                        .72
-                    )
-
-                    /
-
-                    .28;
-
-
-                const safeOuterRadius =
-                    38.5;
-
-
-                currentRadius =
-
-                    currentRadius
-
-                    +
-
-                    (
-                        safeOuterRadius -
+                const pushStrength =
+                    Math.max(
+                        0,
+                        openingRadius -
                         currentRadius
-                    )
+                    );
 
-                    *
+                currentRadius +=
+                    pushStrength *
+                    .72;
 
-                    opening;
+
+                /*
+                Чем ближе камень к центру,
+                тем сильнее его выталкивает.
+                */
+
+                if(
+                    ring <= 2
+                ){
+
+                    currentRadius +=
+                        opening *
+                        (
+                            3.8 -
+                            ring * .8
+                        );
+
+                }
 
             }
+
+
+            /*
+            Жёсткая безопасная граница.
+            */
+
+            currentRadius =
+                Math.min(
+                    currentRadius,
+                    39
+                );
 
 
             /* =========================================
@@ -1150,14 +956,12 @@ function updateGems(
             let angularPower =
                 4;
 
-
             if(
                 ring === 4
             ){
                 angularPower =
                     2.8;
             }
-
 
             if(
                 ring === 5
@@ -1167,48 +971,49 @@ function updateGems(
             }
 
 
+            /*
+            В процессе раскрытия
+            внутренние кольца чуть сильнее
+            сдвигаются относительно друг друга.
+            */
+
+            const ringShift =
+                opening *
+                (
+                    ring % 2 === 0
+                        ? 7
+                        : -7
+                );
+
+
             const angularMovement =
-
                 Math.sin(
-
                     wheelRotation *
                     .018 +
-
                     phase
-
                 )
-
                 * angularPower;
 
 
             const currentAngle =
-
                 angle +
-                angularMovement;
+                angularMovement +
+                ringShift;
 
 
             const rad =
-
-                currentAngle
-
-                *
-
+                currentAngle *
                 Math.PI /
                 180;
 
 
             const x =
-
                 50 +
-
                 Math.cos(rad) *
                 currentRadius;
 
-
             const y =
-
                 50 +
-
                 Math.sin(rad) *
                 currentRadius;
 
@@ -1216,73 +1021,63 @@ function updateGems(
             wrap.style.left =
                 x + "%";
 
-
             wrap.style.top =
                 y + "%";
 
 
             /* =========================================
-               ПОВОРОТ КАМНЯ
+               ВРАЩЕНИЕ КАМНЯ
             ========================================= */
 
             const personalDirection =
-
                 index % 2 === 0
                     ? 1
                     : -1;
 
 
             const gemRotation =
-
                 currentAngle
-
                 +
-
                 90
-
                 +
-
                 wheelRotation *
-                .12 *
+                .13 *
                 personalDirection
-
                 +
-
                 Math.sin(
                     phase +
                     wheelRotation *
                     .024
                 )
-
                 * 8;
 
 
             /* =========================================
-               ДЫХАНИЕ
+               ПУЛЬСАЦИЯ
             ========================================= */
 
             const pulse =
-
                 1
-
                 +
-
                 Math.sin(
-
                     phase +
-
                     wheelRotation *
                     .03
-
                 )
+                * .045;
 
-                * .04;
 
+            /*
+            При раскрытии внутренние камни
+            чуть уменьшаются.
+            */
 
-            const openingScale =
-
-                1 -
-                progress * .07;
+            const centerShrink =
+                ring <= 2
+                    ? 1 -
+                      opening *
+                      .13
+                    : 1;
 
 
             img.style.transform = `
@@ -1300,7 +1095,7 @@ function updateGems(
                     ${
                         baseScale *
                         pulse *
-                        openingScale
+                        centerShrink
                     }
                 )
 
@@ -1312,34 +1107,23 @@ function updateGems(
             ========================================= */
 
             const shimmer =
-
                 Math.sin(
-
                     phase +
-
                     wheelRotation *
-                    .037
-
+                    .038
                 );
 
 
             const brightness =
-
-                1.07 +
-
-                shimmer *
-                .15;
+                1.08 +
+                shimmer * .17;
 
 
             const glow =
-
                 5 +
-
                 Math.abs(
                     shimmer
-                )
-
-                * 9;
+                ) * 10;
 
 
             img.style.filter = `
@@ -1348,16 +1132,16 @@ function updateGems(
                     ${brightness}
                 )
 
-                saturate(1.14)
+                saturate(1.17)
 
                 drop-shadow(
                     0 0
                     ${glow}px
                     rgba(
-                        160,
+                        164,
                         115,
                         255,
-                        .38
+                        .42
                     )
                 )
 
@@ -1369,13 +1153,10 @@ function updateGems(
             ========================================= */
 
             shine.style.opacity =
-
                 Math.max(
                     0,
                     shimmer
-                )
-
-                * .5;
+                ) * .55;
 
 
             shine.style.transform = `
@@ -1389,7 +1170,7 @@ function updateGems(
                     ${
                         20 +
                         wheelRotation *
-                        .1
+                        .12
                     }deg
                 )
 
@@ -1397,7 +1178,10 @@ function updateGems(
 
 
             /* =========================================
-               ИСЧЕЗНОВЕНИЕ
+               ФИНАЛЬНОЕ РАСТВОРЕНИЕ
+
+               Не исчезают сразу.
+               Только последние 12%.
             ========================================= */
 
             let opacity =
@@ -1405,36 +1189,105 @@ function updateGems(
 
 
             if(
-                progress >
-                .80
+                progress > .88
             ){
 
                 opacity =
-
                     1 -
-
                     (
-                        progress -
-                        .80
+                        progress - .88
                     )
-
                     /
-
-                    .20;
+                    .12;
 
             }
 
 
             wrap.style.opacity =
-
                 Math.max(
                     0,
                     opacity
                 );
 
         }
-
     );
+
+
+    /* =================================================
+       СВЕЧЕНИЕ В ЦЕНТРЕ
+    ================================================= */
+
+    magicCenter.style.opacity =
+        opening * .82;
+
+
+    magicCenter.style.width =
+        (
+            12 +
+            opening * 52
+        )
+        + "%";
+
+
+    magicCenter.style.transform = `
+
+        translate(
+            -50%,
+            -50%
+        )
+
+        scale(
+            ${
+                .3 +
+                opening * .9
+            }
+        )
+
+    `;
+
+
+    /* =================================================
+       КАРТИНКА ПОЯВЛЯЕТСЯ ПОСТЕПЕННО
+    ================================================= */
+
+    if(
+        progress > .72
+    ){
+
+        const pictureProgress =
+            Math.min(
+                1,
+                (progress - .72) / .28
+            );
+
+
+        hiddenPicture.style.opacity =
+            pictureProgress;
+
+
+        hiddenPicture.style.transform = `
+
+            translate(
+                -50%,
+                -50%
+            )
+
+            scale(
+                ${
+                    .68 +
+                    pictureProgress * .32
+                }
+            )
+
+        `;
+
+    }
+    else{
+
+        hiddenPicture.style.opacity =
+            0;
+
+    }
 
 }
 
@@ -1459,12 +1312,16 @@ let finished =
     false;
 
 
+/*
+Примерно 1.25 оборота.
+*/
+
 const REQUIRED_ROTATION =
     450;
 
 
 /* =====================================================
-   УГОЛ
+   УГОЛ УКАЗАТЕЛЯ
 ===================================================== */
 
 function pointerAngle(
@@ -1474,11 +1331,9 @@ function pointerAngle(
     const rect =
         wheel.getBoundingClientRect();
 
-
     const centerX =
         rect.left +
         rect.width / 2;
-
 
     const centerY =
         rect.top +
@@ -1494,12 +1349,9 @@ function pointerAngle(
         centerX
 
     )
-
     *
-
     180 /
     Math.PI;
-
 }
 
 
@@ -1512,37 +1364,30 @@ wheel.addEventListener(
 
     event => {
 
-
         if(
             finished
         ){
             return;
         }
 
-
         dragging =
             true;
-
 
         wheel.classList.add(
             "dragging"
         );
-
 
         previousAngle =
             pointerAngle(
                 event
             );
 
-
         wheel.setPointerCapture(
             event.pointerId
         );
 
-
         hint.style.opacity =
             ".3";
-
     }
 );
 
@@ -1555,7 +1400,6 @@ wheel.addEventListener(
     "pointermove",
 
     event => {
-
 
         if(
             !dragging ||
@@ -1572,26 +1416,20 @@ wheel.addEventListener(
 
 
         let delta =
-
             currentAngle -
             previousAngle;
 
 
         if(
-            delta >
-            180
+            delta > 180
         ){
-            delta -=
-                360;
+            delta -= 360;
         }
 
-
         if(
-            delta <
-            -180
+            delta < -180
         ){
-            delta +=
-                360;
+            delta += 360;
         }
 
 
@@ -1609,6 +1447,8 @@ wheel.addEventListener(
             );
 
 
+        /* колесо */
+
         wheel.style.transform = `
 
             rotate(
@@ -1618,12 +1458,17 @@ wheel.addEventListener(
         `;
 
 
+        /*
+        Весь узор вращается медленнее,
+        чем колесо.
+        */
+
         kaleidoscope.style.transform = `
 
             rotate(
                 ${
                     wheelRotation *
-                    .16
+                    .18
                 }deg
             )
 
@@ -1648,12 +1493,9 @@ wheel.addEventListener(
 
 
         if(
-            progress >=
-            1
+            progress >= 1
         ){
-
             revealPicture();
-
         }
 
     }
@@ -1661,7 +1503,7 @@ wheel.addEventListener(
 
 
 /* =====================================================
-   КОНЕЦ
+   КОНЕЦ ВРАЩЕНИЯ
 ===================================================== */
 
 function stopDragging(){
@@ -1669,11 +1511,9 @@ function stopDragging(){
     dragging =
         false;
 
-
     wheel.classList.remove(
         "dragging"
     );
-
 }
 
 
@@ -1690,7 +1530,7 @@ wheel.addEventListener(
 
 
 /* =====================================================
-   ПОКАЗ КАРТИНКИ
+   ФИНАЛ РАУНДА
 ===================================================== */
 
 function revealPicture(){
@@ -1706,9 +1546,20 @@ function revealPicture(){
         true;
 
 
-    hiddenPicture.classList.add(
-        "visible"
-    );
+    hiddenPicture.style.opacity =
+        1;
+
+
+    hiddenPicture.style.transform = `
+
+        translate(
+            -50%,
+            -50%
+        )
+
+        scale(1)
+
+    `;
 
 
     hint.textContent =
@@ -1727,9 +1578,8 @@ function revealPicture(){
             );
 
         },
-        600
+        500
     );
-
 }
 
 
@@ -1749,9 +1599,20 @@ function loadRound(){
         round.emoji;
 
 
-    hiddenPicture.classList.remove(
-        "visible"
-    );
+    hiddenPicture.style.opacity =
+        0;
+
+
+    hiddenPicture.style.transform = `
+
+        translate(
+            -50%,
+            -50%
+        )
+
+        scale(.6)
+
+    `;
 
 
     next.classList.remove(
@@ -1767,17 +1628,18 @@ function loadRound(){
         "1";
 
 
+    magicCenter.style.opacity =
+        0;
+
+
     dragging =
         false;
-
 
     finished =
         false;
 
-
     totalRotation =
         0;
-
 
     wheelRotation =
         0;
@@ -1792,7 +1654,6 @@ function loadRound(){
 
 
     createGems();
-
 }
 
 
@@ -1805,7 +1666,6 @@ next.addEventListener(
 
     () => {
 
-
         roundIndex++;
 
 
@@ -1813,15 +1673,12 @@ next.addEventListener(
             roundIndex >=
             rounds.length
         ){
-
             roundIndex =
                 0;
-
         }
 
 
         loadRound();
-
     }
 );
 
@@ -1836,7 +1693,6 @@ background.addEventListener(
     () => {
 
         positionElements();
-
         loadRound();
 
     }
@@ -1852,16 +1708,11 @@ window.addEventListener(
 if(
     background.complete
 ){
-
     positionElements();
-
     loadRound();
-
 }
 
 </script>
 
-
 </body>
-
 </html>
