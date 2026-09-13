@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>Калейдоскоп — звук Ль</title>
+
 
 <style>
 
@@ -22,26 +28,39 @@ body{
     height:100%;
     overflow:hidden;
     background:#070512;
+
     user-select:none;
     -webkit-user-select:none;
+
     touch-action:none;
-    font-family:Arial,sans-serif;
+
+    font-family:
+        Arial,
+        sans-serif;
 }
 
 
 /* =====================================================
-   ОСНОВА
+   ИГРА
 ===================================================== */
 
 .game{
     position:relative;
+
     width:100vw;
     height:100vh;
+
     overflow:hidden;
 }
 
+
+/* =====================================================
+   ФОН
+===================================================== */
+
 .background{
     position:absolute;
+
     inset:0;
 
     width:100%;
@@ -51,18 +70,20 @@ body{
     object-position:center;
 
     z-index:1;
+
     pointer-events:none;
 }
 
 
 /* =====================================================
-   ВНУТРЕННЯЯ ОБЛАСТЬ ЛИНЗЫ
+   ЛИНЗА
 ===================================================== */
 
 .portal{
     position:absolute;
 
     border-radius:50%;
+
     overflow:hidden;
 
     z-index:5;
@@ -94,6 +115,7 @@ body{
         transform .8s cubic-bezier(.2,.9,.3,1.2);
 }
 
+
 .hidden-picture.visible{
     opacity:1;
 
@@ -102,8 +124,14 @@ body{
         scale(1);
 }
 
+
 .picture{
-    font-size:clamp(100px,17vw,230px);
+    font-size:
+        clamp(
+            100px,
+            17vw,
+            230px
+        );
 
     filter:
         drop-shadow(
@@ -119,6 +147,7 @@ body{
 
 .kaleidoscope{
     position:absolute;
+
     inset:0;
 
     z-index:5;
@@ -126,12 +155,41 @@ body{
     transform-origin:
         50% 50%;
 
-    will-change:transform;
+    will-change:
+        transform;
 }
 
 
 /* =====================================================
-   РЕАЛЬНЫЕ PNG-КАМНИ
+   КОНТЕЙНЕР КАМНЯ
+===================================================== */
+
+.gem-wrap{
+    position:absolute;
+
+    width:16%;
+    height:16%;
+
+    pointer-events:none;
+
+    transform:
+        translate(
+            -50%,
+            -50%
+        );
+
+    transform-origin:
+        50% 50%;
+
+    will-change:
+        left,
+        top,
+        opacity;
+}
+
+
+/* =====================================================
+   PNG-КАМЕНЬ
 ===================================================== */
 
 .gem{
@@ -140,8 +198,10 @@ body{
     left:50%;
     top:50%;
 
-    width:14%;
-    height:auto;
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
 
     transform-origin:
         50% 50%;
@@ -150,67 +210,13 @@ body{
 
     will-change:
         transform,
-        opacity,
         filter;
 }
 
 
-/* разные типы камней */
-
-.gem.type1{
-    width:12%;
-}
-
-.gem.type2{
-    width:15%;
-}
-
-.gem.type3{
-    width:11%;
-}
-
-.gem.type4{
-    width:14%;
-}
-
-
-/* мягкое сияние */
-
-.gem{
-    filter:
-        brightness(1.05)
-        saturate(1.08)
-        drop-shadow(
-            0 0 8px
-            rgba(160,120,255,.28)
-        );
-}
-
-
 /* =====================================================
-   БЛИК
+   БЛИК НА КАМНЕ
 ===================================================== */
-
-.gem-wrap{
-    position:absolute;
-
-    left:0;
-    top:0;
-
-    width:100%;
-    height:100%;
-
-    pointer-events:none;
-
-    transform-origin:
-        50% 50%;
-
-    will-change:
-        transform,
-        opacity;
-}
-
-/* маленький дополнительный перелив */
 
 .gem-shine{
     position:absolute;
@@ -219,11 +225,11 @@ body{
     top:50%;
 
     width:30%;
-    height:140%;
+    height:130%;
 
     transform:
         translate(-50%,-50%)
-        rotate(22deg);
+        rotate(25deg);
 
     background:
         linear-gradient(
@@ -235,18 +241,20 @@ body{
 
     opacity:0;
 
-    filter:blur(4px);
+    filter:
+        blur(4px);
 
     pointer-events:none;
 }
 
 
 /* =====================================================
-   СТЕКЛЯННЫЙ БЛИК НА ВСЕЙ ЛИНЗЕ
+   БЛИК НА ЛИНЗЕ
 ===================================================== */
 
 .glass-shine{
     position:absolute;
+
     inset:0;
 
     z-index:20;
@@ -258,15 +266,15 @@ body{
     background:
 
         radial-gradient(
-            circle at 32% 20%,
-            rgba(255,255,255,.16),
-            transparent 23%
+            circle at 31% 20%,
+            rgba(255,255,255,.13),
+            transparent 24%
         ),
 
         radial-gradient(
             circle at center,
-            transparent 68%,
-            rgba(27,11,64,.18)
+            transparent 69%,
+            rgba(32,14,65,.18)
         );
 }
 
@@ -284,6 +292,7 @@ body{
     align-items:center;
     justify-content:center;
 }
+
 
 .wheel{
     width:100%;
@@ -304,8 +313,10 @@ body{
             rgba(0,0,0,.5)
         );
 
-    will-change:transform;
+    will-change:
+        transform;
 }
+
 
 .wheel.dragging{
     cursor:grabbing;
@@ -313,7 +324,7 @@ body{
 
 
 /* =====================================================
-   ТЕКСТ
+   ПОДСКАЗКА
 ===================================================== */
 
 .hint{
@@ -404,6 +415,7 @@ body{
         transform .35s ease;
 }
 
+
 .next.visible{
     opacity:1;
     pointer-events:auto;
@@ -417,12 +429,17 @@ body{
 
 </head>
 
+
 <body>
+
 
 <div
     class="game"
     id="game"
 >
+
+
+    <!-- ФОН -->
 
     <img
         src="fon.png"
@@ -430,6 +447,10 @@ body{
         id="background"
         alt=""
     >
+
+
+
+    <!-- ПОДСКАЗКА -->
 
     <div
         class="hint"
@@ -439,23 +460,34 @@ body{
     </div>
 
 
+
+    <!-- ЛИНЗА -->
+
     <div
         class="portal"
         id="portal"
     >
 
+
+        <!-- СПРЯТАННАЯ КАРТИНКА -->
+
         <div
             class="hidden-picture"
             id="hiddenPicture"
         >
+
             <div
                 class="picture"
                 id="picture"
             >
                 🦁
             </div>
+
         </div>
 
+
+
+        <!-- КАМУШКИ -->
 
         <div
             class="kaleidoscope"
@@ -463,12 +495,19 @@ body{
         ></div>
 
 
+
+        <!-- БЛИК -->
+
         <div
             class="glass-shine"
         ></div>
 
+
     </div>
 
+
+
+    <!-- КОЛЕСО -->
 
     <div
         class="wheel-wrap"
@@ -486,6 +525,9 @@ body{
     </div>
 
 
+
+    <!-- КНОПКА -->
+
     <button
         class="next"
         id="next"
@@ -493,10 +535,13 @@ body{
         Дальше →
     </button>
 
+
 </div>
 
 
+
 <script>
+
 
 /* =====================================================
    РАУНДЫ
@@ -505,12 +550,17 @@ body{
 const rounds = [
 
     { emoji:"🦁" },
+
     { emoji:"🦊" },
+
     { emoji:"🍋" },
+
     { emoji:"🦢" },
+
     { emoji:"🍃" }
 
 ];
+
 
 let roundIndex = 0;
 
@@ -520,34 +570,63 @@ let roundIndex = 0;
 ===================================================== */
 
 const game =
-    document.getElementById("game");
+    document.getElementById(
+        "game"
+    );
+
 
 const background =
-    document.getElementById("background");
+    document.getElementById(
+        "background"
+    );
+
 
 const portal =
-    document.getElementById("portal");
+    document.getElementById(
+        "portal"
+    );
+
 
 const kaleidoscope =
-    document.getElementById("kaleidoscope");
+    document.getElementById(
+        "kaleidoscope"
+    );
+
 
 const wheelWrap =
-    document.getElementById("wheelWrap");
+    document.getElementById(
+        "wheelWrap"
+    );
+
 
 const wheel =
-    document.getElementById("wheel");
+    document.getElementById(
+        "wheel"
+    );
+
 
 const hiddenPicture =
-    document.getElementById("hiddenPicture");
+    document.getElementById(
+        "hiddenPicture"
+    );
+
 
 const picture =
-    document.getElementById("picture");
+    document.getElementById(
+        "picture"
+    );
+
 
 const hint =
-    document.getElementById("hint");
+    document.getElementById(
+        "hint"
+    );
+
 
 const next =
-    document.getElementById("next");
+    document.getElementById(
+        "next"
+    );
 
 
 /* =====================================================
@@ -557,33 +636,38 @@ const next =
 const DESIGN_WIDTH =
     1536;
 
+
 const DESIGN_HEIGHT =
     1024;
 
 
 /* =====================================================
-   ЛИНЗА
+   КООРДИНАТЫ ЛИНЗЫ
 ===================================================== */
 
 const PORTAL_X =
     337;
 
+
 const PORTAL_Y =
     105;
+
 
 const PORTAL_SIZE =
     660;
 
 
 /* =====================================================
-   КОЛЕСО
+   КООРДИНАТЫ КОЛЕСА
 ===================================================== */
 
 const WHEEL_X =
     1065;
 
+
 const WHEEL_Y =
     490;
+
 
 const WHEEL_SIZE =
     280;
@@ -598,80 +682,135 @@ function positionElements(){
     const screenW =
         game.clientWidth;
 
+
     const screenH =
         game.clientHeight;
 
 
     const scale =
         Math.max(
-            screenW / DESIGN_WIDTH,
-            screenH / DESIGN_HEIGHT
+
+            screenW /
+            DESIGN_WIDTH,
+
+            screenH /
+            DESIGN_HEIGHT
+
         );
 
 
     const renderedW =
-        DESIGN_WIDTH * scale;
+        DESIGN_WIDTH *
+        scale;
+
 
     const renderedH =
-        DESIGN_HEIGHT * scale;
+        DESIGN_HEIGHT *
+        scale;
 
 
     const cropX =
-        (screenW - renderedW) / 2;
+        (
+            screenW -
+            renderedW
+        ) / 2;
+
 
     const cropY =
-        (screenH - renderedH) / 2;
+        (
+            screenH -
+            renderedH
+        ) / 2;
+
 
 
     portal.style.left =
-        PORTAL_X * scale +
+
+        PORTAL_X *
+        scale +
+
         cropX +
+
         "px";
+
 
     portal.style.top =
-        PORTAL_Y * scale +
+
+        PORTAL_Y *
+        scale +
+
         cropY +
+
         "px";
+
 
     portal.style.width =
-        PORTAL_SIZE * scale +
+
+        PORTAL_SIZE *
+        scale +
+
         "px";
 
+
     portal.style.height =
-        PORTAL_SIZE * scale +
+
+        PORTAL_SIZE *
+        scale +
+
         "px";
+
 
 
     wheelWrap.style.left =
-        WHEEL_X * scale +
+
+        WHEEL_X *
+        scale +
+
         cropX +
+
         "px";
+
 
     wheelWrap.style.top =
-        WHEEL_Y * scale +
+
+        WHEEL_Y *
+        scale +
+
         cropY +
+
         "px";
+
 
     wheelWrap.style.width =
-        WHEEL_SIZE * scale +
+
+        WHEEL_SIZE *
+        scale +
+
         "px";
 
+
     wheelWrap.style.height =
-        WHEEL_SIZE * scale +
+
+        WHEEL_SIZE *
+        scale +
+
         "px";
 
 }
 
 
 /* =====================================================
-   НАШИ 4 КАМНЯ
+   4 PNG-КАМНЯ
 ===================================================== */
 
 const gemImages = [
 
     "gem1.png",
+
     "gem2.png",
+
     "gem3.png",
+
     "gem4.png"
 
 ];
@@ -681,51 +820,60 @@ let gems = [];
 
 
 /* =====================================================
-   СОЗДАНИЕ КАМНЕЙ
+   СОЗДАЁМ 80 КАМНЕЙ
 ===================================================== */
 
 function createGems(){
 
-    kaleidoscope.innerHTML = "";
+    kaleidoscope.innerHTML =
+        "";
+
 
     gems = [];
 
 
     /*
-    4 кольца.
-    Почти полностью заполняют круг.
+    5 колец.
+    Заполняем почти всю линзу.
     */
 
     const rings = [
 
         {
-            count:7,
-            radius:8,
-            size:.95
+            count:8,
+            radius:7,
+            size:1.30
         },
 
         {
-            count:10,
-            radius:21,
-            size:.92
+            count:12,
+            radius:17,
+            size:1.20
         },
 
         {
-            count:14,
-            radius:35,
-            size:.84
+            count:16,
+            radius:29,
+            size:1.08
         },
 
         {
-            count:18,
-            radius:47,
-            size:.73
+            count:20,
+            radius:40,
+            size:.98
+        },
+
+        {
+            count:24,
+            radius:48,
+            size:.82
         }
 
     ];
 
 
-    let globalIndex = 0;
+    let globalIndex =
+        0;
 
 
     rings.forEach(
@@ -741,6 +889,11 @@ function createGems(){
                 i++
             ){
 
+
+                /* -------------------------
+                   КОНТЕЙНЕР
+                ------------------------- */
+
                 const wrap =
                     document.createElement(
                         "div"
@@ -751,6 +904,10 @@ function createGems(){
                     "gem-wrap";
 
 
+                /* -------------------------
+                   PNG
+                ------------------------- */
+
                 const img =
                     document.createElement(
                         "img"
@@ -758,25 +915,33 @@ function createGems(){
 
 
                 const type =
+
                     (
                         globalIndex %
                         4
-                    ) + 1;
+                    )
+
+                    + 1;
 
 
                 img.src =
+
                     gemImages[
                         type - 1
                     ];
 
 
                 img.className =
-                    `gem type${type}`;
+                    "gem";
 
 
                 img.draggable =
                     false;
 
+
+                /* -------------------------
+                   БЛИК
+                ------------------------- */
 
                 const shine =
                     document.createElement(
@@ -803,7 +968,11 @@ function createGems(){
                 );
 
 
-                const baseAngle =
+                /* -------------------------
+                   УГОЛ
+                ------------------------- */
+
+                const angle =
 
                     (
                         360 /
@@ -814,32 +983,14 @@ function createGems(){
 
                     +
 
-                    ringIndex * 11;
+                    ringIndex * 8.5;
 
 
-                /*
-                маленькая вариативность
-                без полного хаоса
-                */
+                /* -------------------------
+                   МАЛЕНЬКАЯ ВАРИАЦИЯ
+                ------------------------- */
 
-                const angleOffset =
-                    (
-                        i % 2 === 0
-                            ? 1
-                            : -1
-                    )
-
-                    *
-
-                    (
-                        ringIndex * 2.5
-                    );
-
-
-                const radius =
-                    ring.radius
-
-                    +
+                const radiusVariation =
 
                     (
                         (
@@ -847,33 +998,36 @@ function createGems(){
                         ) - 1
                     )
 
-                    * 2;
+                    * 1.3;
 
 
-                const scale =
-                    ring.size
+                const scaleVariation =
 
-                    *
+                    .9
+
+                    +
 
                     (
-                        .88 +
-                        (
-                            i % 4
-                        ) * .045
-                    );
+                        i % 4
+                    )
+
+                    * .04;
 
 
                 wrap.dataset.angle =
-                    baseAngle +
-                    angleOffset;
+                    angle;
 
 
                 wrap.dataset.radius =
-                    radius;
+
+                    ring.radius +
+                    radiusVariation;
 
 
                 wrap.dataset.scale =
-                    scale;
+
+                    ring.size *
+                    scaleVariation;
 
 
                 wrap.dataset.ring =
@@ -885,10 +1039,9 @@ function createGems(){
 
 
                 wrap.dataset.phase =
-                    (
-                        globalIndex *
-                        0.53
-                    );
+
+                    globalIndex *
+                    .67;
 
 
                 gems.push({
@@ -918,7 +1071,7 @@ function createGems(){
 
 
 /* =====================================================
-   ПОЗИЦИЯ И АНИМАЦИЯ
+   АНИМАЦИЯ КАМНЕЙ
 ===================================================== */
 
 function updateGems(
@@ -931,6 +1084,7 @@ function updateGems(
             gem,
             index
         ) => {
+
 
             const wrap =
                 gem.wrap;
@@ -980,114 +1134,151 @@ function updateGems(
                 );
 
 
-            /*
-            пока крутим —
-            камни слегка перестраиваются
-            */
+            /* =========================================
+               НЕБОЛЬШОЕ ДВИЖЕНИЕ ПО РАДИУСУ
+            ========================================= */
 
-            const restructure =
+            const movement =
+
                 Math.sin(
+
+                    wheelRotation *
+                    .022 +
+
+                    phase
+
+                )
+
+                * 1.8;
+
+
+            let currentRadius =
+
+                radius +
+                movement;
+
+
+            /* =========================================
+               В КОНЦЕ ОСВОБОЖДАЕМ ЦЕНТР
+            ========================================= */
+
+            if(
+                progress >
+                .72
+            ){
+
+                const opening =
+
+                    (
+                        progress -
+                        .72
+                    )
+
+                    /
+
+                    .28;
+
+
+                /*
+                Максимум 47,
+                чтобы крупные камни
+                не вылезали за рамку.
+                */
+
+                const safeOuterRadius =
+                    47;
+
+
+                currentRadius =
+
+                    currentRadius
+
+                    +
+
+                    (
+                        safeOuterRadius -
+                        currentRadius
+                    )
+
+                    *
+
+                    opening;
+
+            }
+
+
+            /* =========================================
+               ПЕРЕСТРОЕНИЕ ПО УГЛУ
+            ========================================= */
+
+            const angularMovement =
+
+                Math.sin(
+
                     wheelRotation *
                     .018 +
+
                     phase
+
                 )
 
-                * 4.5;
+                * 5;
 
 
-            /*
-            к концу они расходятся
-            дальше наружу
-            */
+            const currentAngle =
 
-            const outward =
-                progress *
-                (
-                    26 +
-                    ring * 7
-                );
-
-
-            const currentRadius =
-                radius +
-                restructure +
-                outward;
-
-
-            const dynamicAngle =
-
-                angle
-
-                +
-
-                Math.sin(
-                    wheelRotation *
-                    .013 +
-                    phase
-                )
-
-                * 6
-
-                +
-
-                progress
-
-                *
-
-                (
-                    ring % 2 === 0
-                        ? 24
-                        : -24
-                );
+                angle +
+                angularMovement;
 
 
             const rad =
-                dynamicAngle *
+
+                currentAngle
+
+                *
+
                 Math.PI /
                 180;
 
 
-            /*
-            ВАЖНО:
-            x/y задаются как % от круга.
-            */
-
             const x =
-                Math.cos(rad)
-                *
+
+                50 +
+
+                Math.cos(rad) *
                 currentRadius;
 
 
             const y =
-                Math.sin(rad)
-                *
+
+                50 +
+
+                Math.sin(rad) *
                 currentRadius;
 
 
-            /*
-            маленькое дыхание
-            */
-
-            const pulse =
-                1
-
-                +
-
-                Math.sin(
-                    wheelRotation *
-                    .025 +
-                    phase
-                )
-
-                * .035;
+            wrap.style.left =
+                x + "%";
 
 
-            /*
-            индивидуальный угол самого камня
-            */
+            wrap.style.top =
+                y + "%";
+
+
+            /* =========================================
+               ВРАЩЕНИЕ САМОГО КАМНЯ
+            ========================================= */
+
+            const personalDirection =
+
+                index % 2 === 0
+                    ? 1
+                    : -1;
+
 
             const gemRotation =
-                dynamicAngle
+
+                currentAngle
 
                 +
 
@@ -1095,36 +1286,52 @@ function updateGems(
 
                 +
 
-                (
-                    type === 2
-                        ? 45
-                        : 0
-                )
+                wheelRotation *
+                .13 *
+                personalDirection
 
                 +
 
                 Math.sin(
+                    phase +
                     wheelRotation *
-                    .02 +
-                    phase
+                    .024
                 )
 
-                * 8;
+                * 9;
 
 
-            wrap.style.transform = `
+            /* =========================================
+               ДЫХАНИЕ
+            ========================================= */
 
-                translate(
-                    -50%,
-                    -50%
+            const pulse =
+
+                1
+
+                +
+
+                Math.sin(
+
+                    phase +
+
+                    wheelRotation *
+                    .03
+
                 )
 
-                translate(
-                    ${x}%,
-                    ${y}%
-                )
+                * .045;
 
-            `;
+
+            /*
+            во время открытия
+            немного уменьшаем
+            */
+
+            const openingScale =
+
+                1 -
+                progress * .08;
 
 
             img.style.transform = `
@@ -1142,33 +1349,46 @@ function updateGems(
                     ${
                         baseScale *
                         pulse *
-                        (
-                            1 -
-                            progress * .18
-                        )
+                        openingScale
                     }
                 )
 
             `;
 
 
-            /*
-            ПЕРЕЛИВ
-            */
+            /* =========================================
+               ПЕРЕЛИВ
+            ========================================= */
+
+            const shimmer =
+
+                Math.sin(
+
+                    phase +
+
+                    wheelRotation *
+                    .037
+
+                );
+
 
             const brightness =
 
-                1.03
+                1.07 +
 
-                +
+                shimmer *
+                .16;
 
-                Math.sin(
-                    wheelRotation *
-                    .03 +
-                    phase
+
+            const glow =
+
+                5 +
+
+                Math.abs(
+                    shimmer
                 )
 
-                * .18;
+                * 11;
 
 
             img.style.filter = `
@@ -1177,50 +1397,34 @@ function updateGems(
                     ${brightness}
                 )
 
-                saturate(1.12)
+                saturate(1.16)
 
                 drop-shadow(
                     0 0
-                    ${
-                        6 +
-                        Math.abs(
-                            Math.sin(
-                                phase +
-                                wheelRotation *
-                                .02
-                            )
-                        ) * 10
-                    }px
-
+                    ${glow}px
                     rgba(
-                        155,
-                        110,
+                        160,
+                        115,
                         255,
-                        .34
+                        .4
                     )
                 )
 
             `;
 
 
-            /*
-            бегущий световой блик
-            */
+            /* =========================================
+               БЛИК
+            ========================================= */
 
             shine.style.opacity =
 
                 Math.max(
                     0,
-
-                    Math.sin(
-                        wheelRotation *
-                        .028 +
-                        phase
-                    )
-
+                    shimmer
                 )
 
-                * .68;
+                * .55;
 
 
             shine.style.transform = `
@@ -1232,18 +1436,18 @@ function updateGems(
 
                 rotate(
                     ${
-                        15 +
+                        20 +
                         wheelRotation *
-                        .14
+                        .1
                     }deg
                 )
 
             `;
 
 
-            /*
-            к концу постепенно исчезают
-            */
+            /* =========================================
+               ИСЧЕЗНОВЕНИЕ
+            ========================================= */
 
             let opacity =
                 1;
@@ -1251,24 +1455,27 @@ function updateGems(
 
             if(
                 progress >
-                .68
+                .80
             ){
 
                 opacity =
+
                     1 -
 
                     (
                         progress -
-                        .68
+                        .80
                     )
 
                     /
-                    .32;
+
+                    .20;
 
             }
 
 
             wrap.style.opacity =
+
                 Math.max(
                     0,
                     opacity
@@ -1282,30 +1489,44 @@ function updateGems(
 
 
 /* =====================================================
-   ВРАЩЕНИЕ
+   СОСТОЯНИЕ ВРАЩЕНИЯ
 ===================================================== */
 
 let dragging =
     false;
 
+
 let previousAngle =
     0;
+
 
 let wheelRotation =
     0;
 
+
 let totalRotation =
     0;
+
 
 let finished =
     false;
 
 
+/*
+1.25 оборота
+*/
+
 const REQUIRED_ROTATION =
     450;
 
 
-function pointerAngle(event){
+/* =====================================================
+   УГОЛ УКАЗАТЕЛЯ
+===================================================== */
+
+function pointerAngle(
+    event
+){
 
     const rect =
         wheel.getBoundingClientRect();
@@ -1340,14 +1561,18 @@ function pointerAngle(event){
 
 
 /* =====================================================
-   НАЧАЛО
+   НАЧАЛО ВРАЩЕНИЯ
 ===================================================== */
 
 wheel.addEventListener(
     "pointerdown",
+
     event => {
 
-        if(finished){
+
+        if(
+            finished
+        ){
             return;
         }
 
@@ -1380,12 +1605,14 @@ wheel.addEventListener(
 
 
 /* =====================================================
-   ДВИЖЕНИЕ
+   ВРАЩЕНИЕ
 ===================================================== */
 
 wheel.addEventListener(
     "pointermove",
+
     event => {
+
 
         if(
             !dragging ||
@@ -1402,17 +1629,35 @@ wheel.addEventListener(
 
 
         let delta =
+
             currentAngle -
             previousAngle;
 
 
-        if(delta > 180){
-            delta -= 360;
+        /*
+        переход через
+        -180 / +180
+        */
+
+        if(
+            delta >
+            180
+        ){
+
+            delta -=
+                360;
+
         }
 
 
-        if(delta < -180){
-            delta += 360;
+        if(
+            delta <
+            -180
+        ){
+
+            delta +=
+                360;
+
         }
 
 
@@ -1425,8 +1670,14 @@ wheel.addEventListener(
 
 
         totalRotation +=
-            Math.abs(delta);
+            Math.abs(
+                delta
+            );
 
+
+        /* -------------------------
+           КРУТИМ КОЛЕСО
+        ------------------------- */
 
         wheel.style.transform = `
 
@@ -1437,17 +1688,16 @@ wheel.addEventListener(
         `;
 
 
-        /*
-        весь калейдоскоп
-        тоже вращается
-        */
+        /* -------------------------
+           КРУТИМ ВЕСЬ УЗОР
+        ------------------------- */
 
         kaleidoscope.style.transform = `
 
             rotate(
                 ${
                     wheelRotation *
-                    .18
+                    .16
                 }deg
             )
 
@@ -1461,6 +1711,7 @@ wheel.addEventListener(
                 REQUIRED_ROTATION,
 
                 1
+
             );
 
 
@@ -1471,7 +1722,8 @@ wheel.addEventListener(
 
 
         if(
-            progress >= 1
+            progress >=
+            1
         ){
 
             revealPicture();
@@ -1483,7 +1735,7 @@ wheel.addEventListener(
 
 
 /* =====================================================
-   КОНЕЦ
+   КОНЕЦ ВРАЩЕНИЯ
 ===================================================== */
 
 function stopDragging(){
@@ -1512,12 +1764,14 @@ wheel.addEventListener(
 
 
 /* =====================================================
-   ОТКРЫТИЕ КАРТИНКИ
+   ПОКАЗ КАРТИНКИ
 ===================================================== */
 
 function revealPicture(){
 
-    if(finished){
+    if(
+        finished
+    ){
         return;
     }
 
@@ -1622,7 +1876,9 @@ function loadRound(){
 
 next.addEventListener(
     "click",
+
     () => {
+
 
         roundIndex++;
 
@@ -1650,6 +1906,7 @@ next.addEventListener(
 
 background.addEventListener(
     "load",
+
     () => {
 
         positionElements();
@@ -1666,6 +1923,11 @@ window.addEventListener(
 );
 
 
+/*
+если фон уже
+загружен из кэша
+*/
+
 if(
     background.complete
 ){
@@ -1678,5 +1940,7 @@ if(
 
 </script>
 
+
 </body>
+
 </html>
