@@ -8,189 +8,125 @@
 <title>Калейдоскоп — звук Ль</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-
-<link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
->
-
-<link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@600;700&display=swap"
-    rel="stylesheet"
->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@600;700&display=swap" rel="stylesheet">
 
 <style>
-
-/* =====================================================
-   ОСНОВА
-===================================================== */
 
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-
-    -webkit-tap-highlight-color:
-        transparent;
+    -webkit-tap-highlight-color:transparent;
 }
 
 html,
 body{
     width:100%;
     height:100%;
-
     overflow:hidden;
-
     background:#070512;
-
     user-select:none;
     -webkit-user-select:none;
-
     touch-action:none;
-
-    font-family:
-        "Cormorant SC",
-        serif;
+    font-family:"Cormorant SC",serif;
 }
 
 button{
-    font-family:
-        "Cormorant SC",
-        serif;
+    font-family:"Cormorant SC",serif;
 }
-
-
-/* =====================================================
-   ОБЩИЙ КОНТЕЙНЕР
-===================================================== */
 
 .app{
     position:relative;
-
     width:100vw;
     height:100vh;
-
     overflow:hidden;
 }
 
 
 /* =====================================================
-   ЭКРАН МЕНЮ
+   МЕНЮ
 ===================================================== */
 
 .menu-screen{
     position:absolute;
-
     inset:0;
-
     z-index:100;
-
     overflow:hidden;
-
     opacity:1;
     visibility:visible;
-
-    transition:
-        opacity .45s ease;
+    transition:opacity .45s ease;
 }
 
 .menu-screen.hidden{
     opacity:0;
     visibility:hidden;
-
     pointer-events:none;
 }
 
-
 .menu-background{
     position:absolute;
-
     inset:0;
-
     width:100%;
     height:100%;
-
     object-fit:cover;
     object-position:center;
-
     z-index:1;
 }
 
 
 /* =====================================================
-   НАВИГАЦИОННЫЕ ПЛАШКИ
+   БОЛЬШИЕ ПЛАШКИ
 ===================================================== */
 
 .menu-buttons{
     position:absolute;
-
     left:50%;
     top:50%;
+    transform:translate(-50%,-50%);
 
-    transform:
-        translate(-50%,-50%);
-
-    width:min(1000px, 76vw);
+    width:min(1250px,90vw);
 
     display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
 
-    grid-template-columns:
-        repeat(2, 1fr);
-
-    gap:
-        clamp(20px, 3vw, 48px);
+    column-gap:clamp(30px,4vw,70px);
+    row-gap:clamp(32px,4vh,58px);
 
     z-index:5;
 }
-
 
 .menu-button{
     position:relative;
 
     width:100%;
-
-    aspect-ratio:
-        3.5 / 1;
+    aspect-ratio:4.2 / 1;
 
     border:0;
 
     background:
         url("ramka2.png")
-        center /
-        contain
+        center / 100% 100%
         no-repeat;
 
     cursor:pointer;
 
     color:#fff8e5;
 
-    font-family:
-        "Cormorant SC",
-        serif;
-
-    font-size:
-        clamp(
-            18px,
-            2.15vw,
-            34px
-        );
-
+    font-size:clamp(18px,2.05vw,32px);
     font-weight:700;
 
-    line-height:1.05;
+    line-height:1;
+    letter-spacing:.3px;
 
-    letter-spacing:.5px;
-
-    padding:
-        0 12%;
+    padding:0 8%;
 
     display:flex;
-
     align-items:center;
     justify-content:center;
 
     text-align:center;
+    white-space:nowrap;
 
     text-shadow:
         0 2px 4px rgba(0,0,0,.9),
@@ -200,33 +136,29 @@ button{
         transform .22s ease,
         filter .22s ease;
 
-    -webkit-appearance:none;
     appearance:none;
+    -webkit-appearance:none;
 }
-
 
 .menu-button:hover{
-    transform:
-        scale(1.035);
+    transform:scale(1.035);
 
     filter:
-        brightness(1.08);
+        brightness(1.1)
+        drop-shadow(0 0 9px rgba(183,116,255,.45));
 }
 
-
 .menu-button:active{
-    transform:
-        scale(.985);
+    transform:scale(.985);
 }
 
 
 /* =====================================================
-   ИГРОВОЙ ЭКРАН
+   ИГРА
 ===================================================== */
 
 .game-screen{
     position:absolute;
-
     inset:0;
 
     width:100%;
@@ -239,24 +171,16 @@ button{
 
     z-index:10;
 
-    transition:
-        opacity .45s ease;
+    transition:opacity .45s ease;
 }
-
 
 .game-screen.visible{
     opacity:1;
     visibility:visible;
 }
 
-
-/* =====================================================
-   ФОН ИГРЫ
-===================================================== */
-
 .background{
     position:absolute;
-
     inset:0;
 
     width:100%;
@@ -272,14 +196,13 @@ button{
 
 
 /* =====================================================
-   БОЛЬШОЙ КРУГ
+   КРУГ
 ===================================================== */
 
 .portal{
     position:absolute;
 
     border-radius:50%;
-
     overflow:hidden;
 
     z-index:5;
@@ -302,7 +225,6 @@ button{
     height:56%;
 
     display:flex;
-
     align-items:center;
     justify-content:center;
 
@@ -318,10 +240,8 @@ button{
 
     transition:
         opacity .45s ease,
-        transform .65s
-        cubic-bezier(.2,.9,.3,1.15);
+        transform .65s cubic-bezier(.2,.9,.3,1.15);
 }
-
 
 .round-image{
     position:relative;
@@ -340,15 +260,12 @@ button{
     pointer-events:none;
 
     filter:
-        drop-shadow(
-            0 10px 16px
-            rgba(0,0,0,.28)
-        );
+        drop-shadow(0 10px 16px rgba(0,0,0,.28));
 }
 
 
 /* =====================================================
-   СВЕЧЕНИЕ КАРТИНКИ
+   СВЕЧЕНИЕ
 ===================================================== */
 
 .picture-glow{
@@ -382,43 +299,27 @@ button{
             transparent 79%
         );
 
-    filter:
-        blur(16px);
+    filter:blur(16px);
 }
-
 
 .picture-glow.active{
-    animation:
-        glowPulse
-        8s
-        ease-in-out
-        infinite;
+    animation:glowPulse 8s ease-in-out infinite;
 }
-
 
 @keyframes glowPulse{
 
     0%{
-        transform:
-            translate(-50%,-50%)
-            scale(.99);
-
+        transform:translate(-50%,-50%) scale(.99);
         opacity:.58;
     }
 
     50%{
-        transform:
-            translate(-50%,-50%)
-            scale(1.012);
-
+        transform:translate(-50%,-50%) scale(1.012);
         opacity:.73;
     }
 
     100%{
-        transform:
-            translate(-50%,-50%)
-            scale(.99);
-
+        transform:translate(-50%,-50%) scale(.99);
         opacity:.58;
     }
 }
@@ -435,7 +336,6 @@ button{
     top:50%;
 
     width:12%;
-
     aspect-ratio:1;
 
     transform:
@@ -459,8 +359,7 @@ button{
             transparent 75%
         );
 
-    filter:
-        blur(4px);
+    filter:blur(4px);
 }
 
 
@@ -477,14 +376,12 @@ button{
     width:64%;
     height:64%;
 
-    transform:
-        translate(-50%,-50%);
+    transform:translate(-50%,-50%);
 
     pointer-events:none;
 
     z-index:18;
 }
-
 
 .spark{
     position:absolute;
@@ -504,12 +401,8 @@ button{
     opacity:0;
 
     animation:
-        sparklePop
-        .95s
-        ease-out
-        forwards;
+        sparklePop .95s ease-out forwards;
 }
-
 
 .spark.star{
     border-radius:0;
@@ -527,36 +420,25 @@ button{
         );
 }
 
-
 @keyframes sparklePop{
 
     0%{
         opacity:0;
-
-        transform:
-            scale(.1)
-            rotate(0deg);
+        transform:scale(.1) rotate(0deg);
     }
 
     25%{
         opacity:1;
-
-        transform:
-            scale(1.2)
-            rotate(25deg);
+        transform:scale(1.2) rotate(25deg);
     }
 
     65%{
         opacity:.8;
-
-        transform:
-            scale(.8)
-            rotate(50deg);
+        transform:scale(.8) rotate(50deg);
     }
 
     100%{
         opacity:0;
-
         transform:
             scale(.1)
             translateY(-10px)
@@ -571,16 +453,13 @@ button{
 
 .kaleidoscope{
     position:absolute;
-
     inset:0;
 
     z-index:5;
 
-    transform-origin:
-        50% 50%;
+    transform-origin:50% 50%;
 
-    will-change:
-        transform;
+    will-change:transform;
 }
 
 
@@ -596,13 +475,9 @@ button{
 
     pointer-events:none;
 
-    transform:
-        translate(-50%,-50%);
-
-    transform-origin:
-        50% 50%;
+    transform:translate(-50%,-50%);
+    transform-origin:50% 50%;
 }
-
 
 .gem{
     position:absolute;
@@ -615,12 +490,10 @@ button{
 
     object-fit:contain;
 
-    transform-origin:
-        50% 50%;
+    transform-origin:50% 50%;
 
     pointer-events:none;
 }
-
 
 .gem-shine{
     position:absolute;
@@ -645,20 +518,18 @@ button{
 
     opacity:0;
 
-    filter:
-        blur(4px);
+    filter:blur(4px);
 
     pointer-events:none;
 }
 
 
 /* =====================================================
-   БЛИК СТЕКЛА
+   СТЕКЛО
 ===================================================== */
 
 .glass-shine{
     position:absolute;
-
     inset:0;
 
     z-index:20;
@@ -673,7 +544,6 @@ button{
             rgba(255,255,255,.13),
             transparent 24%
         ),
-
         radial-gradient(
             circle at center,
             transparent 69%,
@@ -692,11 +562,9 @@ button{
     z-index:30;
 
     display:flex;
-
     align-items:center;
     justify-content:center;
 }
-
 
 .wheel{
     width:100%;
@@ -708,19 +576,13 @@ button{
 
     touch-action:none;
 
-    transform-origin:
-        50% 50%;
+    transform-origin:50% 50%;
 
     filter:
-        drop-shadow(
-            0 10px 13px
-            rgba(0,0,0,.5)
-        );
+        drop-shadow(0 10px 13px rgba(0,0,0,.5));
 
-    will-change:
-        transform;
+    will-change:transform;
 }
-
 
 .wheel.dragging{
     cursor:grabbing;
@@ -728,31 +590,23 @@ button{
 
 
 /* =====================================================
-   ПОКРУТИ КОЛЕСО
+   ПОКРУТИ КОЛЕСО — ВНИЗУ
 ===================================================== */
 
 .wheel-hint{
     position:absolute;
 
     right:7%;
-    bottom:7%;
+    bottom:2.1%;
 
     z-index:45;
-
-    font-family:
-        "Cormorant SC",
-        serif;
 
     font-weight:700;
 
     font-size:
-        clamp(
-            25px,
-            2.2vw,
-            36px
-        );
+        clamp(24px,2.05vw,34px);
 
-    letter-spacing:1.2px;
+    letter-spacing:1.1px;
 
     color:#fff8e5;
 
@@ -761,15 +615,13 @@ button{
     pointer-events:none;
 
     text-shadow:
-        0 2px 4px rgba(0,0,0,.8),
-        0 0 7px rgba(184,116,255,.5);
+        0 2px 4px rgba(0,0,0,.9),
+        0 0 7px rgba(184,116,255,.52);
 
     opacity:1;
 
-    transition:
-        opacity .5s ease;
+    transition:opacity .5s ease;
 }
-
 
 .wheel-hint.hidden{
     opacity:0;
@@ -787,18 +639,10 @@ button{
     top:32%;
 
     width:
-        clamp(
-            195px,
-            19vw,
-            305px
-        );
+        clamp(195px,19vw,305px);
 
     height:
-        clamp(
-            80px,
-            8vw,
-            122px
-        );
+        clamp(80px,8vw,122px);
 
     transform:
         translate(-50%,-50%)
@@ -808,27 +652,17 @@ button{
 
     border:0;
 
-    padding:
-        0 30px;
+    padding:0 30px;
 
     background:
         url("ramka.png")
-        center /
-        contain
+        center / contain
         no-repeat;
 
     color:#fff6da;
 
-    font-family:
-        "Cormorant SC",
-        serif;
-
     font-size:
-        clamp(
-            22px,
-            2vw,
-            32px
-        );
+        clamp(22px,2vw,32px);
 
     font-weight:700;
 
@@ -846,26 +680,20 @@ button{
 
     transition:
         opacity .5s ease,
-        transform .5s
-        cubic-bezier(.2,.8,.3,1.15);
+        transform .5s cubic-bezier(.2,.8,.3,1.15);
 
-    box-shadow:none;
-
-    -webkit-appearance:none;
     appearance:none;
+    -webkit-appearance:none;
 }
-
 
 .next.visible{
     opacity:1;
-
     pointer-events:auto;
 
     transform:
         translate(-50%,-50%)
         scale(1);
 }
-
 
 .next:hover{
     transform:
@@ -875,226 +703,203 @@ button{
 
 
 /* =====================================================
-   АДАПТАЦИЯ МЕНЮ
+   МОБИЛЬНЫЕ ЭКРАНЫ
 ===================================================== */
 
 @media(max-width:800px){
 
     .menu-buttons{
-        width:min(680px, 88vw);
+        width:min(720px,91vw);
 
         grid-template-columns:1fr;
 
-        gap:10px;
+        row-gap:10px;
     }
 
     .menu-button{
-        aspect-ratio:
-            4.6 / 1;
+        aspect-ratio:4.8 / 1;
 
         font-size:
-            clamp(
-                16px,
-                4vw,
-                26px
-            );
+            clamp(16px,3.7vw,25px);
+    }
+
+    .wheel-hint{
+        right:5%;
+        bottom:2%;
+
+        font-size:
+            clamp(20px,4vw,28px);
     }
 }
 
 </style>
-
 </head>
 
 
 <body>
 
+<div class="app" id="app">
+
+
+<!-- =====================================================
+     МЕНЮ
+===================================================== -->
+
 <div
-    class="app"
-    id="app"
+    class="menu-screen"
+    id="menuScreen"
 >
 
-
-    <!-- =================================================
-         ГЛАВНОЕ МЕНЮ
-    ================================================== -->
-
-    <div
-        class="menu-screen"
-        id="menuScreen"
+    <img
+        class="menu-background"
+        src="fon2.png"
+        alt=""
     >
 
-        <img
-            class="menu-background"
-            src="fon2.png"
-            alt=""
+    <div class="menu-buttons">
+
+        <button
+            class="menu-button"
+            data-section="start"
         >
+            Звук Ль в начале слова
+        </button>
 
-
-        <div
-            class="menu-buttons"
+        <button
+            class="menu-button"
+            data-section="middle"
         >
+            Звук Ль в середине слова
+        </button>
 
+        <button
+            class="menu-button"
+            data-section="end"
+        >
+            Звук Ль в конце слова
+        </button>
 
-            <button
-                class="menu-button"
-                data-section="start"
-            >
-                Звук Ль в начале слова
-            </button>
-
-
-            <button
-                class="menu-button"
-                data-section="middle"
-            >
-                Звук Ль в середине слова
-            </button>
-
-
-            <button
-                class="menu-button"
-                data-section="end"
-            >
-                Звук Ль в конце слова
-            </button>
-
-
-            <button
-                class="menu-button"
-                data-section="clusters"
-            >
-                Звук Ль в стечениях
-            </button>
-
-
-        </div>
+        <button
+            class="menu-button"
+            data-section="clusters"
+        >
+            Звук Ль в стечениях
+        </button>
 
     </div>
 
+</div>
 
-    <!-- =================================================
-         ИГРА
-    ================================================== -->
 
-    <div
-        class="game-screen"
-        id="gameScreen"
+<!-- =====================================================
+     ИГРА
+===================================================== -->
+
+<div
+    class="game-screen"
+    id="gameScreen"
+>
+
+    <img
+        src="fon.png"
+        class="background"
+        id="background"
+        alt=""
     >
 
 
-        <img
-            src="fon.png"
-            class="background"
-            id="background"
-            alt=""
-        >
-
-
-        <!-- КАЛЕЙДОСКОП -->
+    <div
+        class="portal"
+        id="portal"
+    >
 
         <div
-            class="portal"
-            id="portal"
-        >
+            class="picture-glow"
+            id="pictureGlow"
+        ></div>
 
-
-            <div
-                class="picture-glow"
-                id="pictureGlow"
-            ></div>
-
-
-            <div
-                class="hidden-picture"
-                id="hiddenPicture"
-            >
-
-                <img
-                    src=""
-                    class="round-image"
-                    id="roundImage"
-                    alt=""
-                    draggable="false"
-                >
-
-            </div>
-
-
-            <div
-                class="magic-center"
-                id="magicCenter"
-            ></div>
-
-
-            <div
-                class="sparkles"
-                id="sparkles"
-            ></div>
-
-
-            <div
-                class="kaleidoscope"
-                id="kaleidoscope"
-            ></div>
-
-
-            <div
-                class="glass-shine"
-            ></div>
-
-
-        </div>
-
-
-        <!-- ПОКРУТИ КОЛЕСО -->
 
         <div
-            class="wheel-hint"
-            id="wheelHint"
-        >
-            Покрути колесо
-        </div>
-
-
-        <!-- КОЛЕСО -->
-
-        <div
-            class="wheel-wrap"
-            id="wheelWrap"
+            class="hidden-picture"
+            id="hiddenPicture"
         >
 
             <img
-                src="wheel.png"
-                class="wheel"
-                id="wheel"
-                draggable="false"
+                src=""
+                class="round-image"
+                id="roundImage"
                 alt=""
+                draggable="false"
             >
 
         </div>
 
 
-        <!-- ДАЛЬШЕ -->
-
-        <button
-            class="next"
-            id="next"
-        >
-            Дальше
-        </button>
+        <div
+            class="magic-center"
+            id="magicCenter"
+        ></div>
 
 
-        <!-- МУЗЫКА -->
+        <div
+            class="sparkles"
+            id="sparkles"
+        ></div>
 
-        <audio
-            id="wheelMusic"
-            src="diamonds_2.mp3"
-            preload="auto"
-            loop
-        ></audio>
 
+        <div
+            class="kaleidoscope"
+            id="kaleidoscope"
+        ></div>
+
+
+        <div
+            class="glass-shine"
+        ></div>
 
     </div>
+
+
+    <div
+        class="wheel-hint"
+        id="wheelHint"
+    >
+        Покрути колесо
+    </div>
+
+
+    <div
+        class="wheel-wrap"
+        id="wheelWrap"
+    >
+
+        <img
+            src="wheel.png"
+            class="wheel"
+            id="wheel"
+            draggable="false"
+            alt=""
+        >
+
+    </div>
+
+
+    <button
+        class="next"
+        id="next"
+    >
+        Дальше
+    </button>
+
+
+    <audio
+        id="wheelMusic"
+        src="diamonds_2.mp3"
+        preload="auto"
+        loop
+    ></audio>
+
+</div>
 
 </div>
 
@@ -1102,14 +907,14 @@ button{
 <script>
 
 /* =====================================================
-   ВСЕ РАЗДЕЛЫ ИГРЫ
+   РАЗДЕЛЫ
 ===================================================== */
 
 const sections = {
 
 
 /* =====================================================
-   ЛЬ В НАЧАЛЕ СЛОВА — 10 КАРТИНОК
+   ЛЬ В НАЧАЛЕ
 ===================================================== */
 
 start:[
@@ -1138,7 +943,7 @@ start:[
 
 
 /* =====================================================
-   ЛЬ В СЕРЕДИНЕ СЛОВА — 10 КАРТИНОК
+   ЛЬ В СЕРЕДИНЕ
 ===================================================== */
 
 middle:[
@@ -1167,7 +972,7 @@ middle:[
 
 
 /* =====================================================
-   ЛЬ В КОНЦЕ СЛОВА — 7 КАРТИНОК
+   ЛЬ В КОНЦЕ — 7 КАРТИНОК
 ===================================================== */
 
 end:[
@@ -1190,7 +995,7 @@ end:[
 
 
 /* =====================================================
-   ЛЬ В СТЕЧЕНИЯХ — 10 КАРТИНОК
+   ЛЬ В СТЕЧЕНИЯХ — НОВЫЙ RAUND-4
 ===================================================== */
 
 clusters:[
@@ -1199,17 +1004,17 @@ clusters:[
 
     "raund-4/32FA8DD2-DCD6-49E3-978C-FECB57D6D037.PNG",
 
-    "raund-4/46A683B8-B120-4ED9-93DD-0D709CCEA1BC.PNG",
-
-    "raund-4/5FEB5DA8-C226-42BA-AD79-5271151AC1D7.PNG",
-
     "raund-4/70A537D6-0005-4B79-BEA7-6DF415FC46B3.PNG",
 
     "raund-4/78694F7C-5131-4822-A706-B1FD3ADDB08D.PNG",
 
     "raund-4/786DC6E0-345F-41C0-A41F-5F91F2F95A64.PNG",
 
+    "raund-4/9C85159A-AD0A-41F0-9256-0D242A116A2A.PNG",
+
     "raund-4/BE363DB6-927A-4856-9419-3E34F28B5874.PNG",
+
+    "raund-4/C0F09FAB-301D-483A-A038-0B894691A68C%202.PNG",
 
     "raund-4/F8E61823-B41D-4DA1-93C3-D00102D1026D.PNG",
 
@@ -1225,9 +1030,7 @@ clusters:[
 ===================================================== */
 
 let currentSection = null;
-
 let rounds = [];
-
 let roundIndex = 0;
 
 
@@ -1236,133 +1039,65 @@ let roundIndex = 0;
 ===================================================== */
 
 const menuScreen =
-    document.getElementById(
-        "menuScreen"
-    );
-
+    document.getElementById("menuScreen");
 
 const gameScreen =
-    document.getElementById(
-        "gameScreen"
-    );
-
+    document.getElementById("gameScreen");
 
 const game =
     gameScreen;
 
-
-const background =
-    document.getElementById(
-        "background"
-    );
-
-
 const portal =
-    document.getElementById(
-        "portal"
-    );
-
+    document.getElementById("portal");
 
 const kaleidoscope =
-    document.getElementById(
-        "kaleidoscope"
-    );
-
+    document.getElementById("kaleidoscope");
 
 const wheelWrap =
-    document.getElementById(
-        "wheelWrap"
-    );
-
+    document.getElementById("wheelWrap");
 
 const wheel =
-    document.getElementById(
-        "wheel"
-    );
-
+    document.getElementById("wheel");
 
 const wheelHint =
-    document.getElementById(
-        "wheelHint"
-    );
-
+    document.getElementById("wheelHint");
 
 const wheelMusic =
-    document.getElementById(
-        "wheelMusic"
-    );
-
+    document.getElementById("wheelMusic");
 
 const hiddenPicture =
-    document.getElementById(
-        "hiddenPicture"
-    );
-
+    document.getElementById("hiddenPicture");
 
 const roundImage =
-    document.getElementById(
-        "roundImage"
-    );
-
+    document.getElementById("roundImage");
 
 const magicCenter =
-    document.getElementById(
-        "magicCenter"
-    );
-
+    document.getElementById("magicCenter");
 
 const pictureGlow =
-    document.getElementById(
-        "pictureGlow"
-    );
-
+    document.getElementById("pictureGlow");
 
 const sparkles =
-    document.getElementById(
-        "sparkles"
-    );
-
+    document.getElementById("sparkles");
 
 const next =
-    document.getElementById(
-        "next"
-    );
+    document.getElementById("next");
 
 
 /* =====================================================
-   РАЗМЕРЫ ИГРЫ
+   РАЗМЕРЫ
 ===================================================== */
 
-const DESIGN_WIDTH =
-    1536;
+const DESIGN_WIDTH = 1536;
+const DESIGN_HEIGHT = 1024;
 
+const PORTAL_X = 325;
+const PORTAL_Y = 133;
+const PORTAL_SIZE = 660;
 
-const DESIGN_HEIGHT =
-    1024;
-
-
-const PORTAL_X =
-    325;
-
-
-const PORTAL_Y =
-    133;
-
-
-const PORTAL_SIZE =
-    660;
-
-
-const WHEEL_X =
-    1065;
-
-
-const WHEEL_Y =
-    490;
-
-
-const WHEEL_SIZE =
-    280;
+const WHEEL_X = 1065;
+const WHEEL_Y = 490;
+const WHEEL_SIZE = 280;
 
 
 /* =====================================================
@@ -1374,10 +1109,8 @@ function positionElements(){
     const screenW =
         game.clientWidth;
 
-
     const screenH =
         game.clientHeight;
-
 
     const scale =
         Math.max(
@@ -1385,82 +1118,55 @@ function positionElements(){
             screenH / DESIGN_HEIGHT
         );
 
-
     const renderedW =
-        DESIGN_WIDTH *
-        scale;
-
+        DESIGN_WIDTH * scale;
 
     const renderedH =
-        DESIGN_HEIGHT *
-        scale;
-
+        DESIGN_HEIGHT * scale;
 
     const cropX =
-        (
-            screenW -
-            renderedW
-        ) / 2;
-
+        (screenW - renderedW) / 2;
 
     const cropY =
-        (
-            screenH -
-            renderedH
-        ) / 2;
+        (screenH - renderedH) / 2;
 
 
     portal.style.left =
-        PORTAL_X *
-        scale +
+        PORTAL_X * scale +
         cropX +
         "px";
 
-
     portal.style.top =
-        PORTAL_Y *
-        scale +
+        PORTAL_Y * scale +
         cropY +
         "px";
 
-
     portal.style.width =
-        PORTAL_SIZE *
-        scale +
+        PORTAL_SIZE * scale +
         "px";
 
-
     portal.style.height =
-        PORTAL_SIZE *
-        scale +
+        PORTAL_SIZE * scale +
         "px";
 
 
     wheelWrap.style.left =
-        WHEEL_X *
-        scale +
+        WHEEL_X * scale +
         cropX +
         "px";
 
-
     wheelWrap.style.top =
-        WHEEL_Y *
-        scale +
+        WHEEL_Y * scale +
         cropY +
         "px";
 
-
     wheelWrap.style.width =
-        WHEEL_SIZE *
-        scale +
+        WHEEL_SIZE * scale +
         "px";
-
 
     wheelWrap.style.height =
-        WHEEL_SIZE *
-        scale +
+        WHEEL_SIZE * scale +
         "px";
-
 }
 
 
@@ -1469,27 +1175,22 @@ function positionElements(){
 ===================================================== */
 
 const gemImages = [
-
     "gem1.png",
     "gem2.png",
     "gem3.png",
     "gem4.png"
-
 ];
-
 
 let gems = [];
 
 
 /* =====================================================
-   СОЗДАНИЕ КРИСТАЛЛОВ
+   СОЗДАЁМ КРИСТАЛЛЫ
 ===================================================== */
 
 function createGems(){
 
-    kaleidoscope.innerHTML =
-        "";
-
+    kaleidoscope.innerHTML = "";
 
     gems = [];
 
@@ -1539,11 +1240,7 @@ function createGems(){
 
 
     rings.forEach(
-        (
-            ring,
-            ringIndex
-        ) => {
-
+        (ring,ringIndex) => {
 
             for(
                 let i = 0;
@@ -1551,22 +1248,15 @@ function createGems(){
                 i++
             ){
 
-
                 const wrap =
-                    document.createElement(
-                        "div"
-                    );
-
+                    document.createElement("div");
 
                 wrap.className =
                     "gem-wrap";
 
 
                 const img =
-                    document.createElement(
-                        "img"
-                    );
-
+                    document.createElement("img");
 
                 img.src =
                     gemImages[
@@ -1574,91 +1264,57 @@ function createGems(){
                         gemImages.length
                     ];
 
-
                 img.className =
                     "gem";
-
 
                 img.draggable =
                     false;
 
 
                 const shine =
-                    document.createElement(
-                        "div"
-                    );
-
+                    document.createElement("div");
 
                 shine.className =
                     "gem-shine";
 
 
-                wrap.appendChild(
-                    img
-                );
+                wrap.appendChild(img);
 
+                wrap.appendChild(shine);
 
-                wrap.appendChild(
-                    shine
-                );
-
-
-                kaleidoscope.appendChild(
-                    wrap
-                );
+                kaleidoscope.appendChild(wrap);
 
 
                 const angle =
-                    (
-                        360 /
-                        ring.count
-                    )
-                    *
-                    i
-                    +
-                    ringIndex *
-                    8.2;
+                    (360 / ring.count) *
+                    i +
+                    ringIndex * 8.2;
 
 
                 const radiusVariation =
-                    (
-                        (
-                            i % 3
-                        )
-                        -
-                        1
-                    )
-                    *
+                    ((i % 3) - 1) *
                     .85;
 
 
                 const scaleVariation =
-                    .93
-                    +
-                    (
-                        i % 4
-                    )
-                    *
+                    .93 +
+                    (i % 4) *
                     .03;
 
 
                 wrap.dataset.angle =
                     angle;
 
-
                 wrap.dataset.radius =
                     ring.radius +
                     radiusVariation;
-
 
                 wrap.dataset.scale =
                     ring.size *
                     scaleVariation;
 
-
                 wrap.dataset.ring =
                     ringIndex;
-
 
                 wrap.dataset.phase =
                     globalIndex *
@@ -1673,19 +1329,12 @@ function createGems(){
 
 
                 globalIndex++;
-
             }
-
         }
-
     );
 
 
-    updateGems(
-        0,
-        0
-    );
-
+    updateGems(0,0);
 }
 
 
@@ -1695,9 +1344,7 @@ function createGems(){
 
 function createSparkles(){
 
-    sparkles.innerHTML =
-        "";
-
+    sparkles.innerHTML = "";
 
     const count = 16;
 
@@ -1709,17 +1356,15 @@ function createSparkles(){
     ){
 
         const spark =
-            document.createElement(
-                "div"
-            );
+            document.createElement("div");
 
 
         spark.className =
             Math.random() > .45
-                ?
-                "spark star"
-                :
-                "spark";
+            ?
+            "spark star"
+            :
+            "spark";
 
 
         const angle =
@@ -1736,19 +1381,13 @@ function createSparkles(){
 
         const x =
             50 +
-            Math.cos(
-                angle
-            )
-            *
+            Math.cos(angle) *
             radius;
 
 
         const y =
             50 +
-            Math.sin(
-                angle
-            )
-            *
+            Math.sin(angle) *
             radius;
 
 
@@ -1761,18 +1400,14 @@ function createSparkles(){
         spark.style.left =
             x + "%";
 
-
         spark.style.top =
             y + "%";
-
 
         spark.style.width =
             size + "px";
 
-
         spark.style.height =
             size + "px";
-
 
         spark.style.animationDelay =
             Math.random() *
@@ -1780,21 +1415,16 @@ function createSparkles(){
             "s";
 
 
-        sparkles.appendChild(
-            spark
-        );
-
+        sparkles.appendChild(spark);
     }
-
 }
 
 
 /* =====================================================
-   ПОСТОЯННОЕ МЯГКОЕ СВЕЧЕНИЕ
+   МАГИЧЕСКИЙ ЭФФЕКТ
 ===================================================== */
 
-let sparkleInterval =
-    null;
+let sparkleInterval = null;
 
 
 function startMagicEffect(){
@@ -1803,21 +1433,17 @@ function startMagicEffect(){
         "active"
     );
 
-
     createSparkles();
-
 
     clearInterval(
         sparkleInterval
     );
-
 
     sparkleInterval =
         setInterval(
             createSparkles,
             1150
         );
-
 }
 
 
@@ -1827,19 +1453,13 @@ function stopMagicEffect(){
         "active"
     );
 
-
     clearInterval(
         sparkleInterval
     );
 
+    sparkleInterval = null;
 
-    sparkleInterval =
-        null;
-
-
-    sparkles.innerHTML =
-        "";
-
+    sparkles.innerHTML = "";
 }
 
 
@@ -1847,8 +1467,7 @@ function stopMagicEffect(){
    МУЗЫКА
 ===================================================== */
 
-let fadeTimer =
-    null;
+let fadeTimer = null;
 
 
 function startWheelMusic(){
@@ -1857,27 +1476,15 @@ function startWheelMusic(){
         fadeTimer
     );
 
+    fadeTimer = null;
 
-    fadeTimer =
-        null;
-
-
-    wheelMusic.volume =
-        .42;
-
+    wheelMusic.volume = .42;
 
     wheelMusic
         .play()
-        .catch(
-            () => {}
-        );
-
+        .catch(() => {});
 }
 
-
-/* =====================================================
-   ПЛАВНАЯ ОСТАНОВКА МУЗЫКИ
-===================================================== */
 
 function stopWheelMusic(){
 
@@ -1889,23 +1496,17 @@ function stopWheelMusic(){
     const startVolume =
         wheelMusic.volume;
 
-
     let currentStep = 0;
 
-
     const steps = 10;
-
     const duration = 250;
 
 
     fadeTimer =
         setInterval(
-
             () => {
 
-
                 currentStep++;
-
 
                 const progress =
                     currentStep /
@@ -1916,49 +1517,32 @@ function stopWheelMusic(){
                     Math.max(
                         0,
                         startVolume *
-                        (
-                            1 -
-                            progress
-                        )
+                        (1 - progress)
                     );
 
 
                 if(
-                    currentStep >=
-                    steps
+                    currentStep >= steps
                 ){
-
 
                     clearInterval(
                         fadeTimer
                     );
 
-
-                    fadeTimer =
-                        null;
-
+                    fadeTimer = null;
 
                     wheelMusic.pause();
 
-
                     wheelMusic.volume =
                         .42;
-
                 }
 
             },
 
-            duration /
-            steps
-
+            duration / steps
         );
-
 }
 
-
-/* =====================================================
-   МУЗЫКА С НАЧАЛА
-===================================================== */
 
 function resetWheelMusic(){
 
@@ -1966,25 +1550,18 @@ function resetWheelMusic(){
         fadeTimer
     );
 
-
-    fadeTimer =
-        null;
-
+    fadeTimer = null;
 
     wheelMusic.pause();
 
 
     try{
-
         wheelMusic.currentTime = 0;
-
     }
     catch(error){}
 
 
-    wheelMusic.volume =
-        .42;
-
+    wheelMusic.volume = .42;
 }
 
 
@@ -2002,35 +1579,24 @@ function updateGems(
             0,
             Math.min(
                 1,
-                (
-                    progress -
-                    .48
-                )
-                /
+                (progress - .48) /
                 .52
             )
         );
 
 
     const openingRadius =
-        opening *
-        28;
+        opening * 28;
 
 
     gems.forEach(
-        (
-            gem,
-            index
-        ) => {
-
+        (gem,index) => {
 
             const wrap =
                 gem.wrap;
 
-
             const img =
                 gem.img;
-
 
             const shine =
                 gem.shine;
@@ -2041,24 +1607,20 @@ function updateGems(
                     wrap.dataset.angle
                 );
 
-
             const radius =
                 Number(
                     wrap.dataset.radius
                 );
-
 
             const baseScale =
                 Number(
                     wrap.dataset.scale
                 );
 
-
             const ring =
                 Number(
                     wrap.dataset.ring
                 );
-
 
             const phase =
                 Number(
@@ -2066,23 +1628,15 @@ function updateGems(
                 );
 
 
-            let movementPower =
-                1.05;
+            let movementPower = 1.05;
 
 
-            if(
-                ring === 4
-            ){
-                movementPower =
-                    .65;
+            if(ring === 4){
+                movementPower = .65;
             }
 
-
-            if(
-                ring === 5
-            ){
-                movementPower =
-                    .4;
+            if(ring === 5){
+                movementPower = .4;
             }
 
 
@@ -2101,10 +1655,7 @@ function updateGems(
                 movement;
 
 
-            if(
-                opening > 0
-            ){
-
+            if(opening > 0){
 
                 const pushStrength =
                     Math.max(
@@ -2119,9 +1670,7 @@ function updateGems(
                     .72;
 
 
-                if(
-                    ring <= 2
-                ){
+                if(ring <= 2){
 
                     currentRadius +=
                         opening *
@@ -2130,9 +1679,7 @@ function updateGems(
                             ring *
                             .8
                         );
-
                 }
-
             }
 
 
@@ -2143,23 +1690,15 @@ function updateGems(
                 );
 
 
-            let angularPower =
-                4;
+            let angularPower = 4;
 
 
-            if(
-                ring === 4
-            ){
-                angularPower =
-                    2.8;
+            if(ring === 4){
+                angularPower = 2.8;
             }
 
-
-            if(
-                ring === 5
-            ){
-                angularPower =
-                    2;
+            if(ring === 5){
+                angularPower = 2;
             }
 
 
@@ -2167,10 +1706,10 @@ function updateGems(
                 opening *
                 (
                     ring % 2 === 0
-                        ?
-                        7
-                        :
-                        -7
+                    ?
+                    7
+                    :
+                    -7
                 );
 
 
@@ -2198,25 +1737,18 @@ function updateGems(
 
             const x =
                 50 +
-                Math.cos(
-                    rad
-                )
-                *
+                Math.cos(rad) *
                 currentRadius;
 
 
             const y =
                 50 +
-                Math.sin(
-                    rad
-                )
-                *
+                Math.sin(rad) *
                 currentRadius;
 
 
             wrap.style.left =
                 x + "%";
-
 
             wrap.style.top =
                 y + "%";
@@ -2224,10 +1756,10 @@ function updateGems(
 
             const personalDirection =
                 index % 2 === 0
-                    ?
-                    1
-                    :
-                    -1;
+                ?
+                1
+                :
+                -1;
 
 
             const gemRotation =
@@ -2262,20 +1794,17 @@ function updateGems(
 
             const centerShrink =
                 ring <= 2
-                    ?
-                    1 -
-                    opening *
-                    .13
-                    :
-                    1;
+                ?
+                1 -
+                opening *
+                .13
+                :
+                1;
 
 
             img.style.transform = `
 
-                translate(
-                    -50%,
-                    -50%
-                )
+                translate(-50%,-50%)
 
                 rotate(
                     ${gemRotation}deg
@@ -2308,10 +1837,7 @@ function updateGems(
 
             const glow =
                 5 +
-                Math.abs(
-                    shimmer
-                )
-                *
+                Math.abs(shimmer) *
                 10;
 
 
@@ -2321,9 +1847,7 @@ function updateGems(
                     ${brightness}
                 )
 
-                saturate(
-                    1.17
-                )
+                saturate(1.17)
 
                 drop-shadow(
                     0 0
@@ -2351,19 +1875,12 @@ function updateGems(
             let opacity = 1;
 
 
-            if(
-                progress > .88
-            ){
+            if(progress > .88){
 
                 opacity =
                     1 -
-                    (
-                        progress -
-                        .88
-                    )
-                    /
+                    (progress - .88) /
                     .12;
-
             }
 
 
@@ -2372,9 +1889,7 @@ function updateGems(
                     0,
                     opacity
                 );
-
         }
-
     );
 
 
@@ -2393,19 +1908,12 @@ function updateGems(
         "%";
 
 
-    if(
-        progress > .72
-    ){
-
+    if(progress > .72){
 
         const pictureProgress =
             Math.min(
                 1,
-                (
-                    progress -
-                    .72
-                )
-                /
+                (progress - .72) /
                 .28
             );
 
@@ -2416,10 +1924,7 @@ function updateGems(
 
         hiddenPicture.style.transform = `
 
-            translate(
-                -50%,
-                -50%
-            )
+            translate(-50%,-50%)
 
             scale(
                 ${
@@ -2430,16 +1935,13 @@ function updateGems(
             )
 
         `;
-
     }
 
     else{
 
         hiddenPicture.style.opacity =
             0;
-
     }
-
 }
 
 
@@ -2458,17 +1960,14 @@ let totalRotation = 0;
 let finished = false;
 
 
-const REQUIRED_ROTATION =
-    450;
+const REQUIRED_ROTATION = 450;
 
 
 /* =====================================================
    УГОЛ УКАЗАТЕЛЯ
 ===================================================== */
 
-function pointerAngle(
-    event
-){
+function pointerAngle(event){
 
     const rect =
         wheel.getBoundingClientRect();
@@ -2476,34 +1975,26 @@ function pointerAngle(
 
     const centerX =
         rect.left +
-        rect.width /
-        2;
+        rect.width / 2;
 
 
     const centerY =
         rect.top +
-        rect.height /
-        2;
+        rect.height / 2;
 
 
     return Math.atan2(
-
-        event.clientY -
-        centerY,
-
-        event.clientX -
-        centerX
-
+        event.clientY - centerY,
+        event.clientX - centerX
     )
     *
     180 /
     Math.PI;
-
 }
 
 
 /* =====================================================
-   НАЧАЛО ВРАЩЕНИЯ
+   НАЧАЛО
 ===================================================== */
 
 wheel.addEventListener(
@@ -2511,16 +2002,12 @@ wheel.addEventListener(
 
     event => {
 
-
-        if(
-            finished
-        ){
+        if(finished){
             return;
         }
 
 
-        dragging =
-            true;
+        dragging = true;
 
 
         wheel.classList.add(
@@ -2529,9 +2016,7 @@ wheel.addEventListener(
 
 
         previousAngle =
-            pointerAngle(
-                event
-            );
+            pointerAngle(event);
 
 
         wheel.setPointerCapture(
@@ -2540,7 +2025,6 @@ wheel.addEventListener(
 
 
         startWheelMusic();
-
     }
 );
 
@@ -2554,7 +2038,6 @@ wheel.addEventListener(
 
     event => {
 
-
         if(
             !dragging ||
             finished
@@ -2564,9 +2047,7 @@ wheel.addEventListener(
 
 
         const currentAngle =
-            pointerAngle(
-                event
-            );
+            pointerAngle(event);
 
 
         let delta =
@@ -2574,16 +2055,11 @@ wheel.addEventListener(
             previousAngle;
 
 
-        if(
-            delta > 180
-        ){
+        if(delta > 180){
             delta -= 360;
         }
 
-
-        if(
-            delta < -180
-        ){
+        if(delta < -180){
             delta += 360;
         }
 
@@ -2597,9 +2073,7 @@ wheel.addEventListener(
 
 
         totalRotation +=
-            Math.abs(
-                delta
-            );
+            Math.abs(delta);
 
 
         wheel.style.transform = `
@@ -2637,33 +2111,25 @@ wheel.addEventListener(
         );
 
 
-        if(
-            progress >= 1
-        ){
-
+        if(progress >= 1){
             revealPicture();
-
         }
-
     }
 );
 
 
 /* =====================================================
-   ЗАВЕРШАЕМ ВРАЩЕНИЕ
+   ОСТАНОВКА
 ===================================================== */
 
 function stopDragging(){
 
-    if(
-        !dragging
-    ){
+    if(!dragging){
         return;
     }
 
 
-    dragging =
-        false;
+    dragging = false;
 
 
     wheel.classList.remove(
@@ -2672,7 +2138,6 @@ function stopDragging(){
 
 
     stopWheelMusic();
-
 }
 
 
@@ -2689,24 +2154,19 @@ wheel.addEventListener(
 
 
 /* =====================================================
-   ПОКАЗЫВАЕМ КАРТИНКУ
+   ПОКАЗ КАРТИНКИ
 ===================================================== */
 
 function revealPicture(){
 
-    if(
-        finished
-    ){
+    if(finished){
         return;
     }
 
 
-    finished =
-        true;
+    finished = true;
 
-
-    dragging =
-        false;
+    dragging = false;
 
 
     wheel.classList.remove(
@@ -2726,25 +2186,12 @@ function revealPicture(){
         1;
 
 
-    hiddenPicture.style.transform = `
-
-        translate(
-            -50%,
-            -50%
-        )
-
-        scale(1)
-
-    `;
+    hiddenPicture.style.transform =
+        "translate(-50%,-50%) scale(1)";
 
 
     startMagicEffect();
 
-
-    /*
-       Если это последняя картинка
-       раздела — пишем "В меню".
-    */
 
     if(
         roundIndex ===
@@ -2753,14 +2200,12 @@ function revealPicture(){
 
         next.textContent =
             "В меню";
-
     }
 
     else{
 
         next.textContent =
             "Дальше";
-
     }
 
 
@@ -2772,10 +2217,8 @@ function revealPicture(){
             );
 
         },
-
         450
     );
-
 }
 
 
@@ -2787,30 +2230,19 @@ function loadRound(){
 
     stopMagicEffect();
 
-
     resetWheelMusic();
 
 
     roundImage.src =
-        rounds[
-            roundIndex
-        ];
+        rounds[roundIndex];
 
 
     hiddenPicture.style.opacity =
         0;
 
 
-    hiddenPicture.style.transform = `
-
-        translate(
-            -50%,
-            -50%
-        )
-
-        scale(.62)
-
-    `;
+    hiddenPicture.style.transform =
+        "translate(-50%,-50%) scale(.62)";
 
 
     next.classList.remove(
@@ -2831,20 +2263,13 @@ function loadRound(){
         0;
 
 
-    dragging =
-        false;
+    dragging = false;
 
+    finished = false;
 
-    finished =
-        false;
+    totalRotation = 0;
 
-
-    totalRotation =
-        0;
-
-
-    wheelRotation =
-        0;
+    wheelRotation = 0;
 
 
     wheel.style.transform =
@@ -2856,12 +2281,11 @@ function loadRound(){
 
 
     createGems();
-
 }
 
 
 /* =====================================================
-   ОТКРЫВАЕМ ВЫБРАННЫЙ РАЗДЕЛ
+   ОТКРЫТИЕ РАЗДЕЛА
 ===================================================== */
 
 function openSection(
@@ -2873,13 +2297,10 @@ function openSection(
 
 
     rounds =
-        sections[
-            sectionName
-        ];
+        sections[sectionName];
 
 
-    roundIndex =
-        0;
+    roundIndex = 0;
 
 
     menuScreen.classList.add(
@@ -2892,27 +2313,19 @@ function openSection(
     );
 
 
-    /*
-       Ждём один кадр,
-       чтобы размеры игрового
-       экрана точно определились.
-    */
-
     requestAnimationFrame(
         () => {
 
             positionElements();
 
             loadRound();
-
         }
     );
-
 }
 
 
 /* =====================================================
-   ВОЗВРАТ В ГЛАВНОЕ МЕНЮ
+   ВОЗВРАТ В МЕНЮ
 ===================================================== */
 
 function returnToMenu(){
@@ -2922,16 +2335,11 @@ function returnToMenu(){
     resetWheelMusic();
 
 
-    currentSection =
-        null;
+    currentSection = null;
 
+    rounds = [];
 
-    rounds =
-        [];
-
-
-    roundIndex =
-        0;
+    roundIndex = 0;
 
 
     next.classList.remove(
@@ -2952,12 +2360,11 @@ function returnToMenu(){
     menuScreen.classList.remove(
         "hidden"
     );
-
 }
 
 
 /* =====================================================
-   КНОПКИ ГЛАВНОГО МЕНЮ
+   КНОПКИ МЕНЮ
 ===================================================== */
 
 document
@@ -2967,42 +2374,31 @@ document
     .forEach(
         button => {
 
-
             button.addEventListener(
                 "click",
 
                 () => {
 
-
                     const section =
                         button.dataset.section;
-
 
                     openSection(
                         section
                     );
-
                 }
             );
-
         }
     );
 
 
 /* =====================================================
-   КНОПКА ДАЛЬШЕ / В МЕНЮ
+   ДАЛЬШЕ / В МЕНЮ
 ===================================================== */
 
 next.addEventListener(
     "click",
 
     () => {
-
-
-        /*
-           Последняя картинка
-           выбранного раздела.
-        */
 
         if(
             roundIndex >=
@@ -3012,15 +2408,12 @@ next.addEventListener(
             returnToMenu();
 
             return;
-
         }
 
 
         roundIndex++;
 
-
         loadRound();
-
     }
 );
 
@@ -3035,15 +2428,13 @@ window.addEventListener(
     () => {
 
         if(
-            gameScreen.classList.contains(
-                "visible"
-            )
+            gameScreen
+            .classList
+            .contains("visible")
         ){
 
             positionElements();
-
         }
-
     }
 );
 
