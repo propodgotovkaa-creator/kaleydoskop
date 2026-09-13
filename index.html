@@ -15,10 +15,6 @@
 
 <style>
 
-/* =====================================================
-   ОСНОВА
-===================================================== */
-
 *{
     margin:0;
     padding:0;
@@ -37,12 +33,12 @@ body{
 
     overflow:hidden;
 
+    background:#070512;
+
     user-select:none;
     -webkit-user-select:none;
 
     touch-action:none;
-
-    background:#070512;
 
     font-family:
         Arial,
@@ -51,7 +47,7 @@ body{
 
 
 /* =====================================================
-   ИГРОВАЯ СЦЕНА
+   ИГРА
 ===================================================== */
 
 .game{
@@ -62,39 +58,49 @@ body{
     height:100vh;
 
     overflow:hidden;
-
-    background-image:
-        url("fon.png");
-
-    background-size:
-        cover;
-
-    background-position:
-        center;
-
-    background-repeat:
-        no-repeat;
 }
 
 
 /* =====================================================
-   ОБЛАСТЬ ВНУТРИ ПОРТАЛА
+   ФОН
 
-   Координаты рассчитаны под наш фон.
-   Если после открытия увидим,
-   что круг на пару пикселей не совпадает,
-   легко подвинем.
+   ВАЖНО:
+   отдельным img, чтобы мы могли точно вычислять,
+   где находится линза после object-fit:cover
+===================================================== */
+
+.background{
+
+    position:absolute;
+
+    left:0;
+    top:0;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    object-position:center center;
+
+    pointer-events:none;
+
+    z-index:1;
+}
+
+
+/* =====================================================
+   ВНУТРЕННЯЯ ОБЛАСТЬ КАЛЕЙДОСКОПА
+
+   НИКАКОГО ФОНА ЗДЕСЬ НЕТ.
+
+   Видно настоящий темный круг,
+   который уже нарисован в fon.png.
 ===================================================== */
 
 .portal{
 
     position:absolute;
-
-    left:18.7%;
-    top:12%;
-
-    width:51.5%;
-    aspect-ratio:1 / 1;
 
     border-radius:50%;
 
@@ -102,42 +108,32 @@ body{
 
     z-index:5;
 
-    background:
-        radial-gradient(
-            circle at center,
-            #17102f 0%,
-            #090615 72%,
-            #030208 100%
-        );
-
-    box-shadow:
-        inset 0 0 45px rgba(0,0,0,.9);
+    pointer-events:none;
 }
 
 
 /* =====================================================
-   СПРЯТАННАЯ КАРТИНКА
+   КАРТИНКА
 ===================================================== */
 
 .hidden-picture{
 
     position:absolute;
-    inset:0;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    left:50%;
+    top:50%;
 
-    z-index:2;
+    transform:
+        translate(-50%,-50%)
+        scale(.45);
 
     opacity:0;
 
-    transform:
-        scale(.55);
+    z-index:2;
 
     transition:
-        opacity .7s ease,
-        transform .8s cubic-bezier(.2,.9,.3,1.25);
+        opacity .65s ease,
+        transform .8s cubic-bezier(.2,.9,.3,1.2);
 }
 
 
@@ -146,6 +142,7 @@ body{
     opacity:1;
 
     transform:
+        translate(-50%,-50%)
         scale(1);
 }
 
@@ -154,133 +151,236 @@ body{
 
     font-size:
         clamp(
-            110px,
+            100px,
             17vw,
-            245px
+            230px
         );
 
     filter:
         drop-shadow(
-            0 10px 14px
-            rgba(0,0,0,.45)
+            0 10px 15px
+            rgba(0,0,0,.5)
         );
 }
 
 
 /* =====================================================
-   КАЛЕЙДОСКОП
+   КАМУШКИ
 ===================================================== */
 
 .kaleidoscope{
 
     position:absolute;
-    inset:-12%;
+
+    left:0;
+    top:0;
+
+    width:100%;
+    height:100%;
+
+    transform-origin:
+        50% 50%;
 
     z-index:5;
 
-    transform-origin:center center;
-
-    will-change:transform;
+    will-change:
+        transform;
 }
 
 
-/* =====================================================
-   СЕКТОРА
+/* отдельный камушек */
 
-   Это уже не простые случайные куски.
-   Делаем более симметричный узор.
-===================================================== */
-
-.piece{
+.gem{
 
     position:absolute;
 
     left:50%;
     top:50%;
 
-    width:28%;
-    height:42%;
+    width:13%;
+    height:18%;
 
     transform-origin:
-        0 0;
+        50% 50%;
 
-    clip-path:
-        polygon(
-            0 0,
-            100% 18%,
-            72% 100%,
-            6% 72%
-        );
-
-    border-radius:
-        18% 42% 24% 38%;
-
-    mix-blend-mode:
-        screen;
-
-    box-shadow:
-        inset 0 0 18px
-        rgba(255,255,255,.38);
+    opacity:.94;
 
     will-change:
         transform,
         opacity;
+
+    filter:
+        drop-shadow(
+            0 0 8px
+            rgba(255,255,255,.16)
+        );
 }
 
 
-/* внутренний блик */
+/* сам кристалл */
 
-.piece::after{
+.gem-shape{
+
+    width:100%;
+    height:100%;
+
+    clip-path:
+        polygon(
+            50% 0%,
+            100% 36%,
+            77% 100%,
+            23% 100%,
+            0% 36%
+        );
+
+    border-radius:8%;
+
+    box-shadow:
+
+        inset 0 0 12px
+        rgba(255,255,255,.5),
+
+        inset 8px 3px 13px
+        rgba(255,255,255,.18);
+}
+
+
+/* внутренний блеск */
+
+.gem-shape::before{
 
     content:"";
 
     position:absolute;
-    inset:8%;
 
-    border:
-
-        2px solid
-
-        rgba(255,255,255,.15);
+    inset:15%;
 
     clip-path:
-        inherit;
+        polygon(
+            50% 0%,
+            100% 42%,
+            65% 100%,
+            35% 100%,
+            0% 42%
+        );
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.5),
+            rgba(255,255,255,.02)
+        );
+
+    opacity:.6;
 }
 
 
-/* =====================================================
-   БЛИК НА ЛИНЗЕ
-===================================================== */
+/* световая точка */
 
-.portal-glass{
+.gem-shape::after{
+
+    content:"";
 
     position:absolute;
-    inset:0;
 
-    z-index:15;
+    width:22%;
+    height:22%;
 
-    pointer-events:none;
+    left:18%;
+    top:17%;
 
     border-radius:50%;
 
     background:
+        rgba(255,255,255,.8);
 
-        radial-gradient(
-            circle at 34% 23%,
-            rgba(255,255,255,.17),
-            transparent 24%
-        ),
+    filter:
+        blur(3px);
+}
 
-        radial-gradient(
-            circle at center,
-            transparent 62%,
-            rgba(8,3,24,.58) 100%
+
+/* =====================================================
+   ЦЕНТРАЛЬНАЯ ЗВЕЗДА КАЛЕЙДОСКОПА
+===================================================== */
+
+.center-star{
+
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    width:22%;
+    aspect-ratio:1;
+
+    transform:
+        translate(-50%,-50%);
+
+    z-index:7;
+
+    opacity:.82;
+
+    background:
+
+        conic-gradient(
+            #ff48c7,
+            #614cff,
+            #35d9ff,
+            #4dffbd,
+            #ffd84a,
+            #ff6cae,
+            #ff48c7
         );
 
-    box-shadow:
+    clip-path:
+        polygon(
+            50% 0%,
+            60% 37%,
+            100% 50%,
+            60% 63%,
+            50% 100%,
+            40% 63%,
+            0% 50%,
+            40% 37%
+        );
 
-        inset 0 0 35px
-        rgba(110,80,255,.12);
+    filter:
+        drop-shadow(
+            0 0 18px
+            rgba(180,90,255,.8)
+        );
+
+    transition:
+        opacity .4s ease,
+        transform .4s ease;
+}
+
+
+/* =====================================================
+   СТЕКЛЯННЫЙ БЛИК
+===================================================== */
+
+.glass-shine{
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:50%;
+
+    pointer-events:none;
+
+    z-index:15;
+
+    background:
+
+        radial-gradient(
+            circle at 32% 23%,
+            rgba(255,255,255,.12),
+            transparent 24%
+        );
+
 }
 
 
@@ -292,21 +392,10 @@ body{
 
     position:absolute;
 
-    right:5.2%;
-    bottom:8%;
-
-    width:
-        clamp(
-            150px,
-            22vw,
-            330px
-        );
-
-    aspect-ratio:1 / 1;
-
-    z-index:40;
+    z-index:30;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 }
@@ -329,8 +418,8 @@ body{
     filter:
 
         drop-shadow(
-            0 12px 14px
-            rgba(0,0,0,.55)
+            0 10px 13px
+            rgba(0,0,0,.48)
         );
 
     will-change:
@@ -353,39 +442,40 @@ body{
     position:absolute;
 
     left:50%;
-    top:3.5%;
+    top:4%;
 
     transform:
         translateX(-50%);
 
     z-index:50;
 
-    color:white;
+    color:#fff;
 
     font-size:
         clamp(
-            20px,
-            2.4vw,
-            36px
+            21px,
+            2.3vw,
+            35px
         );
 
     font-weight:700;
 
-    text-align:center;
+    white-space:nowrap;
 
     text-shadow:
-        0 3px 10px
+
+        0 3px 7px
         rgba(0,0,0,.9);
 
-    transition:
-        opacity .35s ease;
-
     pointer-events:none;
+
+    transition:
+        opacity .3s ease;
 }
 
 
 /* =====================================================
-   КНОПКА ДАЛЬШЕ
+   ДАЛЬШЕ
 ===================================================== */
 
 .next{
@@ -401,13 +491,21 @@ body{
 
     z-index:60;
 
-    border:none;
-
-    border-radius:
-        24px;
-
     padding:
-        15px 35px;
+        14px 34px;
+
+    border:0;
+
+    border-radius:23px;
+
+    background:
+
+        linear-gradient(
+            #fff6c6,
+            #ffd86a
+        );
+
+    color:#54346f;
 
     font-size:
         clamp(
@@ -418,23 +516,13 @@ body{
 
     font-weight:800;
 
-    color:#3b245d;
-
-    background:
-
-        linear-gradient(
-            180deg,
-            #fff7cb,
-            #ffd56b
-        );
-
     box-shadow:
 
-        0 7px 0
-        #ad6b20,
+        0 6px 0
+        #a96924,
 
-        0 13px 25px
-        rgba(0,0,0,.4);
+        0 10px 20px
+        rgba(0,0,0,.35);
 
     cursor:pointer;
 
@@ -460,52 +548,6 @@ body{
 }
 
 
-.next:active{
-
-    transform:
-        translateX(-50%)
-        translateY(4px)
-        scale(.97);
-
-    box-shadow:
-
-        0 3px 0
-        #ad6b20;
-}
-
-
-/* =====================================================
-   МОБИЛЬНЫЙ ЭКРАН
-===================================================== */
-
-@media(max-width:700px){
-
-    .portal{
-
-        left:7%;
-        top:16%;
-
-        width:71%;
-    }
-
-
-    .wheel-wrap{
-
-        right:1%;
-
-        bottom:5%;
-
-        width:38vw;
-    }
-
-
-    .hint{
-
-        width:90%;
-    }
-
-}
-
 </style>
 
 </head>
@@ -514,12 +556,24 @@ body{
 <body>
 
 
-<div class="game">
+<div
+    class="game"
+    id="game"
+>
 
 
-    <!-- ===============================================
-         ПОДСКАЗКА
-    ================================================ -->
+    <!-- ФОН -->
+
+    <img
+        src="fon.png"
+        class="background"
+        id="background"
+        alt=""
+    >
+
+
+
+    <!-- ПОДСКАЗКА -->
 
     <div
         class="hint"
@@ -530,9 +584,7 @@ body{
 
 
 
-    <!-- ===============================================
-         ВНУТРЕННОСТЬ КАЛЕЙДОСКОПА
-    ================================================ -->
+    <!-- ВНУТРЕННОСТЬ НАРИСОВАННОЙ ЛИНЗЫ -->
 
     <div
         class="portal"
@@ -540,7 +592,7 @@ body{
     >
 
 
-        <!-- спрятанная картинка -->
+        <!-- СПРЯТАННАЯ КАРТИНКА -->
 
         <div
             class="hidden-picture"
@@ -558,19 +610,24 @@ body{
 
 
 
-        <!-- движущиеся стеклышки -->
+        <!-- УЗОР КАЛЕЙДОСКОПА -->
 
         <div
             class="kaleidoscope"
             id="kaleidoscope"
-        ></div>
+        >
+
+            <div
+                class="center-star"
+                id="centerStar"
+            ></div>
+
+        </div>
 
 
-
-        <!-- стеклянный блик -->
 
         <div
-            class="portal-glass"
+            class="glass-shine"
         ></div>
 
 
@@ -578,29 +635,26 @@ body{
 
 
 
-    <!-- ===============================================
-         КОЛЕСО
-    ================================================ -->
+    <!-- КОЛЕСО -->
 
     <div
         class="wheel-wrap"
+        id="wheelWrap"
     >
 
         <img
             src="wheel.png"
             class="wheel"
             id="wheel"
-            alt=""
             draggable="false"
+            alt=""
         >
 
     </div>
 
 
 
-    <!-- ===============================================
-         ДАЛЬШЕ
-    ================================================ -->
+    <!-- ДАЛЬШЕ -->
 
     <button
         class="next"
@@ -618,10 +672,6 @@ body{
 
 /* =====================================================
    РАУНДЫ
-
-   Пока стоят эмодзи.
-   Когда подготовим картинки,
-   просто заменим emoji на image.
 ===================================================== */
 
 const rounds = [
@@ -656,15 +706,39 @@ let roundIndex = 0;
    ЭЛЕМЕНТЫ
 ===================================================== */
 
-const wheel =
+const game =
     document.getElementById(
-        "wheel"
+        "game"
+    );
+
+
+const background =
+    document.getElementById(
+        "background"
+    );
+
+
+const portal =
+    document.getElementById(
+        "portal"
     );
 
 
 const kaleidoscope =
     document.getElementById(
         "kaleidoscope"
+    );
+
+
+const wheelWrap =
+    document.getElementById(
+        "wheelWrap"
+    );
+
+
+const wheel =
+    document.getElementById(
+        "wheel"
     );
 
 
@@ -677,6 +751,12 @@ const hiddenPicture =
 const picture =
     document.getElementById(
         "picture"
+    );
+
+
+const centerStar =
+    document.getElementById(
+        "centerStar"
     );
 
 
@@ -694,225 +774,547 @@ const next =
 
 
 /* =====================================================
-   ЦВЕТА СТЁКЛЫШЕК
+   КООРДИНАТЫ НА ИСХОДНОМ FON.PNG
+
+   Наша картинка:
+   1536 × 1024
+
+   Мы указываем место внутренней тёмной линзы
+   непосредственно на исходной картинке.
 ===================================================== */
 
-const colors = [
+const DESIGN_WIDTH =
+    1536;
 
-    ["#ff45b5","#a943ff"],
 
-    ["#42dfff","#3768ff"],
+const DESIGN_HEIGHT =
+    1024;
 
-    ["#52ffd1","#00b99a"],
 
-    ["#ffd04a","#ff6a3d"],
+/*
+   внутренняя линза
+*/
 
-    ["#944fff","#ef5cff"],
+const PORTAL_X =
+    337;
 
-    ["#36b6ff","#7a5cff"]
+
+const PORTAL_Y =
+    105;
+
+
+const PORTAL_SIZE =
+    660;
+
+
+/*
+   колесо
+
+   это координаты отдельного wheel.png
+   поверх фона
+*/
+
+const WHEEL_X =
+    1065;
+
+
+const WHEEL_Y =
+    490;
+
+
+const WHEEL_SIZE =
+    280;
+
+
+
+/* =====================================================
+   ТОЧНОЕ ПОЗИЦИОНИРОВАНИЕ ПРИ OBJECT-FIT:COVER
+
+   Поэтому элементы не съезжают
+   на широком экране.
+===================================================== */
+
+function positionElements(){
+
+    const screenW =
+        game.clientWidth;
+
+
+    const screenH =
+        game.clientHeight;
+
+
+    /*
+    object-fit:cover
+    */
+
+    const scale =
+        Math.max(
+
+            screenW /
+            DESIGN_WIDTH,
+
+            screenH /
+            DESIGN_HEIGHT
+
+        );
+
+
+    const renderedW =
+        DESIGN_WIDTH *
+        scale;
+
+
+    const renderedH =
+        DESIGN_HEIGHT *
+        scale;
+
+
+    /*
+    фон обрезается одинаково
+    с двух сторон
+    */
+
+    const cropX =
+        (
+            screenW -
+            renderedW
+        ) / 2;
+
+
+    const cropY =
+        (
+            screenH -
+            renderedH
+        ) / 2;
+
+
+
+    /* -----------------------------
+       ЛИНЗА
+    ----------------------------- */
+
+    portal.style.left =
+        (
+            PORTAL_X *
+            scale +
+            cropX
+        ) + "px";
+
+
+    portal.style.top =
+        (
+            PORTAL_Y *
+            scale +
+            cropY
+        ) + "px";
+
+
+    portal.style.width =
+        (
+            PORTAL_SIZE *
+            scale
+        ) + "px";
+
+
+    portal.style.height =
+        (
+            PORTAL_SIZE *
+            scale
+        ) + "px";
+
+
+
+    /* -----------------------------
+       КОЛЕСО
+    ----------------------------- */
+
+    wheelWrap.style.left =
+        (
+            WHEEL_X *
+            scale +
+            cropX
+        ) + "px";
+
+
+    wheelWrap.style.top =
+        (
+            WHEEL_Y *
+            scale +
+            cropY
+        ) + "px";
+
+
+    wheelWrap.style.width =
+        (
+            WHEEL_SIZE *
+            scale
+        ) + "px";
+
+
+    wheelWrap.style.height =
+        (
+            WHEEL_SIZE *
+            scale
+        ) + "px";
+
+}
+
+
+/* =====================================================
+   ЦВЕТА КАМУШКОВ
+===================================================== */
+
+const gemColors = [
+
+    ["#ff43c4","#7d31ff"],
+
+    ["#28d9ff","#375cff"],
+
+    ["#26ffd1","#008f94"],
+
+    ["#ffe05d","#ff793d"],
+
+    ["#ff6fcf","#ae35ff"],
+
+    ["#42d7ff","#00a6ff"],
+
+    ["#a964ff","#5e39d8"],
+
+    ["#77ff8a","#16b27e"]
 
 ];
 
 
 
+let gems = [];
+
+
 /* =====================================================
-   СОЗДАНИЕ УЗОРА
+   СОЗДАЁМ КРАСИВЫЙ СИММЕТРИЧНЫЙ УЗОР
+
+   Не случайная куча.
+   Несколько колец камней.
 ===================================================== */
 
-const pieceCount = 30;
+function createGems(){
 
-let pieces = [];
+    /*
+    удаляем старые камушки
+    */
 
-
-function createKaleidoscope(){
-
-    kaleidoscope.innerHTML = "";
-
-    pieces = [];
-
-
-    for(
-        let i = 0;
-        i < pieceCount;
-        i++
-    ){
-
-        const piece =
-            document.createElement(
-                "div"
-            );
-
-
-        piece.className =
-            "piece";
-
-
-        const angle =
-            (
-                360 /
-                pieceCount
-            ) * i;
-
-
-        const radius =
-            12 +
-            (
-                i % 5
-            ) * 17;
-
-
-        const pair =
-            colors[
-                i %
-                colors.length
-            ];
-
-
-        piece.style.background = `
-
-            linear-gradient(
-                ${
-                    angle + 45
-                }deg,
-
-                ${pair[0]},
-
-                ${pair[1]}
-            )
-
-        `;
-
-
-        piece.dataset.angle =
-            angle;
-
-
-        piece.dataset.radius =
-            radius;
-
-
-        piece.dataset.scale =
-            (
-                .72 +
-                (
-                    i % 4
-                ) * .09
-            );
-
-
-        kaleidoscope.appendChild(
-            piece
+    kaleidoscope
+        .querySelectorAll(
+            ".gem"
+        )
+        .forEach(
+            element =>
+                element.remove()
         );
 
 
-        pieces.push(
-            piece
-        );
-
-    }
+    gems = [];
 
 
-    updatePieces(0);
+    /*
+    Кольца:
+    количество камушков,
+    радиус,
+    размер
+    */
+
+    const rings = [
+
+        {
+            count:8,
+            radius:18,
+            scale:.78
+        },
+
+        {
+            count:12,
+            radius:31,
+            scale:.9
+        },
+
+        {
+            count:16,
+            radius:43,
+            scale:.75
+        }
+
+    ];
+
+
+    rings.forEach(
+        (
+            ring,
+            ringIndex
+        ) => {
+
+
+            for(
+                let i = 0;
+                i < ring.count;
+                i++
+            ){
+
+                const gem =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                gem.className =
+                    "gem";
+
+
+                const shape =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                shape.className =
+                    "gem-shape";
+
+
+                const colors =
+                    gemColors[
+                        (
+                            i +
+                            ringIndex * 2
+                        )
+                        %
+                        gemColors.length
+                    ];
+
+
+                shape.style.background = `
+
+                    linear-gradient(
+                        ${
+                            40 +
+                            i * 23
+                        }deg,
+
+                        ${colors[0]},
+
+                        ${colors[1]}
+                    )
+
+                `;
+
+
+                gem.appendChild(
+                    shape
+                );
+
+
+                const angle =
+
+                    (
+                        360 /
+                        ring.count
+                    )
+
+                    * i
+
+                    +
+
+                    ringIndex * 10;
+
+
+
+                gem.dataset.angle =
+                    angle;
+
+
+                gem.dataset.radius =
+                    ring.radius;
+
+
+                gem.dataset.baseScale =
+                    ring.scale;
+
+
+                gem.dataset.ring =
+                    ringIndex;
+
+
+                kaleidoscope.appendChild(
+                    gem
+                );
+
+
+                gems.push(
+                    gem
+                );
+
+            }
+
+        }
+
+    );
+
+
+    updateGems(0);
 
 }
 
 
 
 /* =====================================================
-   АНИМАЦИЯ КАМУШКОВ
+   ОБНОВЛЕНИЕ КАМУШКОВ
 
    progress:
-   0 = закрыто
-   1 = полностью открыто
+   0 = узор закрывает центр
+   1 = камни разошлись
 ===================================================== */
 
-function updatePieces(progress){
+function updateGems(progress){
 
-    pieces.forEach(
+    gems.forEach(
         (
-            piece,
-            i
+            gem,
+            index
         ) => {
+
 
             const angle =
                 Number(
-                    piece.dataset.angle
+                    gem.dataset.angle
                 );
 
 
             const radius =
                 Number(
-                    piece.dataset.radius
+                    gem.dataset.radius
                 );
 
 
-            const scale =
+            const baseScale =
                 Number(
-                    piece.dataset.scale
+                    gem.dataset.baseScale
+                );
+
+
+            const ring =
+                Number(
+                    gem.dataset.ring
                 );
 
 
             /*
-            При вращении кусочки
-            постепенно уходят
-            от центра.
+            В начале расположены
+            красивыми кольцами.
             */
 
-            const spread =
-                radius +
-                progress *
+            const startDistance =
+                radius;
+
+
+            /*
+            Потом расходятся
+            к краям линзы.
+            */
+
+            const finishDistance =
+
+                68
+
+                +
+
+                ring * 11;
+
+
+            const distance =
+
+                startDistance
+
+                +
+
                 (
-                    190 +
-                    (
-                        i % 6
-                    ) * 13
+                    finishDistance -
+                    startDistance
+                )
+
+                * progress;
+
+
+
+            /*
+            Дополнительное вращение
+            */
+
+            const extraRotation =
+
+                progress
+
+                *
+
+                (
+                    ring % 2 === 0
+                        ? 120
+                        : -120
                 );
 
 
             /*
-            Часть элементов
-            вращаем в другую сторону,
-            чтобы узор был живее.
+            Переводим процент радиуса
+            в CSS.
             */
 
-            const direction =
-                i % 2 === 0
-                ? 1
-                : -1;
+            const rad =
+                (
+                    angle +
+                    extraRotation
+                )
+
+                *
+                Math.PI /
+                180;
 
 
-            const localSpin =
-                progress *
-                260 *
-                direction;
+            const x =
+                Math.cos(rad)
+                *
+                distance;
 
 
-            piece.style.transform = `
+            const y =
+                Math.sin(rad)
+                *
+                distance;
+
+
+
+            gem.style.transform = `
+
+                translate(
+                    -50%,
+                    -50%
+                )
+
+                translate(
+                    ${x}%,
+                    ${y}%
+                )
 
                 rotate(
                     ${
                         angle +
-                        localSpin
-                    }deg
-                )
-
-                translate(
-                    ${spread}px
-                )
-
-                rotate(
-                    ${
-                        -angle +
-                        localSpin * .35
+                        extraRotation +
+                        90
                     }deg
                 )
 
                 scale(
                     ${
-                        scale *
+                        baseScale *
                         (
                             1 -
-                            progress * .18
+                            progress * .25
                         )
                     }
                 )
@@ -920,16 +1322,80 @@ function updatePieces(progress){
             `;
 
 
-            piece.style.opacity =
+
+            /*
+            Камни не исчезают сразу.
+
+            Сначала расходятся,
+            затем становятся прозрачными.
+            */
+
+            let opacity = 1;
+
+
+            if(
+                progress >
+                .56
+            ){
+
+                opacity =
+                    1 -
+
+                    (
+                        progress -
+                        .56
+                    )
+
+                    /
+                    .44;
+
+            }
+
+
+            gem.style.opacity =
                 Math.max(
                     0,
-                    1 -
-                    progress *
-                    1.06
+                    opacity
                 );
 
         }
+
     );
+
+
+
+    /*
+    центральная звезда
+    */
+
+    centerStar.style.opacity =
+
+        Math.max(
+            0,
+            1 -
+            progress * 1.45
+        );
+
+
+    centerStar.style.transform = `
+
+        translate(
+            -50%,
+            -50%
+        )
+
+        rotate(
+            ${progress * 250}deg
+        )
+
+        scale(
+            ${
+                1 +
+                progress * .4
+            }
+        )
+
+    `;
 
 }
 
@@ -939,27 +1405,36 @@ function updatePieces(progress){
    ВРАЩЕНИЕ КОЛЕСА
 ===================================================== */
 
-let dragging = false;
+let dragging =
+    false;
 
-let previousPointerAngle = 0;
 
-let wheelRotation = 0;
+let previousAngle =
+    0;
 
-let totalRotation = 0;
 
-let finished = false;
+let wheelRotation =
+    0;
+
+
+let accumulatedRotation =
+    0;
+
+
+let finished =
+    false;
 
 
 /*
-Около 1.25 оборота.
+1.25 оборота
 */
 
-const requiredRotation =
-    360 * 1.25;
+const REQUIRED_ROTATION =
+    450;
 
 
 
-function getPointerAngle(event){
+function pointerAngle(event){
 
     const rect =
         wheel.getBoundingClientRect();
@@ -975,33 +1450,32 @@ function getPointerAngle(event){
         rect.height / 2;
 
 
-    return (
-        Math.atan2(
+    return Math.atan2(
 
-            event.clientY -
-            centerY,
+        event.clientY -
+        centerY,
 
-            event.clientX -
-            centerX
+        event.clientX -
+        centerX
 
-        )
+    )
 
-        *
+    *
 
-        180 /
-        Math.PI
-    );
+    180 /
+    Math.PI;
 
 }
 
 
 
 /* =====================================================
-   НАЧАЛО ВРАЩЕНИЯ
+   НАЧАЛИ КРУТИТЬ
 ===================================================== */
 
 wheel.addEventListener(
     "pointerdown",
+
     event => {
 
         if(finished){
@@ -1009,7 +1483,8 @@ wheel.addEventListener(
         }
 
 
-        dragging = true;
+        dragging =
+            true;
 
 
         wheel.classList.add(
@@ -1017,8 +1492,8 @@ wheel.addEventListener(
         );
 
 
-        previousPointerAngle =
-            getPointerAngle(
+        previousAngle =
+            pointerAngle(
                 event
             );
 
@@ -1029,7 +1504,7 @@ wheel.addEventListener(
 
 
         hint.style.opacity =
-            ".35";
+            ".3";
 
     }
 );
@@ -1037,11 +1512,12 @@ wheel.addEventListener(
 
 
 /* =====================================================
-   ВРАЩЕНИЕ
+   КРУТИМ
 ===================================================== */
 
 wheel.addEventListener(
     "pointermove",
+
     event => {
 
         if(
@@ -1053,19 +1529,18 @@ wheel.addEventListener(
 
 
         const currentAngle =
-            getPointerAngle(
+            pointerAngle(
                 event
             );
 
 
         let delta =
             currentAngle -
-            previousPointerAngle;
+            previousAngle;
 
 
         /*
-        Исправление перехода
-        через -180 / +180.
+        переход через 180°
         */
 
         if(delta > 180){
@@ -1082,7 +1557,7 @@ wheel.addEventListener(
         }
 
 
-        previousPointerAngle =
+        previousAngle =
             currentAngle;
 
 
@@ -1090,14 +1565,14 @@ wheel.addEventListener(
             delta;
 
 
-        totalRotation +=
+        accumulatedRotation +=
             Math.abs(
                 delta
             );
 
 
         /*
-        Само колесо
+        крутим настоящее колесо
         */
 
         wheel.style.transform = `
@@ -1109,9 +1584,10 @@ wheel.addEventListener(
         `;
 
 
+
         /*
-        Калейдоскоп вращается
-        одновременно.
+        узор тоже двигается,
+        но немного медленнее
         */
 
         kaleidoscope.style.transform = `
@@ -1119,29 +1595,32 @@ wheel.addEventListener(
             rotate(
                 ${
                     wheelRotation *
-                    .72
+                    .42
                 }deg
             )
 
         `;
 
 
+
         const progress =
             Math.min(
 
-                totalRotation /
-                requiredRotation,
+                accumulatedRotation /
+                REQUIRED_ROTATION,
 
                 1
             );
 
 
-        updatePieces(
+        updateGems(
             progress
         );
 
 
-        if(progress >= 1){
+        if(
+            progress >= 1
+        ){
 
             revealPicture();
 
@@ -1152,13 +1631,10 @@ wheel.addEventListener(
 
 
 
-/* =====================================================
-   КОНЕЦ ВРАЩЕНИЯ
-===================================================== */
+function stopDrag(){
 
-function stopDragging(){
-
-    dragging = false;
+    dragging =
+        false;
 
 
     wheel.classList.remove(
@@ -1170,19 +1646,19 @@ function stopDragging(){
 
 wheel.addEventListener(
     "pointerup",
-    stopDragging
+    stopDrag
 );
 
 
 wheel.addEventListener(
     "pointercancel",
-    stopDragging
+    stopDrag
 );
 
 
 
 /* =====================================================
-   ПОЯВЛЕНИЕ КАРТИНКИ
+   ОТКРЫВАЕМ КАРТИНКУ
 ===================================================== */
 
 function revealPicture(){
@@ -1192,7 +1668,8 @@ function revealPicture(){
     }
 
 
-    finished = true;
+    finished =
+        true;
 
 
     hiddenPicture.classList.add(
@@ -1217,7 +1694,7 @@ function revealPicture(){
 
         },
 
-        650
+        600
     );
 
 }
@@ -1225,7 +1702,7 @@ function revealPicture(){
 
 
 /* =====================================================
-   ЗАГРУЗКА РАУНДА
+   НОВЫЙ РАУНД
 ===================================================== */
 
 function loadRound(){
@@ -1258,13 +1735,20 @@ function loadRound(){
         "1";
 
 
-    dragging = false;
+    dragging =
+        false;
 
-    finished = false;
 
-    totalRotation = 0;
+    finished =
+        false;
 
-    wheelRotation = 0;
+
+    accumulatedRotation =
+        0;
+
+
+    wheelRotation =
+        0;
 
 
     wheel.style.transform =
@@ -1275,7 +1759,7 @@ function loadRound(){
         "rotate(0deg)";
 
 
-    createKaleidoscope();
+    createGems();
 
 }
 
@@ -1287,6 +1771,7 @@ function loadRound(){
 
 next.addEventListener(
     "click",
+
     () => {
 
         roundIndex++;
@@ -1297,7 +1782,8 @@ next.addEventListener(
             rounds.length
         ){
 
-            roundIndex = 0;
+            roundIndex =
+                0;
 
         }
 
@@ -1313,7 +1799,38 @@ next.addEventListener(
    СТАРТ
 ===================================================== */
 
-loadRound();
+background.addEventListener(
+    "load",
+
+    () => {
+
+        positionElements();
+
+        loadRound();
+
+    }
+);
+
+
+window.addEventListener(
+    "resize",
+    positionElements
+);
+
+
+/*
+если изображение уже в кеше
+*/
+
+if(
+    background.complete
+){
+
+    positionElements();
+
+    loadRound();
+
+}
 
 </script>
 
