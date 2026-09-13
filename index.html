@@ -33,10 +33,14 @@ html,
 body{
     width:100%;
     height:100%;
+
     overflow:hidden;
+
     background:#070512;
+
     user-select:none;
     -webkit-user-select:none;
+
     touch-action:none;
 
     font-family:
@@ -44,29 +48,55 @@ body{
         serif;
 }
 
+
+/* =====================================================
+   ОСНОВА
+===================================================== */
+
 .game{
     position:relative;
+
     width:100vw;
     height:100vh;
+
     overflow:hidden;
 }
+
+
+/* =====================================================
+   ФОН
+===================================================== */
 
 .background{
     position:absolute;
+
     inset:0;
+
     width:100%;
     height:100%;
+
     object-fit:cover;
     object-position:center;
+
     z-index:1;
+
     pointer-events:none;
 }
 
+
+/* =====================================================
+   БОЛЬШОЙ КРУГ
+===================================================== */
+
 .portal{
     position:absolute;
+
     border-radius:50%;
+
     overflow:hidden;
+
     z-index:5;
+
     pointer-events:none;
 }
 
@@ -77,6 +107,7 @@ body{
 
 .hidden-picture{
     position:absolute;
+
     left:50%;
     top:50%;
 
@@ -84,6 +115,7 @@ body{
     height:56%;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
@@ -92,6 +124,7 @@ body{
         scale(.62);
 
     opacity:0;
+
     background:transparent;
 
     z-index:8;
@@ -101,8 +134,10 @@ body{
         transform .65s cubic-bezier(.2,.9,.3,1.15);
 }
 
+
 .round-image{
     position:relative;
+
     z-index:3;
 
     width:100%;
@@ -162,10 +197,15 @@ body{
     filter:blur(16px);
 }
 
+
 .picture-glow.active{
     animation:
-        glowPulse 8s ease-in-out infinite;
+        glowPulse
+        8s
+        ease-in-out
+        infinite;
 }
+
 
 @keyframes glowPulse{
 
@@ -206,6 +246,7 @@ body{
     top:50%;
 
     width:12%;
+
     aspect-ratio:1;
 
     transform:
@@ -254,6 +295,7 @@ body{
     z-index:18;
 }
 
+
 .spark{
     position:absolute;
 
@@ -272,8 +314,12 @@ body{
     opacity:0;
 
     animation:
-        sparklePop .95s ease-out forwards;
+        sparklePop
+        .95s
+        ease-out
+        forwards;
 }
+
 
 .spark.star{
     border-radius:0;
@@ -291,10 +337,12 @@ body{
         );
 }
 
+
 @keyframes sparklePop{
 
     0%{
         opacity:0;
+
         transform:
             scale(.1)
             rotate(0deg);
@@ -302,6 +350,7 @@ body{
 
     25%{
         opacity:1;
+
         transform:
             scale(1.2)
             rotate(25deg);
@@ -309,6 +358,7 @@ body{
 
     65%{
         opacity:.8;
+
         transform:
             scale(.8)
             rotate(50deg);
@@ -316,6 +366,7 @@ body{
 
     100%{
         opacity:0;
+
         transform:
             scale(.1)
             translateY(-10px)
@@ -330,6 +381,7 @@ body{
 
 .kaleidoscope{
     position:absolute;
+
     inset:0;
 
     z-index:5;
@@ -339,6 +391,11 @@ body{
 
     will-change:transform;
 }
+
+
+/* =====================================================
+   КАМНИ
+===================================================== */
 
 .gem-wrap{
     position:absolute;
@@ -354,6 +411,7 @@ body{
     transform-origin:
         50% 50%;
 }
+
 
 .gem{
     position:absolute;
@@ -371,6 +429,7 @@ body{
 
     pointer-events:none;
 }
+
 
 .gem-shine{
     position:absolute;
@@ -407,6 +466,7 @@ body{
 
 .glass-shine{
     position:absolute;
+
     inset:0;
 
     z-index:20;
@@ -439,9 +499,11 @@ body{
     z-index:30;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 }
+
 
 .wheel{
     width:100%;
@@ -465,36 +527,23 @@ body{
     will-change:transform;
 }
 
+
 .wheel.dragging{
     cursor:grabbing;
 }
 
 
 /* =====================================================
-   НАДПИСЬ ПО ПРАВОЙ ДУГЕ КОЛЕСА
+   ПОКРУТИ КОЛЕСО — РОВНАЯ НАДПИСЬ
 ===================================================== */
 
 .wheel-hint{
     position:absolute;
 
+    right:7%;
+    bottom:7%;
+
     z-index:45;
-
-    pointer-events:none;
-
-    overflow:visible;
-
-    opacity:1;
-
-    transition:
-        opacity .5s ease;
-}
-
-.wheel-hint.hidden{
-    opacity:0;
-}
-
-.wheel-hint text{
-    fill:#fff8e5;
 
     font-family:
         "Cormorant SC",
@@ -502,27 +551,34 @@ body{
 
     font-weight:700;
 
-    font-size:28px;
-
-    letter-spacing:1.1px;
-
-    paint-order:
-        stroke fill;
-
-    stroke:
-        rgba(40,16,74,.75);
-
-    stroke-width:3px;
-
-    filter:
-        drop-shadow(
-            0 2px 4px
-            rgba(0,0,0,.75)
-        )
-        drop-shadow(
-            0 0 5px
-            rgba(184,116,255,.45)
+    font-size:
+        clamp(
+            25px,
+            2.2vw,
+            36px
         );
+
+    letter-spacing:1.2px;
+
+    color:#fff8e5;
+
+    white-space:nowrap;
+
+    pointer-events:none;
+
+    text-shadow:
+        0 2px 4px rgba(0,0,0,.8),
+        0 0 7px rgba(184,116,255,.5);
+
+    opacity:1;
+
+    transition:
+        opacity .5s ease;
+}
+
+
+.wheel-hint.hidden{
+    opacity:0;
 }
 
 
@@ -533,7 +589,9 @@ body{
 .next{
     position:absolute;
 
-    left:84%;
+    /* БЫЛО 84% — ЧУТЬ СДВИНУЛИ ВПРАВО */
+    left:85.5%;
+
     top:32%;
 
     width:
@@ -563,7 +621,8 @@ body{
 
     background:
         url("ramka.png")
-        center / contain
+        center /
+        contain
         no-repeat;
 
     color:#fff6da;
@@ -603,6 +662,7 @@ body{
     appearance:none;
 }
 
+
 .next.visible{
     opacity:1;
 
@@ -612,6 +672,7 @@ body{
         translate(-50%,-50%)
         scale(1);
 }
+
 
 .next:hover{
     transform:
@@ -626,10 +687,14 @@ body{
 
 <body>
 
+
 <div
     class="game"
     id="game"
 >
+
+
+    <!-- ФОН -->
 
     <img
         src="fon.png"
@@ -639,10 +704,13 @@ body{
     >
 
 
+    <!-- КАЛЕЙДОСКОП -->
+
     <div
         class="portal"
         id="portal"
     >
+
 
         <div
             class="picture-glow"
@@ -688,46 +756,20 @@ body{
             class="glass-shine"
         ></div>
 
+
     </div>
 
 
     <!-- =================================================
-         НАДПИСЬ СПРАВА ОТ КОЛЕСА
+         РОВНАЯ НАДПИСЬ
     ================================================== -->
 
-    <svg
+    <div
         class="wheel-hint"
         id="wheelHint"
-        viewBox="0 0 260 330"
     >
-
-        <defs>
-
-            <path
-                id="hintCurve"
-                d="
-                    M 70 38
-                    C 205 65,
-                      220 185,
-                      145 292
-                "
-            />
-
-        </defs>
-
-
-        <text>
-
-            <textPath
-                href="#hintCurve"
-                startOffset="5%"
-            >
-                Покрути колесо
-            </textPath>
-
-        </text>
-
-    </svg>
+        Покрути колесо
+    </div>
 
 
     <!-- КОЛЕСО -->
@@ -748,7 +790,7 @@ body{
     </div>
 
 
-    <!-- КНОПКА -->
+    <!-- ДАЛЬШЕ -->
 
     <button
         class="next"
@@ -767,7 +809,9 @@ body{
         loop
     ></audio>
 
+
 </div>
+
 
 
 <script>
@@ -834,65 +878,78 @@ const game =
         "game"
     );
 
+
 const background =
     document.getElementById(
         "background"
     );
+
 
 const portal =
     document.getElementById(
         "portal"
     );
 
+
 const kaleidoscope =
     document.getElementById(
         "kaleidoscope"
     );
+
 
 const wheelWrap =
     document.getElementById(
         "wheelWrap"
     );
 
+
 const wheel =
     document.getElementById(
         "wheel"
     );
+
 
 const wheelHint =
     document.getElementById(
         "wheelHint"
     );
 
+
 const wheelMusic =
     document.getElementById(
         "wheelMusic"
     );
+
 
 const hiddenPicture =
     document.getElementById(
         "hiddenPicture"
     );
 
+
 const roundImage =
     document.getElementById(
         "roundImage"
     );
+
 
 const magicCenter =
     document.getElementById(
         "magicCenter"
     );
 
+
 const pictureGlow =
     document.getElementById(
         "pictureGlow"
     );
 
+
 const sparkles =
     document.getElementById(
         "sparkles"
     );
+
 
 const next =
     document.getElementById(
@@ -907,23 +964,30 @@ const next =
 const DESIGN_WIDTH =
     1536;
 
+
 const DESIGN_HEIGHT =
     1024;
+
 
 const PORTAL_X =
     325;
 
+
 const PORTAL_Y =
     133;
+
 
 const PORTAL_SIZE =
     660;
 
+
 const WHEEL_X =
     1065;
 
+
 const WHEEL_Y =
     490;
+
 
 const WHEEL_SIZE =
     280;
@@ -937,6 +1001,7 @@ function positionElements(){
 
     const screenW =
         game.clientWidth;
+
 
     const screenH =
         game.clientHeight;
@@ -952,6 +1017,7 @@ function positionElements(){
     const renderedW =
         DESIGN_WIDTH *
         scale;
+
 
     const renderedH =
         DESIGN_HEIGHT *
@@ -1027,44 +1093,6 @@ function positionElements(){
         scale +
         "px";
 
-
-    /* =================================================
-       НАДПИСЬ БЛИЖЕ К КОЛЕСУ
-    ================================================= */
-
-    wheelHint.style.left =
-        (
-            WHEEL_X +
-            20
-        )
-        *
-        scale +
-        cropX +
-        "px";
-
-
-    wheelHint.style.top =
-        (
-            WHEEL_Y -
-            105
-        )
-        *
-        scale +
-        cropY +
-        "px";
-
-
-    wheelHint.style.width =
-        260 *
-        scale +
-        "px";
-
-
-    wheelHint.style.height =
-        330 *
-        scale +
-        "px";
-
 }
 
 
@@ -1085,6 +1113,10 @@ const gemImages = [
 let gems =
     [];
 
+
+/* =====================================================
+   СОЗДАЁМ КАМНИ
+===================================================== */
 
 function createGems(){
 
@@ -1147,11 +1179,13 @@ function createGems(){
             ringIndex
         ) => {
 
+
             for(
                 let i = 0;
                 i < ring.count;
                 i++
             ){
+
 
                 const wrap =
                     document.createElement(
@@ -1276,8 +1310,11 @@ function createGems(){
 
 
                 globalIndex++;
+
             }
+
         }
+
     );
 
 
@@ -1285,6 +1322,7 @@ function createGems(){
         0,
         0
     );
+
 }
 
 
@@ -1388,9 +1426,15 @@ function createSparkles(){
         sparkles.appendChild(
             spark
         );
+
     }
+
 }
 
+
+/* =====================================================
+   МАГИЧЕСКИЙ ЭФФЕКТ
+===================================================== */
 
 let sparkleInterval =
     null;
@@ -1416,6 +1460,7 @@ function startMagicEffect(){
             createSparkles,
             1150
         );
+
 }
 
 
@@ -1437,6 +1482,7 @@ function stopMagicEffect(){
 
     sparkles.innerHTML =
         "";
+
 }
 
 
@@ -1468,6 +1514,7 @@ function startWheelMusic(){
         .catch(
             () => {}
         );
+
 }
 
 
@@ -1498,6 +1545,7 @@ function stopWheelMusic(){
         setInterval(
             () => {
 
+
                 currentStep++;
 
 
@@ -1522,6 +1570,7 @@ function stopWheelMusic(){
                     steps
                 ){
 
+
                     clearInterval(
                         fadeTimer
                     );
@@ -1543,7 +1592,9 @@ function stopWheelMusic(){
 
             duration /
             steps
+
         );
+
 }
 
 
@@ -1572,6 +1623,7 @@ function resetWheelMusic(){
 
     wheelMusic.volume =
         .42;
+
 }
 
 
@@ -1610,11 +1662,14 @@ function updateGems(
             index
         ) => {
 
+
             const wrap =
                 gem.wrap;
 
+
             const img =
                 gem.img;
+
 
             const shine =
                 gem.shine;
@@ -1655,22 +1710,22 @@ function updateGems(
 
 
             if(
-                ring ===
-                4
+                ring === 4
             ){
 
                 movementPower =
                     .65;
+
             }
 
 
             if(
-                ring ===
-                5
+                ring === 5
             ){
 
                 movementPower =
                     .4;
+
             }
 
 
@@ -1694,6 +1749,7 @@ function updateGems(
                 0
             ){
 
+
                 const pushStrength =
                     Math.max(
                         0,
@@ -1708,8 +1764,7 @@ function updateGems(
 
 
                 if(
-                    ring <=
-                    2
+                    ring <= 2
                 ){
 
                     currentRadius +=
@@ -1719,7 +1774,9 @@ function updateGems(
                             ring *
                             .8
                         );
+
                 }
+
             }
 
 
@@ -1735,31 +1792,29 @@ function updateGems(
 
 
             if(
-                ring ===
-                4
+                ring === 4
             ){
 
                 angularPower =
                     2.8;
+
             }
 
 
             if(
-                ring ===
-                5
+                ring === 5
             ){
 
                 angularPower =
                     2;
+
             }
 
 
             const ringShift =
                 opening *
                 (
-                    ring %
-                    2 ===
-                    0
+                    ring % 2 === 0
                         ?
                         7
                         :
@@ -1818,9 +1873,7 @@ function updateGems(
 
 
             const personalDirection =
-                index %
-                2 ===
-                0
+                index % 2 === 0
                     ?
                     1
                     :
@@ -1858,8 +1911,7 @@ function updateGems(
 
 
             const centerShrink =
-                ring <=
-                2
+                ring <= 2
                     ?
                     1 -
                     opening *
@@ -1963,6 +2015,7 @@ function updateGems(
                     )
                     /
                     .12;
+
             }
 
 
@@ -1971,7 +2024,9 @@ function updateGems(
                     0,
                     opacity
                 );
+
         }
+
     );
 
 
@@ -1994,6 +2049,7 @@ function updateGems(
         progress >
         .72
     ){
+
 
         const pictureProgress =
             Math.min(
@@ -2029,11 +2085,14 @@ function updateGems(
         `;
 
     }
+
     else{
 
         hiddenPicture.style.opacity =
             0;
+
     }
+
 }
 
 
@@ -2101,6 +2160,7 @@ function pointerAngle(
     *
     180 /
     Math.PI;
+
 }
 
 
@@ -2113,11 +2173,13 @@ wheel.addEventListener(
 
     event => {
 
+
         if(
             finished
         ){
 
             return;
+
         }
 
 
@@ -2148,7 +2210,7 @@ wheel.addEventListener(
 
 
 /* =====================================================
-   ДВИЖЕНИЕ
+   ВРАЩЕНИЕ
 ===================================================== */
 
 wheel.addEventListener(
@@ -2156,12 +2218,14 @@ wheel.addEventListener(
 
     event => {
 
+
         if(
             !dragging ||
             finished
         ){
 
             return;
+
         }
 
 
@@ -2183,6 +2247,7 @@ wheel.addEventListener(
 
             delta -=
                 360;
+
         }
 
 
@@ -2193,6 +2258,7 @@ wheel.addEventListener(
 
             delta +=
                 360;
+
         }
 
 
@@ -2251,7 +2317,9 @@ wheel.addEventListener(
         ){
 
             revealPicture();
+
         }
+
     }
 );
 
@@ -2267,6 +2335,7 @@ function stopDragging(){
     ){
 
         return;
+
     }
 
 
@@ -2280,6 +2349,7 @@ function stopDragging(){
 
 
     stopWheelMusic();
+
 }
 
 
@@ -2306,6 +2376,7 @@ function revealPicture(){
     ){
 
         return;
+
     }
 
 
@@ -2360,6 +2431,7 @@ function revealPicture(){
 
         450
     );
+
 }
 
 
@@ -2437,6 +2509,7 @@ function loadRound(){
 
 
     createGems();
+
 }
 
 
@@ -2466,6 +2539,7 @@ next.addEventListener(
 
             roundIndex =
                 0;
+
         }
 
 
@@ -2509,6 +2583,7 @@ if(
     resetWheelMusic();
 
     loadRound();
+
 }
 
 </script>
