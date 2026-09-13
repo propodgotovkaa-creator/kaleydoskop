@@ -152,7 +152,34 @@ body{
 
 .picture-glow.active{
     animation:
-        glowPulse 2.2s ease-in-out infinite;
+        glowPulse 4.5s ease-in-out infinite;
+}
+
+@keyframes glowPulse{
+
+    0%{
+        transform:
+            translate(-50%,-50%)
+            scale(.96);
+
+        opacity:.72;
+    }
+
+    50%{
+        transform:
+            translate(-50%,-50%)
+            scale(1.04);
+
+        opacity:.95;
+    }
+
+    100%{
+        transform:
+            translate(-50%,-50%)
+            scale(.96);
+
+        opacity:.72;
+    }
 }
 
 @keyframes glowPulse{
