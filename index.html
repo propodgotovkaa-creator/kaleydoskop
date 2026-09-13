@@ -22,12 +22,9 @@ body{
     height:100%;
     overflow:hidden;
     background:#070512;
-
     user-select:none;
     -webkit-user-select:none;
-
     touch-action:none;
-
     font-family:Arial,sans-serif;
 }
 
@@ -41,26 +38,19 @@ body{
 .background{
     position:absolute;
     inset:0;
-
     width:100%;
     height:100%;
-
     object-fit:cover;
     object-position:center;
-
     z-index:1;
-
     pointer-events:none;
 }
 
 .portal{
     position:absolute;
-
     border-radius:50%;
     overflow:hidden;
-
     z-index:5;
-
     pointer-events:none;
 }
 
@@ -87,7 +77,6 @@ body{
         scale(.62);
 
     opacity:0;
-
     background:transparent;
 
     z-index:8;
@@ -136,7 +125,7 @@ body{
 
     transform:
         translate(-50%,-50%)
-        scale(.985);
+        scale(.99);
 
     border-radius:50%;
 
@@ -149,20 +138,19 @@ body{
     background:
         radial-gradient(
             circle,
-            rgba(255,255,255,.22) 0%,
-            rgba(202,150,255,.16) 30%,
-            rgba(103,112,255,.10) 50%,
-            rgba(100,60,180,.04) 66%,
+            rgba(255,255,255,.18) 0%,
+            rgba(202,150,255,.13) 30%,
+            rgba(103,112,255,.08) 50%,
+            rgba(100,60,180,.03) 66%,
             transparent 79%
         );
 
-    filter:
-        blur(15px);
+    filter:blur(16px);
 }
 
 .picture-glow.active{
     animation:
-        glowPulse 7s ease-in-out infinite;
+        glowPulse 8s ease-in-out infinite;
 }
 
 @keyframes glowPulse{
@@ -170,25 +158,25 @@ body{
     0%{
         transform:
             translate(-50%,-50%)
-            scale(.985);
+            scale(.99);
 
-        opacity:.62;
+        opacity:.58;
     }
 
     50%{
         transform:
             translate(-50%,-50%)
-            scale(1.015);
+            scale(1.012);
 
-        opacity:.78;
+        opacity:.73;
     }
 
     100%{
         transform:
             translate(-50%,-50%)
-            scale(.985);
+            scale(.99);
 
-        opacity:.62;
+        opacity:.58;
     }
 }
 
@@ -329,12 +317,8 @@ body{
 .kaleidoscope{
     position:absolute;
     inset:0;
-
     z-index:5;
-
-    transform-origin:
-        50% 50%;
-
+    transform-origin:50% 50%;
     will-change:transform;
 }
 
@@ -349,8 +333,7 @@ body{
     transform:
         translate(-50%,-50%);
 
-    transform-origin:
-        50% 50%;
+    transform-origin:50% 50%;
 
     will-change:
         left,
@@ -370,8 +353,7 @@ body{
 
     object-fit:contain;
 
-    transform-origin:
-        50% 50%;
+    transform-origin:50% 50%;
 
     pointer-events:none;
 
@@ -458,11 +440,9 @@ body{
     object-fit:contain;
 
     cursor:grab;
-
     touch-action:none;
 
-    transform-origin:
-        50% 50%;
+    transform-origin:50% 50%;
 
     filter:
         drop-shadow(
@@ -479,7 +459,7 @@ body{
 
 
 /* =====================================================
-   ТЕКСТ
+   ПОДСКАЗКА
 ===================================================== */
 
 .hint{
@@ -518,47 +498,64 @@ body{
 
 
 /* =====================================================
-   КНОПКА
+   НОВАЯ КНОПКА ДАЛЬШЕ
 ===================================================== */
 
 .next{
     position:absolute;
 
-    left:50%;
-    bottom:4%;
+    /*
+       Справа от калейдоскопа,
+       над колесом.
+    */
+
+    left:82%;
+    top:34%;
+
+    width:
+        clamp(
+            170px,
+            17vw,
+            270px
+        );
+
+    height:
+        clamp(
+            70px,
+            7vw,
+            108px
+        );
 
     transform:
-        translateX(-50%)
-        scale(.8);
+        translate(-50%,-50%)
+        scale(.82);
 
     z-index:60;
 
-    padding:
-        14px 34px;
-
     border:0;
-    border-radius:23px;
+
+    padding:
+        0 28px;
 
     background:
-        linear-gradient(
-            #fff5c5,
-            #ffd46a
-        );
+        url("ramka.png")
+        center / contain
+        no-repeat;
 
-    color:#55346e;
+    color:#fff;
 
     font-size:
         clamp(
-            19px,
-            2vw,
+            18px,
+            1.65vw,
             27px
         );
 
     font-weight:800;
 
-    box-shadow:
-        0 6px 0 #a96c25,
-        0 11px 20px rgba(0,0,0,.38);
+    text-shadow:
+        0 2px 4px rgba(0,0,0,.9),
+        0 0 8px rgba(190,140,255,.8);
 
     cursor:pointer;
 
@@ -566,8 +563,11 @@ body{
     pointer-events:none;
 
     transition:
-        opacity .35s ease,
-        transform .35s ease;
+        opacity .5s ease,
+        transform .5s cubic-bezier(.2,.8,.3,1.15);
+
+    box-shadow:none;
+    border-radius:0;
 }
 
 .next.visible{
@@ -575,13 +575,20 @@ body{
     pointer-events:auto;
 
     transform:
-        translateX(-50%)
+        translate(-50%,-50%)
         scale(1);
+}
+
+.next:hover{
+    transform:
+        translate(-50%,-50%)
+        scale(1.04);
 }
 
 </style>
 
 </head>
+
 
 <body>
 
@@ -594,12 +601,14 @@ body{
         alt=""
     >
 
+
     <div
         class="hint"
         id="hint"
     >
         Покрути волшебное колесо ✨
     </div>
+
 
     <div
         class="portal"
@@ -611,10 +620,12 @@ body{
             id="pictureGlow"
         ></div>
 
+
         <div
             class="hidden-picture"
             id="hiddenPicture"
         >
+
             <img
                 src=""
                 class="round-image"
@@ -622,22 +633,27 @@ body{
                 alt=""
                 draggable="false"
             >
+
         </div>
+
 
         <div
             class="magic-center"
             id="magicCenter"
         ></div>
 
+
         <div
             class="sparkles"
             id="sparkles"
         ></div>
 
+
         <div
             class="kaleidoscope"
             id="kaleidoscope"
         ></div>
+
 
         <div
             class="glass-shine"
@@ -645,10 +661,12 @@ body{
 
     </div>
 
+
     <div
         class="wheel-wrap"
         id="wheelWrap"
     >
+
         <img
             src="wheel.png"
             class="wheel"
@@ -656,14 +674,17 @@ body{
             draggable="false"
             alt=""
         >
+
     </div>
+
 
     <button
         class="next"
         id="next"
     >
-        Дальше →
+        Дальше
     </button>
+
 
     <audio
         id="wheelMusic"
@@ -678,7 +699,7 @@ body{
 <script>
 
 /* =====================================================
-   РАУНДЫ
+   10 РАУНДОВ
 ===================================================== */
 
 const rounds = [
@@ -693,9 +714,38 @@ const rounds = [
 
     {
         image:"raund-1/dhfj.png"
+    },
+
+    {
+        image:"raund-1/1AFAA32C-3BEC-4EC1-9EC9-E696460B9050.PNG"
+    },
+
+    {
+        image:"raund-1/42256A45-49C6-4D18-BF23-A170B5FC0324.PNG"
+    },
+
+    {
+        image:"raund-1/5D75953B-A4D9-495D-AB7C-13C861EAC3CE.PNG"
+    },
+
+    {
+        image:"raund-1/859A2E0A-7559-478D-9352-87BE981D42E5.PNG"
+    },
+
+    {
+        image:"raund-1/B2DB3E80-35DF-4068-B97F-CE47EECE187C.PNG"
+    },
+
+    {
+        image:"raund-1/B334EF3B-2C3D-4BF0-B4B1-B43D114B293E.PNG"
+    },
+
+    {
+        image:"raund-1/D813B8BE-9A92-4737-A1FF-D4938E490209.PNG"
     }
 
 ];
+
 
 let roundIndex =
     0;
@@ -706,46 +756,74 @@ let roundIndex =
 ===================================================== */
 
 const game =
-    document.getElementById("game");
+    document.getElementById(
+        "game"
+    );
 
 const background =
-    document.getElementById("background");
+    document.getElementById(
+        "background"
+    );
 
 const portal =
-    document.getElementById("portal");
+    document.getElementById(
+        "portal"
+    );
 
 const kaleidoscope =
-    document.getElementById("kaleidoscope");
+    document.getElementById(
+        "kaleidoscope"
+    );
 
 const wheelWrap =
-    document.getElementById("wheelWrap");
+    document.getElementById(
+        "wheelWrap"
+    );
 
 const wheel =
-    document.getElementById("wheel");
+    document.getElementById(
+        "wheel"
+    );
 
 const wheelMusic =
-    document.getElementById("wheelMusic");
+    document.getElementById(
+        "wheelMusic"
+    );
 
 const hiddenPicture =
-    document.getElementById("hiddenPicture");
+    document.getElementById(
+        "hiddenPicture"
+    );
 
 const roundImage =
-    document.getElementById("roundImage");
+    document.getElementById(
+        "roundImage"
+    );
 
 const magicCenter =
-    document.getElementById("magicCenter");
+    document.getElementById(
+        "magicCenter"
+    );
 
 const pictureGlow =
-    document.getElementById("pictureGlow");
+    document.getElementById(
+        "pictureGlow"
+    );
 
 const sparkles =
-    document.getElementById("sparkles");
+    document.getElementById(
+        "sparkles"
+    );
 
 const hint =
-    document.getElementById("hint");
+    document.getElementById(
+        "hint"
+    );
 
 const next =
-    document.getElementById("next");
+    document.getElementById(
+        "next"
+    );
 
 
 /* =====================================================
@@ -758,6 +836,7 @@ const DESIGN_WIDTH =
 const DESIGN_HEIGHT =
     1024;
 
+
 const PORTAL_X =
     325;
 
@@ -766,6 +845,7 @@ const PORTAL_Y =
 
 const PORTAL_SIZE =
     660;
+
 
 const WHEEL_X =
     1065;
@@ -792,8 +872,11 @@ function positionElements(){
 
     const scale =
         Math.max(
-            screenW / DESIGN_WIDTH,
-            screenH / DESIGN_HEIGHT
+            screenW /
+            DESIGN_WIDTH,
+
+            screenH /
+            DESIGN_HEIGHT
         );
 
 
@@ -896,6 +979,7 @@ function createGems(){
     kaleidoscope.innerHTML =
         "";
 
+
     gems =
         [];
 
@@ -951,16 +1035,19 @@ function createGems(){
             ringIndex
         ) => {
 
+
             for(
                 let i = 0;
                 i < ring.count;
                 i++
             ){
 
+
                 const wrap =
                     document.createElement(
                         "div"
                     );
+
 
                 wrap.className =
                     "gem-wrap";
@@ -974,8 +1061,10 @@ function createGems(){
 
                 const type =
                     (
-                        globalIndex % 4
-                    ) + 1;
+                        globalIndex %
+                        4
+                    )
+                    + 1;
 
 
                 img.src =
@@ -983,8 +1072,10 @@ function createGems(){
                         type - 1
                     ];
 
+
                 img.className =
                     "gem";
+
 
                 img.draggable =
                     false;
@@ -995,6 +1086,7 @@ function createGems(){
                         "div"
                     );
 
+
                 shine.className =
                     "gem-shine";
 
@@ -1003,9 +1095,11 @@ function createGems(){
                     img
                 );
 
+
                 wrap.appendChild(
                     shine
                 );
+
 
                 kaleidoscope.appendChild(
                     wrap
@@ -1048,16 +1142,20 @@ function createGems(){
                 wrap.dataset.angle =
                     angle;
 
+
                 wrap.dataset.radius =
                     ring.radius +
                     radiusVariation;
+
 
                 wrap.dataset.scale =
                     ring.size *
                     scaleVariation;
 
+
                 wrap.dataset.ring =
                     ringIndex;
+
 
                 wrap.dataset.phase =
                     globalIndex *
@@ -1065,17 +1163,17 @@ function createGems(){
 
 
                 gems.push({
+
                     wrap,
                     img,
                     shine
+
                 });
 
 
                 globalIndex++;
             }
-
         }
-
     );
 
 
@@ -1113,9 +1211,12 @@ function createSparkles(){
 
 
         spark.className =
-            Math.random() > .45
-                ? "spark star"
-                : "spark";
+            Math.random() >
+            .45
+                ?
+                "spark star"
+                :
+                "spark";
 
 
         const angle =
@@ -1134,7 +1235,8 @@ function createSparkles(){
             50 +
             Math.cos(
                 angle
-            ) *
+            )
+            *
             radius;
 
 
@@ -1142,7 +1244,8 @@ function createSparkles(){
             50 +
             Math.sin(
                 angle
-            ) *
+            )
+            *
             radius;
 
 
@@ -1153,19 +1256,23 @@ function createSparkles(){
 
 
         spark.style.left =
-            x + "%";
+            x +
+            "%";
 
 
         spark.style.top =
-            y + "%";
+            y +
+            "%";
 
 
         spark.style.width =
-            size + "px";
+            size +
+            "px";
 
 
         spark.style.height =
-            size + "px";
+            size +
+            "px";
 
 
         spark.style.animationDelay =
@@ -1337,10 +1444,6 @@ function stopWheelMusic(){
 }
 
 
-/* =====================================================
-   СБРОС МУЗЫКИ ДЛЯ НОВОГО РАУНДА
-===================================================== */
-
 function resetWheelMusic(){
 
     clearInterval(
@@ -1404,11 +1507,14 @@ function updateGems(
             index
         ) => {
 
+
             const wrap =
                 gem.wrap;
 
+
             const img =
                 gem.img;
+
 
             const shine =
                 gem.shine;
@@ -1451,16 +1557,20 @@ function updateGems(
             if(
                 ring === 4
             ){
+
                 movementPower =
                     .65;
+
             }
 
 
             if(
                 ring === 5
             ){
+
                 movementPower =
                     .4;
+
             }
 
 
@@ -1480,8 +1590,7 @@ function updateGems(
 
 
             if(
-                opening >
-                0
+                opening > 0
             ){
 
                 const pushStrength =
@@ -1498,8 +1607,7 @@ function updateGems(
 
 
                 if(
-                    ring <=
-                    2
+                    ring <= 2
                 ){
 
                     currentRadius +=
@@ -1527,16 +1635,20 @@ function updateGems(
             if(
                 ring === 4
             ){
+
                 angularPower =
                     2.8;
+
             }
 
 
             if(
                 ring === 5
             ){
+
                 angularPower =
                     2;
+
             }
 
 
@@ -1575,7 +1687,8 @@ function updateGems(
                 50 +
                 Math.cos(
                     rad
-                ) *
+                )
+                *
                 currentRadius;
 
 
@@ -1583,22 +1696,29 @@ function updateGems(
                 50 +
                 Math.sin(
                     rad
-                ) *
+                )
+                *
                 currentRadius;
 
 
             wrap.style.left =
-                x + "%";
+                x +
+                "%";
 
 
             wrap.style.top =
-                y + "%";
+                y +
+                "%";
 
 
             const personalDirection =
-                index % 2 === 0
-                    ? 1
-                    : -1;
+                index %
+                2 ===
+                0
+                    ?
+                    1
+                    :
+                    -1;
 
 
             const gemRotation =
@@ -1681,7 +1801,8 @@ function updateGems(
                 5 +
                 Math.abs(
                     shimmer
-                ) *
+                )
+                *
                 10;
 
 
@@ -1871,7 +1992,7 @@ function pointerAngle(
 
 
 /* =====================================================
-   НАЧАЛО
+   НАЧАЛО ВРАЩЕНИЯ
 ===================================================== */
 
 wheel.addEventListener(
@@ -1916,7 +2037,7 @@ wheel.addEventListener(
 
 
 /* =====================================================
-   ДВИЖЕНИЕ
+   ВРАЩЕНИЕ
 ===================================================== */
 
 wheel.addEventListener(
@@ -1944,16 +2065,20 @@ wheel.addEventListener(
 
 
         if(
-            delta > 180
+            delta >
+            180
         ){
-            delta -= 360;
+            delta -=
+                360;
         }
 
 
         if(
-            delta < -180
+            delta <
+            -180
         ){
-            delta += 360;
+            delta +=
+                360;
         }
 
 
@@ -2010,14 +2135,16 @@ wheel.addEventListener(
             progress >=
             1
         ){
+
             revealPicture();
+
         }
     }
 );
 
 
 /* =====================================================
-   КОНЕЦ
+   КОНЕЦ ВРАЩЕНИЯ
 ===================================================== */
 
 function stopDragging(){
@@ -2055,7 +2182,7 @@ wheel.addEventListener(
 
 
 /* =====================================================
-   ФИНАЛ
+   ПОЯВЛЕНИЕ КАРТИНКИ
 ===================================================== */
 
 function revealPicture(){
@@ -2204,7 +2331,7 @@ function loadRound(){
 
 
 /* =====================================================
-   ДАЛЬШЕ
+   КНОПКА ДАЛЬШЕ
 ===================================================== */
 
 next.addEventListener(
@@ -2212,12 +2339,13 @@ next.addEventListener(
 
     () => {
 
+
         stopMagicEffect();
 
 
         /*
-        Новый раунд:
-        музыка обязательно начинается сначала.
+        Новый раунд —
+        музыка снова начинается с начала.
         */
 
         resetWheelMusic();
@@ -2230,8 +2358,10 @@ next.addEventListener(
             roundIndex >=
             rounds.length
         ){
+
             roundIndex =
                 0;
+
         }
 
 
