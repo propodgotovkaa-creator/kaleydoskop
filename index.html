@@ -56,7 +56,7 @@ body{
 
 
 /* =====================================================
-   КАРТИНКА РАУНДА
+   КАРТИНКА
 ===================================================== */
 
 .hidden-picture{
@@ -95,17 +95,14 @@ body{
     height:100%;
 
     display:block;
+
     object-fit:contain;
 
     background:transparent;
 
+    opacity:1;
+
     pointer-events:none;
-
-    opacity:0;
-
-    transition:
-        opacity .2s ease,
-        transform .35s ease;
 
     filter:
         drop-shadow(
@@ -114,13 +111,9 @@ body{
         );
 }
 
-.round-image.loaded{
-    opacity:1;
-}
-
 
 /* =====================================================
-   ПОСТОЯННОЕ СВЕЧЕНИЕ ВОКРУГ КАРТИНКИ
+   СВЕЧЕНИЕ
 ===================================================== */
 
 .picture-glow{
@@ -154,18 +147,10 @@ body{
             transparent 78%
         );
 
-    filter:
-        blur(13px);
-
-    transition:
-        opacity .45s ease;
-
-    animation:none;
+    filter:blur(13px);
 }
 
 .picture-glow.active{
-    opacity:1;
-
     animation:
         glowPulse 2.2s ease-in-out infinite;
 }
@@ -195,7 +180,6 @@ body{
 
         opacity:.72;
     }
-
 }
 
 
@@ -233,8 +217,7 @@ body{
             transparent 75%
         );
 
-    filter:
-        blur(4px);
+    filter:blur(4px);
 }
 
 
@@ -326,7 +309,6 @@ body{
             translateY(-10px)
             rotate(75deg);
     }
-
 }
 
 
@@ -374,8 +356,7 @@ body{
 
     object-fit:contain;
 
-    transform-origin:
-        50% 50%;
+    transform-origin:50% 50%;
 
     pointer-events:none;
 
@@ -407,8 +388,7 @@ body{
 
     opacity:0;
 
-    filter:
-        blur(4px);
+    filter:blur(4px);
 
     pointer-events:none;
 }
@@ -739,7 +719,7 @@ const next =
 
 
 /* =====================================================
-   ФОН / КООРДИНАТЫ
+   РАЗМЕР ФОНА
 ===================================================== */
 
 const DESIGN_WIDTH =
@@ -1038,7 +1018,7 @@ function createGems(){
 
 
 /* =====================================================
-   БЛЁСТКИ — ОДНА ВОЛНА
+   БЛЁСТКИ
 ===================================================== */
 
 function createSparkles(){
@@ -1124,10 +1104,6 @@ function createSparkles(){
 }
 
 
-/* =====================================================
-   НЕПРЕРЫВНЫЕ БЛЁСТКИ
-===================================================== */
-
 let sparkleInterval =
     null;
 
@@ -1156,7 +1132,6 @@ function startMagicEffect(){
             },
             1150
         );
-
 }
 
 
@@ -1178,7 +1153,6 @@ function stopMagicEffect(){
 
     sparkles.innerHTML =
         "";
-
 }
 
 
@@ -1864,11 +1838,6 @@ function revealPicture(){
     `;
 
 
-    /*
-    Запускаем постоянное свечение
-    и повторяющиеся блёстки.
-    */
-
     startMagicEffect();
 
 
@@ -1908,38 +1877,14 @@ function loadRound(){
         ];
 
 
-    roundImage.classList.remove(
-        "loaded"
-    );
-
-
-    roundImage.style.opacity =
-        0;
-
-
-    roundImage.onload =
-        () => {
-
-            roundImage.classList.add(
-                "loaded"
-            );
-
-        };
-
+    /*
+    ВАЖНО:
+    картинку больше нигде не прячем.
+    Просто меняем src.
+    */
 
     roundImage.src =
         round.image;
-
-
-    if(
-        roundImage.complete
-    ){
-
-        roundImage.classList.add(
-            "loaded"
-        );
-
-    }
 
 
     hiddenPicture.style.opacity =
@@ -2011,10 +1956,6 @@ next.addEventListener(
     "click",
 
     () => {
-
-        /*
-        Сначала выключаем магию текущей картинки.
-        */
 
         stopMagicEffect();
 
