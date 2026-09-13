@@ -22,11 +22,17 @@
 
 <style>
 
+/* =====================================================
+   ОСНОВА
+===================================================== */
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
+
+    -webkit-tap-highlight-color:
+        transparent;
 }
 
 html,
@@ -48,12 +54,18 @@ body{
         serif;
 }
 
+button{
+    font-family:
+        "Cormorant SC",
+        serif;
+}
+
 
 /* =====================================================
-   ОСНОВА
+   ОБЩИЙ КОНТЕЙНЕР
 ===================================================== */
 
-.game{
+.app{
     position:relative;
 
     width:100vw;
@@ -64,7 +76,182 @@ body{
 
 
 /* =====================================================
-   ФОН
+   ЭКРАН МЕНЮ
+===================================================== */
+
+.menu-screen{
+    position:absolute;
+
+    inset:0;
+
+    z-index:100;
+
+    overflow:hidden;
+
+    opacity:1;
+    visibility:visible;
+
+    transition:
+        opacity .45s ease;
+}
+
+.menu-screen.hidden{
+    opacity:0;
+    visibility:hidden;
+
+    pointer-events:none;
+}
+
+
+.menu-background{
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+    object-position:center;
+
+    z-index:1;
+}
+
+
+/* =====================================================
+   НАВИГАЦИОННЫЕ ПЛАШКИ
+===================================================== */
+
+.menu-buttons{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    transform:
+        translate(-50%,-50%);
+
+    width:min(1000px, 76vw);
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap:
+        clamp(20px, 3vw, 48px);
+
+    z-index:5;
+}
+
+
+.menu-button{
+    position:relative;
+
+    width:100%;
+
+    aspect-ratio:
+        3.5 / 1;
+
+    border:0;
+
+    background:
+        url("ramka2.png")
+        center /
+        contain
+        no-repeat;
+
+    cursor:pointer;
+
+    color:#fff8e5;
+
+    font-family:
+        "Cormorant SC",
+        serif;
+
+    font-size:
+        clamp(
+            18px,
+            2.15vw,
+            34px
+        );
+
+    font-weight:700;
+
+    line-height:1.05;
+
+    letter-spacing:.5px;
+
+    padding:
+        0 12%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    text-shadow:
+        0 2px 4px rgba(0,0,0,.9),
+        0 0 8px rgba(188,122,255,.65);
+
+    transition:
+        transform .22s ease,
+        filter .22s ease;
+
+    -webkit-appearance:none;
+    appearance:none;
+}
+
+
+.menu-button:hover{
+    transform:
+        scale(1.035);
+
+    filter:
+        brightness(1.08);
+}
+
+
+.menu-button:active{
+    transform:
+        scale(.985);
+}
+
+
+/* =====================================================
+   ИГРОВОЙ ЭКРАН
+===================================================== */
+
+.game-screen{
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    overflow:hidden;
+
+    opacity:0;
+    visibility:hidden;
+
+    z-index:10;
+
+    transition:
+        opacity .45s ease;
+}
+
+
+.game-screen.visible{
+    opacity:1;
+    visibility:visible;
+}
+
+
+/* =====================================================
+   ФОН ИГРЫ
 ===================================================== */
 
 .background{
@@ -102,7 +289,7 @@ body{
 
 
 /* =====================================================
-   КАРТИНКА РАУНДА
+   КАРТИНКА
 ===================================================== */
 
 .hidden-picture{
@@ -131,7 +318,8 @@ body{
 
     transition:
         opacity .45s ease,
-        transform .65s cubic-bezier(.2,.9,.3,1.15);
+        transform .65s
+        cubic-bezier(.2,.9,.3,1.15);
 }
 
 
@@ -160,7 +348,7 @@ body{
 
 
 /* =====================================================
-   МЯГКОЕ СВЕЧЕНИЕ
+   СВЕЧЕНИЕ КАРТИНКИ
 ===================================================== */
 
 .picture-glow{
@@ -194,7 +382,8 @@ body{
             transparent 79%
         );
 
-    filter:blur(16px);
+    filter:
+        blur(16px);
 }
 
 
@@ -270,7 +459,8 @@ body{
             transparent 75%
         );
 
-    filter:blur(4px);
+    filter:
+        blur(4px);
 }
 
 
@@ -389,12 +579,13 @@ body{
     transform-origin:
         50% 50%;
 
-    will-change:transform;
+    will-change:
+        transform;
 }
 
 
 /* =====================================================
-   КАМНИ
+   КРИСТАЛЛЫ
 ===================================================== */
 
 .gem-wrap{
@@ -454,7 +645,8 @@ body{
 
     opacity:0;
 
-    filter:blur(4px);
+    filter:
+        blur(4px);
 
     pointer-events:none;
 }
@@ -481,6 +673,7 @@ body{
             rgba(255,255,255,.13),
             transparent 24%
         ),
+
         radial-gradient(
             circle at center,
             transparent 69%,
@@ -524,7 +717,8 @@ body{
             rgba(0,0,0,.5)
         );
 
-    will-change:transform;
+    will-change:
+        transform;
 }
 
 
@@ -534,7 +728,7 @@ body{
 
 
 /* =====================================================
-   ПОКРУТИ КОЛЕСО — РОВНАЯ НАДПИСЬ
+   ПОКРУТИ КОЛЕСО
 ===================================================== */
 
 .wheel-hint{
@@ -583,15 +777,13 @@ body{
 
 
 /* =====================================================
-   КНОПКА ДАЛЬШЕ
+   ДАЛЬШЕ
 ===================================================== */
 
 .next{
     position:absolute;
 
-    /* БЫЛО 84% — ЧУТЬ СДВИНУЛИ ВПРАВО */
     left:85.5%;
-
     top:32%;
 
     width:
@@ -654,7 +846,8 @@ body{
 
     transition:
         opacity .5s ease,
-        transform .5s cubic-bezier(.2,.8,.3,1.15);
+        transform .5s
+        cubic-bezier(.2,.8,.3,1.15);
 
     box-shadow:none;
 
@@ -680,6 +873,34 @@ body{
         scale(1.04);
 }
 
+
+/* =====================================================
+   АДАПТАЦИЯ МЕНЮ
+===================================================== */
+
+@media(max-width:800px){
+
+    .menu-buttons{
+        width:min(680px, 88vw);
+
+        grid-template-columns:1fr;
+
+        gap:10px;
+    }
+
+    .menu-button{
+        aspect-ratio:
+            4.6 / 1;
+
+        font-size:
+            clamp(
+                16px,
+                4vw,
+                26px
+            );
+    }
+}
+
 </style>
 
 </head>
@@ -687,196 +908,347 @@ body{
 
 <body>
 
-
 <div
-    class="game"
-    id="game"
+    class="app"
+    id="app"
 >
 
 
-    <!-- ФОН -->
-
-    <img
-        src="fon.png"
-        class="background"
-        id="background"
-        alt=""
-    >
-
-
-    <!-- КАЛЕЙДОСКОП -->
+    <!-- =================================================
+         ГЛАВНОЕ МЕНЮ
+    ================================================== -->
 
     <div
-        class="portal"
-        id="portal"
+        class="menu-screen"
+        id="menuScreen"
     >
 
-
-        <div
-            class="picture-glow"
-            id="pictureGlow"
-        ></div>
-
-
-        <div
-            class="hidden-picture"
-            id="hiddenPicture"
+        <img
+            class="menu-background"
+            src="fon2.png"
+            alt=""
         >
 
-            <img
-                src=""
-                class="round-image"
-                id="roundImage"
-                alt=""
-                draggable="false"
+
+        <div
+            class="menu-buttons"
+        >
+
+
+            <button
+                class="menu-button"
+                data-section="start"
             >
+                Звук Ль в начале слова
+            </button>
+
+
+            <button
+                class="menu-button"
+                data-section="middle"
+            >
+                Звук Ль в середине слова
+            </button>
+
+
+            <button
+                class="menu-button"
+                data-section="end"
+            >
+                Звук Ль в конце слова
+            </button>
+
+
+            <button
+                class="menu-button"
+                data-section="clusters"
+            >
+                Звук Ль в стечениях
+            </button>
+
 
         </div>
-
-
-        <div
-            class="magic-center"
-            id="magicCenter"
-        ></div>
-
-
-        <div
-            class="sparkles"
-            id="sparkles"
-        ></div>
-
-
-        <div
-            class="kaleidoscope"
-            id="kaleidoscope"
-        ></div>
-
-
-        <div
-            class="glass-shine"
-        ></div>
-
 
     </div>
 
 
     <!-- =================================================
-         РОВНАЯ НАДПИСЬ
+         ИГРА
     ================================================== -->
 
     <div
-        class="wheel-hint"
-        id="wheelHint"
+        class="game-screen"
+        id="gameScreen"
     >
-        Покрути колесо
-    </div>
 
-
-    <!-- КОЛЕСО -->
-
-    <div
-        class="wheel-wrap"
-        id="wheelWrap"
-    >
 
         <img
-            src="wheel.png"
-            class="wheel"
-            id="wheel"
-            draggable="false"
+            src="fon.png"
+            class="background"
+            id="background"
             alt=""
         >
 
+
+        <!-- КАЛЕЙДОСКОП -->
+
+        <div
+            class="portal"
+            id="portal"
+        >
+
+
+            <div
+                class="picture-glow"
+                id="pictureGlow"
+            ></div>
+
+
+            <div
+                class="hidden-picture"
+                id="hiddenPicture"
+            >
+
+                <img
+                    src=""
+                    class="round-image"
+                    id="roundImage"
+                    alt=""
+                    draggable="false"
+                >
+
+            </div>
+
+
+            <div
+                class="magic-center"
+                id="magicCenter"
+            ></div>
+
+
+            <div
+                class="sparkles"
+                id="sparkles"
+            ></div>
+
+
+            <div
+                class="kaleidoscope"
+                id="kaleidoscope"
+            ></div>
+
+
+            <div
+                class="glass-shine"
+            ></div>
+
+
+        </div>
+
+
+        <!-- ПОКРУТИ КОЛЕСО -->
+
+        <div
+            class="wheel-hint"
+            id="wheelHint"
+        >
+            Покрути колесо
+        </div>
+
+
+        <!-- КОЛЕСО -->
+
+        <div
+            class="wheel-wrap"
+            id="wheelWrap"
+        >
+
+            <img
+                src="wheel.png"
+                class="wheel"
+                id="wheel"
+                draggable="false"
+                alt=""
+            >
+
+        </div>
+
+
+        <!-- ДАЛЬШЕ -->
+
+        <button
+            class="next"
+            id="next"
+        >
+            Дальше
+        </button>
+
+
+        <!-- МУЗЫКА -->
+
+        <audio
+            id="wheelMusic"
+            src="diamonds_2.mp3"
+            preload="auto"
+            loop
+        ></audio>
+
+
     </div>
 
-
-    <!-- ДАЛЬШЕ -->
-
-    <button
-        class="next"
-        id="next"
-    >
-        Дальше
-    </button>
-
-
-    <!-- МУЗЫКА -->
-
-    <audio
-        id="wheelMusic"
-        src="diamonds_2.mp3"
-        preload="auto"
-        loop
-    ></audio>
-
-
 </div>
-
 
 
 <script>
 
 /* =====================================================
-   10 РАУНДОВ
+   ВСЕ РАЗДЕЛЫ ИГРЫ
 ===================================================== */
 
-const rounds = [
-
-    {
-        image:"raund-1/image.png"
-    },
-
-    {
-        image:"raund-1/dhdj.png"
-    },
-
-    {
-        image:"raund-1/dhfj.png"
-    },
-
-    {
-        image:"raund-1/1AFAA32C-3BEC-4EC1-9EC9-E696460B9050.PNG"
-    },
-
-    {
-        image:"raund-1/42256A45-49C6-4D18-BF23-A170B5FC0324.PNG"
-    },
-
-    {
-        image:"raund-1/5D75953B-A4D9-495D-AB7C-13C861EAC3CE.PNG"
-    },
-
-    {
-        image:"raund-1/859A2E0A-7559-478D-9352-87BE981D42E5.PNG"
-    },
-
-    {
-        image:"raund-1/B2DB3E80-35DF-4068-B97F-CE47EECE187C.PNG"
-    },
-
-    {
-        image:"raund-1/B334EF3B-2C3D-4BF0-B4B1-B43D114B293E.PNG"
-    },
-
-    {
-        image:"raund-1/D813B8BE-9A92-4737-A1FF-D4938E490209.PNG"
-    }
-
-];
+const sections = {
 
 
-let roundIndex =
-    0;
+/* =====================================================
+   ЛЬ В НАЧАЛЕ СЛОВА — 10 КАРТИНОК
+===================================================== */
+
+start:[
+
+    "raund-1/image.png",
+
+    "raund-1/dhdj.png",
+
+    "raund-1/dhfj.png",
+
+    "raund-1/1AFAA32C-3BEC-4EC1-9EC9-E696460B9050.PNG",
+
+    "raund-1/42256A45-49C6-4D18-BF23-A170B5FC0324.PNG",
+
+    "raund-1/5D75953B-A4D9-495D-AB7C-13C861EAC3CE.PNG",
+
+    "raund-1/859A2E0A-7559-478D-9352-87BE981D42E5.PNG",
+
+    "raund-1/B2DB3E80-35DF-4068-B97F-CE47EECE187C.PNG",
+
+    "raund-1/B334EF3B-2C3D-4BF0-B4B1-B43D114B293E.PNG",
+
+    "raund-1/D813B8BE-9A92-4737-A1FF-D4938E490209.PNG"
+
+],
+
+
+/* =====================================================
+   ЛЬ В СЕРЕДИНЕ СЛОВА — 10 КАРТИНОК
+===================================================== */
+
+middle:[
+
+    "raund-2/02F423CF-F27D-4655-9389-3C6F3279A1F0.PNG",
+
+    "raund-2/175E7529-C415-4CE0-8546-DB7B20B73AC1.PNG",
+
+    "raund-2/46A683B8-B120-4ED9-93DD-0D709CCEA1BC.PNG",
+
+    "raund-2/7FD1A0E7-064D-4B1B-B1F6-45507D471AEE.PNG",
+
+    "raund-2/8688F44C-1283-4C3B-B402-7CD2C4E99248.PNG",
+
+    "raund-2/8FAA059A-0724-45B8-89CD-788AC0B6A740.PNG",
+
+    "raund-2/A5DD2919-09FD-4593-AE17-8787CA4179CF.PNG",
+
+    "raund-2/CB5EC158-BB85-471C-9535-F365BEA13821.PNG",
+
+    "raund-2/CD83B154-BC74-4EE3-AB62-8111E8F38A03.PNG",
+
+    "raund-2/F6D8E6D9-E576-4AB7-A9D4-9A9064814B15.PNG"
+
+],
+
+
+/* =====================================================
+   ЛЬ В КОНЦЕ СЛОВА — 7 КАРТИНОК
+===================================================== */
+
+end:[
+
+    "raund-3/05709A53-2505-46F1-8D60-732CE347F02A.PNG",
+
+    "raund-3/6DFC0CEA-CC7E-467C-83A8-0C6165B31A4B.PNG",
+
+    "raund-3/9C85159A-AD0A-41F0-9256-0D242A116A2A.PNG",
+
+    "raund-3/C7947EFC-54CF-42BC-B57D-97E9F6475338.PNG",
+
+    "raund-3/CFE5C1E0-9F31-49AB-9303-690D987B35D1.PNG",
+
+    "raund-3/DC854F07-E0C4-4BF8-BD0F-957F845A0DD5.PNG",
+
+    "raund-3/EE2DB839-B359-4E27-B405-E4365B3EC5E2.PNG"
+
+],
+
+
+/* =====================================================
+   ЛЬ В СТЕЧЕНИЯХ — 10 КАРТИНОК
+===================================================== */
+
+clusters:[
+
+    "raund-4/176C1C54-05C7-479B-875F-1B78EEFEBD0E.PNG",
+
+    "raund-4/32FA8DD2-DCD6-49E3-978C-FECB57D6D037.PNG",
+
+    "raund-4/46A683B8-B120-4ED9-93DD-0D709CCEA1BC.PNG",
+
+    "raund-4/5FEB5DA8-C226-42BA-AD79-5271151AC1D7.PNG",
+
+    "raund-4/70A537D6-0005-4B79-BEA7-6DF415FC46B3.PNG",
+
+    "raund-4/78694F7C-5131-4822-A706-B1FD3ADDB08D.PNG",
+
+    "raund-4/786DC6E0-345F-41C0-A41F-5F91F2F95A64.PNG",
+
+    "raund-4/BE363DB6-927A-4856-9419-3E34F28B5874.PNG",
+
+    "raund-4/F8E61823-B41D-4DA1-93C3-D00102D1026D.PNG",
+
+    "raund-4/FA91E2E5-D89B-441F-8FDD-C7366154B3EE.PNG"
+
+]
+
+};
+
+
+/* =====================================================
+   СОСТОЯНИЕ
+===================================================== */
+
+let currentSection = null;
+
+let rounds = [];
+
+let roundIndex = 0;
 
 
 /* =====================================================
    ЭЛЕМЕНТЫ
 ===================================================== */
 
-const game =
+const menuScreen =
     document.getElementById(
-        "game"
+        "menuScreen"
     );
+
+
+const gameScreen =
+    document.getElementById(
+        "gameScreen"
+    );
+
+
+const game =
+    gameScreen;
 
 
 const background =
@@ -958,7 +1330,7 @@ const next =
 
 
 /* =====================================================
-   РАЗМЕРЫ
+   РАЗМЕРЫ ИГРЫ
 ===================================================== */
 
 const DESIGN_WIDTH =
@@ -1038,8 +1410,6 @@ function positionElements(){
         ) / 2;
 
 
-    /* БОЛЬШОЙ КРУГ */
-
     portal.style.left =
         PORTAL_X *
         scale +
@@ -1065,8 +1435,6 @@ function positionElements(){
         scale +
         "px";
 
-
-    /* КОЛЕСО */
 
     wheelWrap.style.left =
         WHEEL_X *
@@ -1097,7 +1465,7 @@ function positionElements(){
 
 
 /* =====================================================
-   КАМНИ
+   КРИСТАЛЛЫ
 ===================================================== */
 
 const gemImages = [
@@ -1110,12 +1478,11 @@ const gemImages = [
 ];
 
 
-let gems =
-    [];
+let gems = [];
 
 
 /* =====================================================
-   СОЗДАЁМ КАМНИ
+   СОЗДАНИЕ КРИСТАЛЛОВ
 ===================================================== */
 
 function createGems(){
@@ -1124,8 +1491,7 @@ function createGems(){
         "";
 
 
-    gems =
-        [];
+    gems = [];
 
 
     const rings = [
@@ -1169,8 +1535,7 @@ function createGems(){
     ];
 
 
-    let globalIndex =
-        0;
+    let globalIndex = 0;
 
 
     rings.forEach(
@@ -1206,7 +1571,7 @@ function createGems(){
                 img.src =
                     gemImages[
                         globalIndex %
-                        4
+                        gemImages.length
                     ];
 
 
@@ -1301,11 +1666,9 @@ function createGems(){
 
 
                 gems.push({
-
                     wrap,
                     img,
                     shine
-
                 });
 
 
@@ -1336,8 +1699,7 @@ function createSparkles(){
         "";
 
 
-    const count =
-        16;
+    const count = 16;
 
 
     for(
@@ -1353,8 +1715,7 @@ function createSparkles(){
 
 
         spark.className =
-            Math.random() >
-            .45
+            Math.random() > .45
                 ?
                 "spark star"
                 :
@@ -1398,23 +1759,19 @@ function createSparkles(){
 
 
         spark.style.left =
-            x +
-            "%";
+            x + "%";
 
 
         spark.style.top =
-            y +
-            "%";
+            y + "%";
 
 
         spark.style.width =
-            size +
-            "px";
+            size + "px";
 
 
         spark.style.height =
-            size +
-            "px";
+            size + "px";
 
 
         spark.style.animationDelay =
@@ -1433,7 +1790,7 @@ function createSparkles(){
 
 
 /* =====================================================
-   МАГИЧЕСКИЙ ЭФФЕКТ
+   ПОСТОЯННОЕ МЯГКОЕ СВЕЧЕНИЕ
 ===================================================== */
 
 let sparkleInterval =
@@ -1518,6 +1875,10 @@ function startWheelMusic(){
 }
 
 
+/* =====================================================
+   ПЛАВНАЯ ОСТАНОВКА МУЗЫКИ
+===================================================== */
+
 function stopWheelMusic(){
 
     clearInterval(
@@ -1529,20 +1890,17 @@ function stopWheelMusic(){
         wheelMusic.volume;
 
 
-    let currentStep =
-        0;
+    let currentStep = 0;
 
 
-    const steps =
-        10;
+    const steps = 10;
 
-
-    const duration =
-        250;
+    const duration = 250;
 
 
     fadeTimer =
         setInterval(
+
             () => {
 
 
@@ -1598,6 +1956,10 @@ function stopWheelMusic(){
 }
 
 
+/* =====================================================
+   МУЗЫКА С НАЧАЛА
+===================================================== */
+
 function resetWheelMusic(){
 
     clearInterval(
@@ -1614,8 +1976,7 @@ function resetWheelMusic(){
 
     try{
 
-        wheelMusic.currentTime =
-            0;
+        wheelMusic.currentTime = 0;
 
     }
     catch(error){}
@@ -1628,7 +1989,7 @@ function resetWheelMusic(){
 
 
 /* =====================================================
-   АНИМАЦИЯ КАМНЕЙ
+   ДВИЖЕНИЕ КРИСТАЛЛОВ
 ===================================================== */
 
 function updateGems(
@@ -1712,20 +2073,16 @@ function updateGems(
             if(
                 ring === 4
             ){
-
                 movementPower =
                     .65;
-
             }
 
 
             if(
                 ring === 5
             ){
-
                 movementPower =
                     .4;
-
             }
 
 
@@ -1745,8 +2102,7 @@ function updateGems(
 
 
             if(
-                opening >
-                0
+                opening > 0
             ){
 
 
@@ -1794,20 +2150,16 @@ function updateGems(
             if(
                 ring === 4
             ){
-
                 angularPower =
                     2.8;
-
             }
 
 
             if(
                 ring === 5
             ){
-
                 angularPower =
                     2;
-
             }
 
 
@@ -1863,13 +2215,11 @@ function updateGems(
 
 
             wrap.style.left =
-                x +
-                "%";
+                x + "%";
 
 
             wrap.style.top =
-                y +
-                "%";
+                y + "%";
 
 
             const personalDirection =
@@ -1998,13 +2348,11 @@ function updateGems(
                 .55;
 
 
-            let opacity =
-                1;
+            let opacity = 1;
 
 
             if(
-                progress >
-                .88
+                progress > .88
             ){
 
                 opacity =
@@ -2046,8 +2394,7 @@ function updateGems(
 
 
     if(
-        progress >
-        .72
+        progress > .72
     ){
 
 
@@ -2097,27 +2444,18 @@ function updateGems(
 
 
 /* =====================================================
-   СОСТОЯНИЕ
+   ВРАЩЕНИЕ
 ===================================================== */
 
-let dragging =
-    false;
+let dragging = false;
 
+let previousAngle = 0;
 
-let previousAngle =
-    0;
+let wheelRotation = 0;
 
+let totalRotation = 0;
 
-let wheelRotation =
-    0;
-
-
-let totalRotation =
-    0;
-
-
-let finished =
-    false;
+let finished = false;
 
 
 const REQUIRED_ROTATION =
@@ -2125,7 +2463,7 @@ const REQUIRED_ROTATION =
 
 
 /* =====================================================
-   УГОЛ
+   УГОЛ УКАЗАТЕЛЯ
 ===================================================== */
 
 function pointerAngle(
@@ -2177,9 +2515,7 @@ wheel.addEventListener(
         if(
             finished
         ){
-
             return;
-
         }
 
 
@@ -2210,7 +2546,7 @@ wheel.addEventListener(
 
 
 /* =====================================================
-   ВРАЩЕНИЕ
+   ДВИЖЕНИЕ
 ===================================================== */
 
 wheel.addEventListener(
@@ -2223,9 +2559,7 @@ wheel.addEventListener(
             !dragging ||
             finished
         ){
-
             return;
-
         }
 
 
@@ -2241,24 +2575,16 @@ wheel.addEventListener(
 
 
         if(
-            delta >
-            180
+            delta > 180
         ){
-
-            delta -=
-                360;
-
+            delta -= 360;
         }
 
 
         if(
-            delta <
-            -180
+            delta < -180
         ){
-
-            delta +=
-                360;
-
+            delta += 360;
         }
 
 
@@ -2312,8 +2638,7 @@ wheel.addEventListener(
 
 
         if(
-            progress >=
-            1
+            progress >= 1
         ){
 
             revealPicture();
@@ -2325,7 +2650,7 @@ wheel.addEventListener(
 
 
 /* =====================================================
-   КОНЕЦ ВРАЩЕНИЯ
+   ЗАВЕРШАЕМ ВРАЩЕНИЕ
 ===================================================== */
 
 function stopDragging(){
@@ -2333,9 +2658,7 @@ function stopDragging(){
     if(
         !dragging
     ){
-
         return;
-
     }
 
 
@@ -2366,7 +2689,7 @@ wheel.addEventListener(
 
 
 /* =====================================================
-   ПОЯВЛЕНИЕ КАРТИНКИ
+   ПОКАЗЫВАЕМ КАРТИНКУ
 ===================================================== */
 
 function revealPicture(){
@@ -2374,9 +2697,7 @@ function revealPicture(){
     if(
         finished
     ){
-
         return;
-
     }
 
 
@@ -2420,6 +2741,29 @@ function revealPicture(){
     startMagicEffect();
 
 
+    /*
+       Если это последняя картинка
+       раздела — пишем "В меню".
+    */
+
+    if(
+        roundIndex ===
+        rounds.length - 1
+    ){
+
+        next.textContent =
+            "В меню";
+
+    }
+
+    else{
+
+        next.textContent =
+            "Дальше";
+
+    }
+
+
     setTimeout(
         () => {
 
@@ -2436,7 +2780,7 @@ function revealPicture(){
 
 
 /* =====================================================
-   НОВЫЙ РАУНД
+   ЗАГРУЗКА РАУНДА
 ===================================================== */
 
 function loadRound(){
@@ -2444,14 +2788,13 @@ function loadRound(){
     stopMagicEffect();
 
 
-    const round =
-        rounds[
-            roundIndex
-        ];
+    resetWheelMusic();
 
 
     roundImage.src =
-        round.image;
+        rounds[
+            roundIndex
+        ];
 
 
     hiddenPicture.style.opacity =
@@ -2473,6 +2816,10 @@ function loadRound(){
     next.classList.remove(
         "visible"
     );
+
+
+    next.textContent =
+        "Дальше";
 
 
     wheelHint.classList.remove(
@@ -2514,7 +2861,136 @@ function loadRound(){
 
 
 /* =====================================================
-   ДАЛЬШЕ
+   ОТКРЫВАЕМ ВЫБРАННЫЙ РАЗДЕЛ
+===================================================== */
+
+function openSection(
+    sectionName
+){
+
+    currentSection =
+        sectionName;
+
+
+    rounds =
+        sections[
+            sectionName
+        ];
+
+
+    roundIndex =
+        0;
+
+
+    menuScreen.classList.add(
+        "hidden"
+    );
+
+
+    gameScreen.classList.add(
+        "visible"
+    );
+
+
+    /*
+       Ждём один кадр,
+       чтобы размеры игрового
+       экрана точно определились.
+    */
+
+    requestAnimationFrame(
+        () => {
+
+            positionElements();
+
+            loadRound();
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   ВОЗВРАТ В ГЛАВНОЕ МЕНЮ
+===================================================== */
+
+function returnToMenu(){
+
+    stopMagicEffect();
+
+    resetWheelMusic();
+
+
+    currentSection =
+        null;
+
+
+    rounds =
+        [];
+
+
+    roundIndex =
+        0;
+
+
+    next.classList.remove(
+        "visible"
+    );
+
+
+    wheelHint.classList.remove(
+        "hidden"
+    );
+
+
+    gameScreen.classList.remove(
+        "visible"
+    );
+
+
+    menuScreen.classList.remove(
+        "hidden"
+    );
+
+}
+
+
+/* =====================================================
+   КНОПКИ ГЛАВНОГО МЕНЮ
+===================================================== */
+
+document
+    .querySelectorAll(
+        ".menu-button"
+    )
+    .forEach(
+        button => {
+
+
+            button.addEventListener(
+                "click",
+
+                () => {
+
+
+                    const section =
+                        button.dataset.section;
+
+
+                    openSection(
+                        section
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+/* =====================================================
+   КНОПКА ДАЛЬШЕ / В МЕНЮ
 ===================================================== */
 
 next.addEventListener(
@@ -2523,24 +2999,24 @@ next.addEventListener(
     () => {
 
 
-        stopMagicEffect();
-
-
-        resetWheelMusic();
-
-
-        roundIndex++;
-
+        /*
+           Последняя картинка
+           выбранного раздела.
+        */
 
         if(
             roundIndex >=
-            rounds.length
+            rounds.length - 1
         ){
 
-            roundIndex =
-                0;
+            returnToMenu();
+
+            return;
 
         }
+
+
+        roundIndex++;
 
 
         loadRound();
@@ -2550,41 +3026,33 @@ next.addEventListener(
 
 
 /* =====================================================
-   СТАРТ
+   RESIZE
 ===================================================== */
 
-background.addEventListener(
-    "load",
+window.addEventListener(
+    "resize",
 
     () => {
 
-        positionElements();
+        if(
+            gameScreen.classList.contains(
+                "visible"
+            )
+        ){
 
-        resetWheelMusic();
+            positionElements();
 
-        loadRound();
+        }
 
     }
 );
 
 
-window.addEventListener(
-    "resize",
-    positionElements
-);
+/* =====================================================
+   СТАРТ
+===================================================== */
 
-
-if(
-    background.complete
-){
-
-    positionElements();
-
-    resetWheelMusic();
-
-    loadRound();
-
-}
+resetWheelMusic();
 
 </script>
 
