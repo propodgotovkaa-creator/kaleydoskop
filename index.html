@@ -524,13 +524,9 @@ body{
 const rounds = [
 
     { emoji:"🦁" },
-
     { emoji:"🦊" },
-
     { emoji:"🍋" },
-
     { emoji:"🦢" },
-
     { emoji:"🍃" }
 
 ];
@@ -770,7 +766,7 @@ let gems = [];
 
 
 /* =====================================================
-   СОЗДАЁМ КАМНИ
+   СОЗДАЁМ 102 КАМНЯ
 ===================================================== */
 
 function createGems(){
@@ -782,8 +778,8 @@ function createGems(){
 
 
     /*
-    Внешние кольца уменьшены,
-    чтобы ничего не залезало на рамку.
+    6 колец.
+    Края отодвинуты.
     */
 
     const rings = [
@@ -796,26 +792,32 @@ function createGems(){
 
         {
             count:12,
-            radius:17,
+            radius:16,
             size:1.18
         },
 
         {
             count:16,
-            radius:28,
-            size:1.02
+            radius:25,
+            size:1.05
         },
 
         {
-            count:20,
+            count:18,
+            radius:32,
+            size:.94
+        },
+
+        {
+            count:22,
             radius:38,
-            size:.86
+            size:.82
         },
 
         {
-            count:24,
-            radius:44,
-            size:.66
+            count:26,
+            radius:42,
+            size:.64
         }
 
     ];
@@ -874,6 +876,7 @@ function createGems(){
                 img.className =
                     "gem";
 
+
                 img.draggable =
                     false;
 
@@ -883,6 +886,7 @@ function createGems(){
                         "div"
                     );
 
+
                 shine.className =
                     "gem-shine";
 
@@ -891,9 +895,11 @@ function createGems(){
                     img
                 );
 
+
                 wrap.appendChild(
                     shine
                 );
+
 
                 kaleidoscope.appendChild(
                     wrap
@@ -911,7 +917,7 @@ function createGems(){
 
                     +
 
-                    ringIndex * 8.5;
+                    ringIndex * 8.2;
 
 
                 const radiusVariation =
@@ -922,7 +928,7 @@ function createGems(){
                         ) - 1
                     )
 
-                    * 1.1;
+                    * 1.0;
 
 
                 const scaleVariation =
@@ -1065,7 +1071,7 @@ function updateGems(
 
                 )
 
-                * 1.3;
+                * 1.1;
 
 
             let currentRadius =
@@ -1076,8 +1082,6 @@ function updateGems(
 
             /* =========================================
                В КОНЦЕ УХОДЯТ К КРАЮ
-
-               НО НЕ ДАЛЬШЕ БЕЗОПАСНОЙ ЗОНЫ
             ========================================= */
 
             if(
@@ -1098,7 +1102,7 @@ function updateGems(
 
 
                 const safeOuterRadius =
-                    43;
+                    40;
 
 
                 currentRadius =
@@ -1134,7 +1138,7 @@ function updateGems(
 
                 )
 
-                * 4.2;
+                * 4;
 
 
             const currentAngle =
@@ -1178,7 +1182,7 @@ function updateGems(
 
 
             /* =========================================
-               ПОВОРОТ КАМНЯ
+               ВРАЩЕНИЕ КАМНЯ
             ========================================= */
 
             const personalDirection =
@@ -1415,9 +1419,7 @@ let finished =
     false;
 
 
-/*
-1.25 оборота
-*/
+/* 1.25 оборота */
 
 const REQUIRED_ROTATION =
     450;
