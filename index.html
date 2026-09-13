@@ -31,28 +31,15 @@ body{
     font-family:Arial,sans-serif;
 }
 
-
-/* =====================================================
-   ИГРА
-===================================================== */
-
 .game{
     position:relative;
-
     width:100vw;
     height:100vh;
-
     overflow:hidden;
 }
 
-
-/* =====================================================
-   ФОН
-===================================================== */
-
 .background{
     position:absolute;
-
     inset:0;
 
     width:100%;
@@ -66,16 +53,10 @@ body{
     pointer-events:none;
 }
 
-
-/* =====================================================
-   ЛИНЗА
-===================================================== */
-
 .portal{
     position:absolute;
 
     border-radius:50%;
-
     overflow:hidden;
 
     z-index:5;
@@ -116,17 +97,14 @@ body{
         transform .65s cubic-bezier(.2,.9,.3,1.15);
 }
 
-
 .round-image{
     position:relative;
-
     z-index:3;
 
     width:100%;
     height:100%;
 
     display:block;
-
     object-fit:contain;
 
     background:transparent;
@@ -144,7 +122,7 @@ body{
 
 
 /* =====================================================
-   ОЧЕНЬ МЯГКОЕ ПОСТОЯННОЕ СВЕЧЕНИЕ
+   МЕДЛЕННОЕ СВЕЧЕНИЕ
 ===================================================== */
 
 .picture-glow{
@@ -182,12 +160,10 @@ body{
         blur(15px);
 }
 
-
 .picture-glow.active{
     animation:
         glowPulse 7s ease-in-out infinite;
 }
-
 
 @keyframes glowPulse{
 
@@ -214,7 +190,6 @@ body{
 
         opacity:.62;
     }
-
 }
 
 
@@ -252,8 +227,7 @@ body{
             transparent 75%
         );
 
-    filter:
-        blur(4px);
+    filter:blur(4px);
 }
 
 
@@ -278,7 +252,6 @@ body{
     z-index:18;
 }
 
-
 .spark{
     position:absolute;
 
@@ -300,7 +273,6 @@ body{
         sparklePop .95s ease-out forwards;
 }
 
-
 .spark.star{
     border-radius:0;
 
@@ -317,12 +289,10 @@ body{
         );
 }
 
-
 @keyframes sparklePop{
 
     0%{
         opacity:0;
-
         transform:
             scale(.1)
             rotate(0deg);
@@ -330,7 +300,6 @@ body{
 
     25%{
         opacity:1;
-
         transform:
             scale(1.2)
             rotate(25deg);
@@ -338,7 +307,6 @@ body{
 
     65%{
         opacity:.8;
-
         transform:
             scale(.8)
             rotate(50deg);
@@ -346,13 +314,11 @@ body{
 
     100%{
         opacity:0;
-
         transform:
             scale(.1)
             translateY(-10px)
             rotate(75deg);
     }
-
 }
 
 
@@ -362,7 +328,6 @@ body{
 
 .kaleidoscope{
     position:absolute;
-
     inset:0;
 
     z-index:5;
@@ -372,7 +337,6 @@ body{
 
     will-change:transform;
 }
-
 
 .gem-wrap{
     position:absolute;
@@ -395,7 +359,6 @@ body{
         transform;
 }
 
-
 .gem{
     position:absolute;
 
@@ -416,7 +379,6 @@ body{
         transform,
         filter;
 }
-
 
 .gem-shine{
     position:absolute;
@@ -441,8 +403,7 @@ body{
 
     opacity:0;
 
-    filter:
-        blur(4px);
+    filter:blur(4px);
 
     pointer-events:none;
 }
@@ -454,7 +415,6 @@ body{
 
 .glass-shine{
     position:absolute;
-
     inset:0;
 
     z-index:20;
@@ -491,7 +451,6 @@ body{
     justify-content:center;
 }
 
-
 .wheel{
     width:100%;
     height:100%;
@@ -514,14 +473,13 @@ body{
     will-change:transform;
 }
 
-
 .wheel.dragging{
     cursor:grabbing;
 }
 
 
 /* =====================================================
-   ПОДСКАЗКА
+   ТЕКСТ
 ===================================================== */
 
 .hint{
@@ -560,7 +518,7 @@ body{
 
 
 /* =====================================================
-   ДАЛЬШЕ
+   КНОПКА
 ===================================================== */
 
 .next{
@@ -612,10 +570,8 @@ body{
         transform .35s ease;
 }
 
-
 .next.visible{
     opacity:1;
-
     pointer-events:auto;
 
     transform:
@@ -629,12 +585,7 @@ body{
 
 <body>
 
-
-<div
-    class="game"
-    id="game"
->
-
+<div class="game" id="game">
 
     <img
         src="fon.png"
@@ -643,7 +594,6 @@ body{
         alt=""
     >
 
-
     <div
         class="hint"
         id="hint"
@@ -651,24 +601,20 @@ body{
         Покрути волшебное колесо ✨
     </div>
 
-
     <div
         class="portal"
         id="portal"
     >
-
 
         <div
             class="picture-glow"
             id="pictureGlow"
         ></div>
 
-
         <div
             class="hidden-picture"
             id="hiddenPicture"
         >
-
             <img
                 src=""
                 class="round-image"
@@ -676,41 +622,33 @@ body{
                 alt=""
                 draggable="false"
             >
-
         </div>
-
 
         <div
             class="magic-center"
             id="magicCenter"
         ></div>
 
-
         <div
             class="sparkles"
             id="sparkles"
         ></div>
-
 
         <div
             class="kaleidoscope"
             id="kaleidoscope"
         ></div>
 
-
         <div
             class="glass-shine"
         ></div>
 
-
     </div>
-
 
     <div
         class="wheel-wrap"
         id="wheelWrap"
     >
-
         <img
             src="wheel.png"
             class="wheel"
@@ -718,9 +656,7 @@ body{
             draggable="false"
             alt=""
         >
-
     </div>
-
 
     <button
         class="next"
@@ -729,16 +665,12 @@ body{
         Дальше →
     </button>
 
-
-    <!-- МУЗЫКА КОЛЕСА -->
-
     <audio
         id="wheelMusic"
         src="diamonds_2.mp3"
         preload="auto"
         loop
     ></audio>
-
 
 </div>
 
@@ -774,87 +706,46 @@ let roundIndex =
 ===================================================== */
 
 const game =
-    document.getElementById(
-        "game"
-    );
-
+    document.getElementById("game");
 
 const background =
-    document.getElementById(
-        "background"
-    );
-
+    document.getElementById("background");
 
 const portal =
-    document.getElementById(
-        "portal"
-    );
-
+    document.getElementById("portal");
 
 const kaleidoscope =
-    document.getElementById(
-        "kaleidoscope"
-    );
-
+    document.getElementById("kaleidoscope");
 
 const wheelWrap =
-    document.getElementById(
-        "wheelWrap"
-    );
-
+    document.getElementById("wheelWrap");
 
 const wheel =
-    document.getElementById(
-        "wheel"
-    );
-
+    document.getElementById("wheel");
 
 const wheelMusic =
-    document.getElementById(
-        "wheelMusic"
-    );
-
+    document.getElementById("wheelMusic");
 
 const hiddenPicture =
-    document.getElementById(
-        "hiddenPicture"
-    );
-
+    document.getElementById("hiddenPicture");
 
 const roundImage =
-    document.getElementById(
-        "roundImage"
-    );
-
+    document.getElementById("roundImage");
 
 const magicCenter =
-    document.getElementById(
-        "magicCenter"
-    );
-
+    document.getElementById("magicCenter");
 
 const pictureGlow =
-    document.getElementById(
-        "pictureGlow"
-    );
-
+    document.getElementById("pictureGlow");
 
 const sparkles =
-    document.getElementById(
-        "sparkles"
-    );
-
+    document.getElementById("sparkles");
 
 const hint =
-    document.getElementById(
-        "hint"
-    );
-
+    document.getElementById("hint");
 
 const next =
-    document.getElementById(
-        "next"
-    );
+    document.getElementById("next");
 
 
 /* =====================================================
@@ -864,30 +755,23 @@ const next =
 const DESIGN_WIDTH =
     1536;
 
-
 const DESIGN_HEIGHT =
     1024;
-
 
 const PORTAL_X =
     325;
 
-
 const PORTAL_Y =
     133;
-
 
 const PORTAL_SIZE =
     660;
 
-
 const WHEEL_X =
     1065;
 
-
 const WHEEL_Y =
     490;
-
 
 const WHEEL_SIZE =
     280;
@@ -901,7 +785,6 @@ function positionElements(){
 
     const screenW =
         game.clientWidth;
-
 
     const screenH =
         game.clientHeight;
@@ -988,7 +871,6 @@ function positionElements(){
         WHEEL_SIZE *
         scale +
         "px";
-
 }
 
 
@@ -1005,7 +887,6 @@ const gemImages = [
 
 ];
 
-
 let gems =
     [];
 
@@ -1014,7 +895,6 @@ function createGems(){
 
     kaleidoscope.innerHTML =
         "";
-
 
     gems =
         [];
@@ -1071,19 +951,16 @@ function createGems(){
             ringIndex
         ) => {
 
-
             for(
                 let i = 0;
                 i < ring.count;
                 i++
             ){
 
-
                 const wrap =
                     document.createElement(
                         "div"
                     );
-
 
                 wrap.className =
                     "gem-wrap";
@@ -1106,10 +983,8 @@ function createGems(){
                         type - 1
                     ];
 
-
                 img.className =
                     "gem";
-
 
                 img.draggable =
                     false;
@@ -1120,7 +995,6 @@ function createGems(){
                         "div"
                     );
 
-
                 shine.className =
                     "gem-shine";
 
@@ -1129,11 +1003,9 @@ function createGems(){
                     img
                 );
 
-
                 wrap.appendChild(
                     shine
                 );
-
 
                 kaleidoscope.appendChild(
                     wrap
@@ -1176,20 +1048,16 @@ function createGems(){
                 wrap.dataset.angle =
                     angle;
 
-
                 wrap.dataset.radius =
                     ring.radius +
                     radiusVariation;
-
 
                 wrap.dataset.scale =
                     ring.size *
                     scaleVariation;
 
-
                 wrap.dataset.ring =
                     ringIndex;
-
 
                 wrap.dataset.phase =
                     globalIndex *
@@ -1197,16 +1065,13 @@ function createGems(){
 
 
                 gems.push({
-
                     wrap,
                     img,
                     shine
-
                 });
 
 
                 globalIndex++;
-
             }
 
         }
@@ -1218,7 +1083,6 @@ function createGems(){
         0,
         0
     );
-
 }
 
 
@@ -1313,9 +1177,7 @@ function createSparkles(){
         sparkles.appendChild(
             spark
         );
-
     }
-
 }
 
 
@@ -1347,7 +1209,6 @@ function startMagicEffect(){
             },
             1150
         );
-
 }
 
 
@@ -1369,7 +1230,6 @@ function stopMagicEffect(){
 
     sparkles.innerHTML =
         "";
-
 }
 
 
@@ -1399,7 +1259,6 @@ function startWheelMusic(){
     wheelMusic.play().catch(
         () => {}
     );
-
 }
 
 
@@ -1475,7 +1334,38 @@ function stopWheelMusic(){
             duration /
             steps
         );
+}
 
+
+/* =====================================================
+   СБРОС МУЗЫКИ ДЛЯ НОВОГО РАУНДА
+===================================================== */
+
+function resetWheelMusic(){
+
+    clearInterval(
+        fadeTimer
+    );
+
+
+    fadeTimer =
+        null;
+
+
+    wheelMusic.pause();
+
+
+    try{
+
+        wheelMusic.currentTime =
+            0;
+
+    }
+    catch(error){}
+
+
+    wheelMusic.volume =
+        .42;
 }
 
 
@@ -1514,14 +1404,11 @@ function updateGems(
             index
         ) => {
 
-
             const wrap =
                 gem.wrap;
 
-
             const img =
                 gem.img;
-
 
             const shine =
                 gem.shine;
@@ -1564,20 +1451,16 @@ function updateGems(
             if(
                 ring === 4
             ){
-
                 movementPower =
                     .65;
-
             }
 
 
             if(
                 ring === 5
             ){
-
                 movementPower =
                     .4;
-
             }
 
 
@@ -1626,9 +1509,7 @@ function updateGems(
                             ring *
                             .8
                         );
-
                 }
-
             }
 
 
@@ -1646,20 +1527,16 @@ function updateGems(
             if(
                 ring === 4
             ){
-
                 angularPower =
                     2.8;
-
             }
 
 
             if(
                 ring === 5
             ){
-
                 angularPower =
                     2;
-
             }
 
 
@@ -1856,7 +1733,6 @@ function updateGems(
                     )
                     /
                     .12;
-
             }
 
 
@@ -1865,9 +1741,7 @@ function updateGems(
                     0,
                     opacity
                 );
-
         }
-
     );
 
 
@@ -1929,9 +1803,7 @@ function updateGems(
 
         hiddenPicture.style.opacity =
             0;
-
     }
-
 }
 
 
@@ -1942,18 +1814,14 @@ function updateGems(
 let dragging =
     false;
 
-
 let previousAngle =
     0;
-
 
 let wheelRotation =
     0;
 
-
 let totalRotation =
     0;
-
 
 let finished =
     false;
@@ -1999,7 +1867,6 @@ function pointerAngle(
     *
     180 /
     Math.PI;
-
 }
 
 
@@ -2012,13 +1879,10 @@ wheel.addEventListener(
 
     event => {
 
-
         if(
             finished
         ){
-
             return;
-
         }
 
 
@@ -2047,7 +1911,6 @@ wheel.addEventListener(
 
 
         startWheelMusic();
-
     }
 );
 
@@ -2061,14 +1924,11 @@ wheel.addEventListener(
 
     event => {
 
-
         if(
             !dragging ||
             finished
         ){
-
             return;
-
         }
 
 
@@ -2084,24 +1944,16 @@ wheel.addEventListener(
 
 
         if(
-            delta >
-            180
+            delta > 180
         ){
-
-            delta -=
-                360;
-
+            delta -= 360;
         }
 
 
         if(
-            delta <
-            -180
+            delta < -180
         ){
-
-            delta +=
-                360;
-
+            delta += 360;
         }
 
 
@@ -2158,11 +2010,8 @@ wheel.addEventListener(
             progress >=
             1
         ){
-
             revealPicture();
-
         }
-
     }
 );
 
@@ -2176,9 +2025,7 @@ function stopDragging(){
     if(
         !dragging
     ){
-
         return;
-
     }
 
 
@@ -2192,7 +2039,6 @@ function stopDragging(){
 
 
     stopWheelMusic();
-
 }
 
 
@@ -2209,7 +2055,7 @@ wheel.addEventListener(
 
 
 /* =====================================================
-   ФИНАЛ РАУНДА
+   ФИНАЛ
 ===================================================== */
 
 function revealPicture(){
@@ -2217,9 +2063,7 @@ function revealPicture(){
     if(
         finished
     ){
-
         return;
-
     }
 
 
@@ -2276,7 +2120,6 @@ function revealPicture(){
         },
         450
     );
-
 }
 
 
@@ -2287,9 +2130,6 @@ function revealPicture(){
 function loadRound(){
 
     stopMagicEffect();
-
-
-    stopWheelMusic();
 
 
     const round =
@@ -2360,7 +2200,6 @@ function loadRound(){
 
 
     createGems();
-
 }
 
 
@@ -2373,11 +2212,15 @@ next.addEventListener(
 
     () => {
 
-
         stopMagicEffect();
 
 
-        stopWheelMusic();
+        /*
+        Новый раунд:
+        музыка обязательно начинается сначала.
+        */
+
+        resetWheelMusic();
 
 
         roundIndex++;
@@ -2387,15 +2230,12 @@ next.addEventListener(
             roundIndex >=
             rounds.length
         ){
-
             roundIndex =
                 0;
-
         }
 
 
         loadRound();
-
     }
 );
 
@@ -2411,8 +2251,9 @@ background.addEventListener(
 
         positionElements();
 
-        loadRound();
+        resetWheelMusic();
 
+        loadRound();
     }
 );
 
@@ -2429,8 +2270,9 @@ if(
 
     positionElements();
 
-    loadRound();
+    resetWheelMusic();
 
+    loadRound();
 }
 
 </script>
