@@ -25,9 +25,7 @@ html,
 body{
     width:100%;
     height:100%;
-
     overflow:hidden;
-
     background:#070512;
 
     user-select:none;
@@ -750,7 +748,7 @@ function positionElements(){
 
 
 /* =====================================================
-   4 PNG-КАМНЯ
+   PNG-КАМНИ
 ===================================================== */
 
 const gemImages = [
@@ -766,7 +764,7 @@ let gems = [];
 
 
 /* =====================================================
-   СОЗДАЁМ 102 КАМНЯ
+   СОЗДАЁМ КАМНИ
 ===================================================== */
 
 function createGems(){
@@ -778,8 +776,9 @@ function createGems(){
 
 
     /*
-    6 колец.
-    Края отодвинуты.
+    Центр плотный.
+    Последние два кольца —
+    компактнее и мельче.
     */
 
     const rings = [
@@ -810,14 +809,14 @@ function createGems(){
 
         {
             count:22,
-            radius:38,
-            size:.82
+            radius:36.5,
+            size:.76
         },
 
         {
             count:26,
-            radius:42,
-            size:.64
+            radius:40,
+            size:.56
         }
 
     ];
@@ -876,7 +875,6 @@ function createGems(){
                 img.className =
                     "gem";
 
-
                 img.draggable =
                     false;
 
@@ -886,7 +884,6 @@ function createGems(){
                         "div"
                     );
 
-
                 shine.className =
                     "gem-shine";
 
@@ -895,11 +892,9 @@ function createGems(){
                     img
                 );
 
-
                 wrap.appendChild(
                     shine
                 );
-
 
                 kaleidoscope.appendChild(
                     wrap
@@ -928,12 +923,12 @@ function createGems(){
                         ) - 1
                     )
 
-                    * 1.0;
+                    * .85;
 
 
                 const scaleVariation =
 
-                    .92
+                    .93
 
                     +
 
@@ -941,7 +936,7 @@ function createGems(){
                         i % 4
                     )
 
-                    * .035;
+                    * .03;
 
 
                 wrap.dataset.angle =
@@ -1057,8 +1052,30 @@ function updateGems(
 
 
             /* =========================================
-               НЕБОЛЬШОЕ ДВИЖЕНИЕ
+               ДВИЖЕНИЕ
+
+               Внешние кольца двигаются меньше.
             ========================================= */
+
+            let movementPower =
+                1.05;
+
+
+            if(
+                ring === 4
+            ){
+                movementPower =
+                    .65;
+            }
+
+
+            if(
+                ring === 5
+            ){
+                movementPower =
+                    .4;
+            }
+
 
             const movement =
 
@@ -1071,7 +1088,7 @@ function updateGems(
 
                 )
 
-                * 1.1;
+                * movementPower;
 
 
             let currentRadius =
@@ -1081,7 +1098,10 @@ function updateGems(
 
 
             /* =========================================
-               В КОНЦЕ УХОДЯТ К КРАЮ
+               ОТКРЫТИЕ
+
+               Даже в финале не прижимаем
+               камни к самой оправе.
             ========================================= */
 
             if(
@@ -1102,7 +1122,7 @@ function updateGems(
 
 
                 const safeOuterRadius =
-                    40;
+                    38.5;
 
 
                 currentRadius =
@@ -1124,8 +1144,28 @@ function updateGems(
 
 
             /* =========================================
-               ПЕРЕСТРОЕНИЕ
+               ПЕРЕСТРОЕНИЕ ПО УГЛУ
             ========================================= */
+
+            let angularPower =
+                4;
+
+
+            if(
+                ring === 4
+            ){
+                angularPower =
+                    2.8;
+            }
+
+
+            if(
+                ring === 5
+            ){
+                angularPower =
+                    2;
+            }
+
 
             const angularMovement =
 
@@ -1138,7 +1178,7 @@ function updateGems(
 
                 )
 
-                * 4;
+                * angularPower;
 
 
             const currentAngle =
@@ -1182,7 +1222,7 @@ function updateGems(
 
 
             /* =========================================
-               ВРАЩЕНИЕ КАМНЯ
+               ПОВОРОТ КАМНЯ
             ========================================= */
 
             const personalDirection =
@@ -1419,8 +1459,6 @@ let finished =
     false;
 
 
-/* 1.25 оборота */
-
 const REQUIRED_ROTATION =
     450;
 
@@ -1466,7 +1504,7 @@ function pointerAngle(
 
 
 /* =====================================================
-   НАЧАЛО
+   НАЧАЛО ВРАЩЕНИЯ
 ===================================================== */
 
 wheel.addEventListener(
@@ -1510,7 +1548,7 @@ wheel.addEventListener(
 
 
 /* =====================================================
-   ДВИЖЕНИЕ
+   ВРАЩЕНИЕ
 ===================================================== */
 
 wheel.addEventListener(
@@ -1543,10 +1581,8 @@ wheel.addEventListener(
             delta >
             180
         ){
-
             delta -=
                 360;
-
         }
 
 
@@ -1554,10 +1590,8 @@ wheel.addEventListener(
             delta <
             -180
         ){
-
             delta +=
                 360;
-
         }
 
 
